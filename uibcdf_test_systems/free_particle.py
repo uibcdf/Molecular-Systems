@@ -38,10 +38,16 @@ class FreeParticle():
 
        >>> from uibcdf_test_systems import FreeParticle
        >>> from simtk import unit
-       >>> free_particles = FreeParticle(n_particles=100, mass=32*unit.amu)
+       >>> free_particles = FreeParticle(n_particles=10, mass=32*unit.amu)
 
        See Also
        --------
+
+       Notes
+       -----
+
+       See `the free particle documentation in the user guide section
+       <../../systems/free_particle.html>`_.
 
        """
 
