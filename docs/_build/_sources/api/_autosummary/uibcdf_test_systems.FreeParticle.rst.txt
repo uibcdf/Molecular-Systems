@@ -1,0 +1,29 @@
+FreeParticle
+============
+
+.. currentmodule:: uibcdf_test_systems
+
+.. autoclass:: FreeParticle
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~FreeParticle.__init__
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~FreeParticle.potential
+      ~FreeParticle.system
+   
+   

@@ -1,0 +1,29 @@
+DoubleWell
+==========
+
+.. currentmodule:: uibcdf_test_systems
+
+.. autoclass:: DoubleWell
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~DoubleWell.__init__
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~DoubleWell.potential
+      ~DoubleWell.system
+   
+   

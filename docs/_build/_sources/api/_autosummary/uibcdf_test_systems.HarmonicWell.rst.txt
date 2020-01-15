@@ -1,0 +1,29 @@
+HarmonicWell
+============
+
+.. currentmodule:: uibcdf_test_systems
+
+.. autoclass:: HarmonicWell
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~HarmonicWell.__init__
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~HarmonicWell.potential
+      ~HarmonicWell.system
+   
+   
