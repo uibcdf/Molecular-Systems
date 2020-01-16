@@ -7,9 +7,9 @@ class HarmonicWell():
 
     Attributes
     ----------
-    system : openmm.system
+    system
         Openmm system
-    potential : sympy.function
+    potential
         External potential expression as a sympy function.
 
     """

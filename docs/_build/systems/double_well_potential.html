@@ -93,12 +93,17 @@
 <li class="toctree-l2"><a class="reference internal" href="free_particle.html">Free Particle</a></li>
 <li class="toctree-l2"><a class="reference internal" href="harmonic_well_potential.html">Harmonic Well Potential</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Double Well Potential</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#Symmetric-case-(m=0)">Symmetric case (<span class="math notranslate nohighlight">\(m=0\)</span>)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#Frecuencia-de-pequeñas-oscilaciones-en-los-mínimos">Frecuencia de pequeñas oscilaciones en los mínimos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Symmetric-case-(b=0)">Symmetric case (<span class="math notranslate nohighlight">\(b=0\)</span>)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Frequency-of-small-oscillations-around-the-minima">Frequency of small oscillations around the minima</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#Assymetric-case-(m\neq0)">Assymetric case (<span class="math notranslate nohighlight">\(m\neq0\)</span>)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#Frecuencia-de-pequeñas-oscilaciones-en-los-mínimos">Frecuencia de pequeñas oscilaciones en los mínimos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Assymetric-case-(b\neq0)">Assymetric case (<span class="math notranslate nohighlight">\(b\neq0\)</span>)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Frequency-of-small-oscillations-around-the-minima.">Frequency of small oscillations around the minima.</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Working-with-this-test-system">Working with this test system</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Newtonian-dynamics">Newtonian dynamics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Langevin-NVT-run">Langevin NVT run</a></li>
 </ul>
 </li>
 </ul>
@@ -112,16 +117,8 @@
 </ul>
 <p class="caption"><span class="caption-text">API Documentation</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Systems</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/uibcdf_test_systems.FreeParticle.html">FreeParticle</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/uibcdf_test_systems.HarmonicWell.html">HarmonicWell</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/uibcdf_test_systems.DoubleWell.html">DoubleWell</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html#simulations">Simulations</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/uibcdf_test_systems.simulation.langevin_NVT.html">simulation.langevin_NVT</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html#simulations">Simulations</a></li>
 </ul>
 
             
@@ -411,54 +408,65 @@ div.rendered_html tbody tr:hover {
 }
 </style>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">%</span><span class="k">load_ext</span> autoreload
+<span class="o">%</span><span class="k">autoreload</span> 2
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">sympy</span> <span class="k">as</span> <span class="nn">sy</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">simtk</span> <span class="k">import</span> <span class="n">unit</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="Double-Well-Potential">
 <h1>Double Well Potential<a class="headerlink" href="#Double-Well-Potential" title="Permalink to this headline">¶</a></h1>
-<p>Construimos un potencial del tipo doble pozo con la siguiente expresión:</p>
+<p>Our double well potential, in a single dimension, is described by the following expression:</p>
 <p><span class="math">\begin{equation}
-f(x)=E_{0}*\left[ \left(\frac{x}{c}\right)^4 -2\left(\frac{x}{c}\right)^2 \right]-\frac{m}{c}x
+f(x)=E_{0}*\left[ \left(\frac{x}{a}\right)^4 -2\left(\frac{x}{a}\right)^2 \right]-\frac{b}{a}x
 \end{equation}</span></p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="k">def</span> <span class="nf">double_well</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">Eo</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">m</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">Eo</span><span class="o">*</span><span class="p">((</span><span class="n">x</span><span class="o">/</span><span class="n">c</span><span class="p">)</span><span class="o">**</span><span class="mi">4</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="n">c</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="n">m</span><span class="o">/</span><span class="n">c</span><span class="p">)</span><span class="o">*</span><span class="n">x</span>
+<span></span><span class="k">def</span> <span class="nf">double_well</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">Eo</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">Eo</span><span class="o">*</span><span class="p">((</span><span class="n">x</span><span class="o">/</span><span class="n">a</span><span class="p">)</span><span class="o">**</span><span class="mi">4</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="n">a</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="n">b</span><span class="o">/</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="n">x</span>
 </pre></div>
 </div>
 </div>
-<p>Veamos qué significan las constantes <span class="math notranslate nohighlight">\(E_{0}\)</span>, <span class="math notranslate nohighlight">\(m\)</span> y <span class="math notranslate nohighlight">\(c\)</span>.</p>
-<div class="section" id="Symmetric-case-(m=0)">
-<h2>Symmetric case (<span class="math notranslate nohighlight">\(m=0\)</span>)<a class="headerlink" href="#Symmetric-case-(m=0)" title="Permalink to this headline">¶</a></h2>
-<p>El caso del doble pozo simétrico en una dimensión lo encontramos cuando <span class="math notranslate nohighlight">\(m=0\)</span>. En esta situación, los mínimos del doble pozo se encuentran situados en <span class="math notranslate nohighlight">\(x=-c\)</span> y <span class="math notranslate nohighlight">\(x=c\)</span>. Y <span class="math notranslate nohighlight">\(E_{0}\)</span> es el valor de la diferencia en energía entre los mínimos y el máximo de la barrera. Como puedes ver en el siguiente ejemplo:</p>
+<p>Lets see the meaning of the constants: <span class="math notranslate nohighlight">\(E_{0}\)</span>, <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span>.</p>
+<div class="section" id="Symmetric-case-(b=0)">
+<h2>Symmetric case (<span class="math notranslate nohighlight">\(b=0\)</span>)<a class="headerlink" href="#Symmetric-case-(b=0)" title="Permalink to this headline">¶</a></h2>
+<p>A symmetric double well potential can be represented by the former mathematical expression when <span class="math notranslate nohighlight">\(b=0\)</span>. In this situation, the double well minima are placed in <span class="math notranslate nohighlight">\(x=-a\)</span> and <span class="math notranslate nohighlight">\(x=a\)</span>. And <span class="math notranslate nohighlight">\(E_{0}\)</span> is the value of the barrier height (equal for both basins). Lets verify these statements with an example:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[79]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">Eo</span><span class="o">=</span><span class="mf">4.0</span> <span class="c1"># altura de la barrera en el caso del pozo simétrico</span>
-<span class="n">c</span><span class="o">=</span><span class="mf">1.0</span> <span class="c1"># Valor absoluto de la posición de los mínimos en el eje X</span>
-<span class="n">m</span><span class="o">=</span><span class="mf">0.0</span>
+<span></span><span class="n">Eo</span><span class="o">=</span><span class="mf">4.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span> <span class="c1"># barrier height when the double well is symmetric.</span>
+<span class="n">a</span><span class="o">=</span><span class="mf">1.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span> <span class="c1"># Absolute value of the coordinates of minima (the potential is an even function).</span>
+<span class="n">b</span><span class="o">=</span><span class="mf">0.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span> <span class="c1"># No need to explanation at this moment</span>
 
-<span class="n">x_serie</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mf">5.</span><span class="p">,</span> <span class="mf">5.</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">)</span>
+<span class="n">x_serie</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mf">5.</span><span class="p">,</span> <span class="mf">5.</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">)</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_serie</span><span class="p">,</span> <span class="n">double_well</span><span class="p">(</span><span class="n">x_serie</span><span class="p">,</span><span class="n">Eo</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">m</span><span class="p">),</span> <span class="s1">&#39;r-&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_serie</span><span class="p">,</span> <span class="n">double_well</span><span class="p">(</span><span class="n">x_serie</span><span class="p">,</span><span class="n">Eo</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">),</span> <span class="s1">&#39;r-&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Energía&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Doble Pozo Simétrico&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;X (</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Energy (</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Symmetric Double Well&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -467,25 +475,42 @@ f(x)=E_{0}*\left[ \left(\frac{x}{c}\right)^4 -2\left(\frac{x}{c}\right)^2 \right
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/systems_double_well_potential_4_0.png" src="../_images/systems_double_well_potential_4_0.png" />
+<img alt="../_images/systems_double_well_potential_5_0.png" src="../_images/systems_double_well_potential_5_0.png" />
 </div>
 </div>
-<p>Puedes jugar con los valores de las constantes <span class="math notranslate nohighlight">\(E_{0}\)</span> y <span class="math notranslate nohighlight">\(c\)</span> para comprobar que la descripción hecha anteriormente es consistente. O puedes recurrir a la primera derivada del potencial para comprobar analíticamente que esto es correcto.</p>
+<p>You can play with the last cell, changing the <span class="math notranslate nohighlight">\(E_{0}\)</span> and <span class="math notranslate nohighlight">\(a\)</span> values, to check the consistency of their description. Or you can instead work with the first derivative of the potential to do the same analytically:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[80]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">x</span><span class="p">,</span> <span class="n">Eo</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">sy</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x Eo c&#39;</span><span class="p">)</span>
-<span class="n">f</span> <span class="o">=</span> <span class="n">Eo</span><span class="o">*</span><span class="p">((</span><span class="n">x</span><span class="o">/</span><span class="n">c</span><span class="p">)</span><span class="o">**</span><span class="mi">4</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="n">c</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span></span><span class="n">x</span><span class="p">,</span> <span class="n">Eo</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="n">sy</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x Eo a&#39;</span><span class="p">)</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">Eo</span><span class="o">*</span><span class="p">((</span><span class="n">x</span><span class="o">/</span><span class="n">a</span><span class="p">)</span><span class="o">**</span><span class="mi">4</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="n">a</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
 
 <span class="n">g</span><span class="o">=</span><span class="n">sy</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">x</span><span class="p">)</span> <span class="c1"># Primera derivada con respecto a x de la funcion f</span>
 </pre></div>
 </div>
 </div>
-<p>Vemos, en la factorización de la primera derivada que hay raices <span class="math notranslate nohighlight">\(x=0\)</span>, la posición de la barrera, y <span class="math notranslate nohighlight">\(x=c\)</span> y <span class="math notranslate nohighlight">\(x=-c\)</span>, para la posición de los mínimos.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[81]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">g</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="math notranslate nohighlight">
+$\displaystyle Eo \left(- \frac{4 x}{a^{2}} + \frac{4 x^{3}}{a^{4}}\right)$</div></div>
+</div>
+<p>The first derivative can be factorized to unveil the value of its three roots: <span class="math notranslate nohighlight">\(x=0\)</span>, the barrier position, and <span class="math notranslate nohighlight">\(x=a\)</span> y <span class="math notranslate nohighlight">\(x=-a\)</span>, the minima positions.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -494,78 +519,141 @@ f(x)=E_{0}*\left[ \left(\frac{x}{c}\right)^4 -2\left(\frac{x}{c}\right)^2 \right
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[81]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="math notranslate nohighlight">
-$\displaystyle \frac{4 Eo x \left(- c + x\right) \left(c + x\right)}{c^{4}}$</div></div>
+$\displaystyle \frac{4 Eo x \left(- a + x\right) \left(a + x\right)}{a^{4}}$</div></div>
 </div>
-<p>Podemos ahora calcular la diferencia de altura del doble pozo entre el tope de la barrera y los mínimos:</p>
+<p>The height of the barrier, from the bottom of the basins to its top, can then be calculated:</p>
 <p><span class="math">\begin{equation}
 f(0)-f(c)=0-E_{0}*\left[ 1-2 \right]=E_{0}
 \end{equation}</span></p>
-<div class="section" id="Frecuencia-de-pequeñas-oscilaciones-en-los-mínimos">
-<h3>Frecuencia de pequeñas oscilaciones en los mínimos<a class="headerlink" href="#Frecuencia-de-pequeñas-oscilaciones-en-los-mínimos" title="Permalink to this headline">¶</a></h3>
-<p>Entendido al papel de las constantes <span class="math notranslate nohighlight">\(E_{0}\)</span> y <span class="math notranslate nohighlight">\(c\)</span> en el caso del doble pozo simétrico, nos interesa también caracterizar la frecuencia de las pequeñas oscilaciones en torno a los mínimos. Conocemos que el valor de la segunda derivada de la función en los mínimos es igual a la constante del potencial armónico aproximado al mínimo.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[82]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">x</span><span class="p">,</span> <span class="n">Eo</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">sy</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x Eo c&#39;</span><span class="p">)</span>
-<span class="n">f</span> <span class="o">=</span> <span class="n">Eo</span><span class="o">*</span><span class="p">((</span><span class="n">x</span><span class="o">/</span><span class="n">c</span><span class="p">)</span><span class="o">**</span><span class="mi">4</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="n">c</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-
-<span class="n">gg</span><span class="o">=</span><span class="n">sy</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">x</span><span class="p">)</span> <span class="c1"># Primera derivada con respecto a x de la funcion f</span>
-</pre></div>
-</div>
-</div>
+<div class="section" id="Frequency-of-small-oscillations-around-the-minima">
+<h3>Frequency of small oscillations around the minima<a class="headerlink" href="#Frequency-of-small-oscillations-around-the-minima" title="Permalink to this headline">¶</a></h3>
+<p>Now that the role of <span class="math notranslate nohighlight">\(E_{0}\)</span> and <span class="math notranslate nohighlight">\(a\)</span> is clear for the symmetric double well, we are interested in the frequency of the small oscillations at the energy minima. This frequency will be our time of reference to choose an appropriate integration time step of at the time of simulate the dynamics of a particle in this potential. This can be done attending to the second derivative of the potential.</p>
+<p>The value of any mathematical function close enough to a minimum can be approximated by the value of the function at the minimum plus the resulting contribution of an harmonic potential. The stiffness of this harmonic potential is equal the to value of the second derivative of the function at the minimum. This is what is known as the Taylor expansion of any function (truncated in the third grade):</p>
+<p><span class="math">\begin{equation}
+f(x) \approx f(x_{0}) + f'(x_{0})(x-x_{0}) + \frac{1}{2} f''(x_{0})(x-x_{0})^{2}
+\end{equation}</span></p>
+<p>And by definition of minimum:</p>
+<p><span class="math">\begin{equation}
+f'(x_{0})=0
+\end{equation}</span></p>
+<p>So:</p>
+<p><span class="math">\begin{equation}
+f(x) \approx f(x_{0}) + \frac{1}{2} f''(x_{0})(x-x_{0})^{2}
+\end{equation}</span></p>
+<p>At this point lets make a break to talk about the harmonic potential. We all know the hooks law to describe the force suffered by a mass attached to an ideal spring around the equilibrium position:</p>
+<p><span class="math">\begin{equation}
+F(x) = -k(x-x_{0})
+\end{equation}</span></p>
+<p>Where <span class="math notranslate nohighlight">\(k\)</span> is the stiffness of the spring and <span class="math notranslate nohighlight">\(x_{0}\)</span> is the equilibrium position. The potential energy <span class="math notranslate nohighlight">\(V(x)\)</span> is now deduced given that:</p>
+<p><span class="math">\begin{equation}
+F(x) = -\frac{d V(x)}{dx}
+\end{equation}</span></p>
+<p>So, the spring force is the result of the first harmonic potential derivative:</p>
+<p><span class="math">\begin{equation}
+V(x) = \frac{1}{2} k (x-x_{0})^{2}
+\end{equation}</span></p>
+<p>And the frequency of oscillation of the spring, or a particle goberned by the former potential, is:</p>
+<p><span class="math">\begin{equation}
+\omega = \sqrt{\frac{k}{m}}
+\end{equation}</span></p>
+<p>Where <span class="math notranslate nohighlight">\(m\)</span> is the mass of the particle. This way the potential can also be written as:</p>
+<p><span class="math">\begin{equation}
+V(x) = \frac{1}{2} k (x-x_{0})^{2} = \frac{1}{2} m \omega^{2} (x-x_{0})^{2}
+\end{equation}</span></p>
+<p>Now, going back to our Taylor expansion of any mathematical function <span class="math notranslate nohighlight">\(f(x)\)</span>. If the shape of the <span class="math notranslate nohighlight">\(f(x)\)</span> around a minimum <span class="math notranslate nohighlight">\(x_{0}\)</span> can be approximated with an harmonic potential, this means that the characteristic frequency <span class="math notranslate nohighlight">\(\omega\)</span> of the oscillations around the near surroundings of the minimum is -by comparison with the potential behind the hook’s law-:</p>
+<p><span class="math">\begin{equation}
+\omega = \sqrt{\frac{f''(x_{0})}{m}}
+\end{equation}</span></p>
+<p>This way the frequency of the small oscillations of a particle with mass <span class="math notranslate nohighlight">\(m\)</span> around a minimum can then by obtained from the value of the second derivative at the minimum:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[83]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">gg</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">x</span><span class="p">:</span><span class="n">c</span><span class="p">})</span>
+<span></span><span class="n">x</span><span class="p">,</span> <span class="n">Eo</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="n">sy</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x Eo a&#39;</span><span class="p">)</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">Eo</span><span class="o">*</span><span class="p">((</span><span class="n">x</span><span class="o">/</span><span class="n">a</span><span class="p">)</span><span class="o">**</span><span class="mi">4</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="n">a</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">gg</span><span class="o">=</span><span class="n">sy</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">x</span><span class="p">)</span> <span class="c1"># Second derivative of f with respect x</span>
+
+<span class="n">gg</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[83]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="math notranslate nohighlight">
-$\displaystyle \frac{8 Eo}{c^{2}}$</div></div>
+$\displaystyle - \frac{4 Eo \left(1 - \frac{3 x^{2}}{a^{2}}\right)}{a^{2}}$</div></div>
 </div>
-<p>Veamos gráficamente el ajuste:</p>
+<p>Let’s look at the minimum at <span class="math notranslate nohighlight">\(x=a\)</span>:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[84]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="k">def</span> <span class="nf">harmonic_well</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">k</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">Eo</span><span class="p">):</span>
-    <span class="k">return</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">k</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">c</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">-</span><span class="n">Eo</span>
+<span></span><span class="n">gg</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">x</span><span class="p">:</span><span class="n">a</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="math notranslate nohighlight">
+$\displaystyle \frac{8 Eo}{a^{2}}$</div></div>
+</div>
+<p>In this case the frequency of the oscillations of a particle with mass <span class="math notranslate nohighlight">\(m\)</span> is:</p>
+<p><span class="math">\begin{equation}
+\omega = \sqrt{\frac{8E_{0}}{ma^{2}}}
+\end{equation}</span></p>
+<p>And the period is:</p>
+<p><span class="math">\begin{equation}
+T = \frac{2\pi}{\omega} = 2\pi \sqrt{\frac{ma^{2}}{8E_{0}}}
+\end{equation}</span></p>
+<p>We can see graphically how the Taylor expansion is a good aproximation when close enough to a minimum:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">harmonic_well</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">k</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">Eo</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">k</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">-</span><span class="n">Eo</span>
 
-<span class="n">Eo</span><span class="o">=</span><span class="mf">4.0</span>
-<span class="n">c</span><span class="o">=</span><span class="mf">1.0</span>
-<span class="n">m</span><span class="o">=</span><span class="mf">0.0</span>
-<span class="n">k</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="o">*</span><span class="n">Eo</span><span class="p">)</span><span class="o">/</span><span class="n">c</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">Eo</span><span class="o">=</span><span class="mf">4.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span> <span class="c1"># barrier height when the double well is symmetric.</span>
+<span class="n">a</span><span class="o">=</span><span class="mf">1.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span> <span class="c1"># Absolute value of the coordinates of minima (the potential is an even function).</span>
+<span class="n">b</span><span class="o">=</span><span class="mf">0.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span> <span class="c1"># No need to explanation at this moment</span>
+<span class="n">k</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="o">*</span><span class="n">Eo</span><span class="p">)</span><span class="o">/</span><span class="n">a</span><span class="o">**</span><span class="mi">2</span> <span class="c1"># harmonic stiffness</span>
 
-<span class="n">x_serie</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mf">5.</span><span class="p">,</span> <span class="mf">5.</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">)</span>
+<span class="n">x_serie</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mf">5.</span><span class="p">,</span> <span class="mf">5.</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">)</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_serie</span><span class="p">,</span> <span class="n">double_well</span><span class="p">(</span><span class="n">x_serie</span><span class="p">,</span><span class="n">Eo</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">m</span><span class="p">),</span> <span class="s1">&#39;r-&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_serie</span><span class="p">,</span> <span class="n">harmonic_well</span><span class="p">(</span><span class="n">x_serie</span><span class="p">,</span><span class="n">k</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">Eo</span><span class="p">),</span> <span class="s1">&#39;k-&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_serie</span><span class="p">,</span> <span class="n">double_well</span><span class="p">(</span><span class="n">x_serie</span><span class="p">,</span><span class="n">Eo</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">),</span> <span class="s1">&#39;r-&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_serie</span><span class="p">,</span> <span class="n">harmonic_well</span><span class="p">(</span><span class="n">x_serie</span><span class="p">,</span><span class="n">k</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">Eo</span><span class="p">),</span> <span class="s1">&#39;k-&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;X (</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Energy (</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Symmetric Double Well and Harmonic Potential&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="n">x_serie</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">0.005</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_serie</span><span class="p">,</span> <span class="n">double_well</span><span class="p">(</span><span class="n">x_serie</span><span class="p">,</span><span class="n">Eo</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">m</span><span class="p">),</span> <span class="s1">&#39;r-&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_serie</span><span class="p">,</span> <span class="n">harmonic_well</span><span class="p">(</span><span class="n">x_serie</span><span class="p">,</span><span class="n">k</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">Eo</span><span class="p">),</span> <span class="s1">&#39;k-&#39;</span><span class="p">)</span>
+<span class="n">x_serie</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">0.005</span><span class="p">)</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_serie</span><span class="p">,</span> <span class="n">double_well</span><span class="p">(</span><span class="n">x_serie</span><span class="p">,</span><span class="n">Eo</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">),</span> <span class="s1">&#39;r-&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_serie</span><span class="p">,</span> <span class="n">harmonic_well</span><span class="p">(</span><span class="n">x_serie</span><span class="p">,</span><span class="n">k</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">Eo</span><span class="p">),</span> <span class="s1">&#39;k-&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">4.05</span><span class="p">,</span><span class="o">-</span><span class="mf">3.8</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mf">0.9</span><span class="p">,</span><span class="mf">1.1</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;X (</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Energy (</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Harmonic approximation nearby a minimum&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -574,39 +662,39 @@ $\displaystyle \frac{8 Eo}{c^{2}}$</div></div>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/systems_double_well_potential_14_0.png" src="../_images/systems_double_well_potential_14_0.png" />
+<img alt="../_images/systems_double_well_potential_19_0.png" src="../_images/systems_double_well_potential_19_0.png" />
 </div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/systems_double_well_potential_14_1.png" src="../_images/systems_double_well_potential_14_1.png" />
+<img alt="../_images/systems_double_well_potential_19_1.png" src="../_images/systems_double_well_potential_19_1.png" />
 </div>
 </div>
 </div>
 </div>
-<div class="section" id="Assymetric-case-(m\neq0)">
-<h2>Assymetric case (<span class="math notranslate nohighlight">\(m\neq0\)</span>)<a class="headerlink" href="#Assymetric-case-(m\neq0)" title="Permalink to this headline">¶</a></h2>
-<p>Para el caso asimétrico interpretaremos que los valores de las constantes <span class="math notranslate nohighlight">\(E_{0}\)</span> y <span class="math notranslate nohighlight">\(m\)</span> tiene <strong>aproximadamente</strong> la misma interpretación, y que el valor de <span class="math notranslate nohighlight">\(m\)</span> será la cantidad de energía que <strong>aproximadamente</strong> uno de los pozos sube mientras el otro la baja. En este caso tenemos entonces una barrera de energía con valores distintos de altura según sea el pozo de la izquierda -alto- o el de la derecha -bajo-.</p>
+<div class="section" id="Assymetric-case-(b\neq0)">
+<h2>Assymetric case (<span class="math notranslate nohighlight">\(b\neq0\)</span>)<a class="headerlink" href="#Assymetric-case-(b\neq0)" title="Permalink to this headline">¶</a></h2>
+<p>In the case of <span class="math notranslate nohighlight">\(b\neq 0\)</span>, our double well turns in to an assymetric potential. In this situation <span class="math notranslate nohighlight">\(E_{0}\)</span> and <span class="math notranslate nohighlight">\(a\)</span> have <strong>approximately</strong> the same interpretation, and <span class="math notranslate nohighlight">\(b\)</span> can be <strong>approximately</strong> understood as the amount energy that basins shift up or down, depending on the relative position to <span class="math notranslate nohighlight">\(x=0\)</span>. In our double well, the left basin raises and the right basin drops when <span class="math notranslate nohighlight">\(b&gt;0\)</span>. Lets see this in a plot:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[88]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">Eo</span><span class="o">=</span><span class="mf">4.0</span> <span class="c1"># altura de la barrera en el caso del pozo simétrico</span>
-<span class="n">c</span><span class="o">=</span><span class="mf">1.0</span> <span class="c1"># Valor absoluto de la posición de los mínimos en el eje X</span>
-<span class="n">m</span><span class="o">=</span><span class="mf">1.0</span>
+<span></span><span class="n">Eo</span><span class="o">=</span><span class="mf">4.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span> <span class="c1"># barrier height when the double well is symmetric.</span>
+<span class="n">a</span><span class="o">=</span><span class="mf">1.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span> <span class="c1"># Absolute value of the coordinates of minima (the potential is an even function).</span>
+<span class="n">b</span><span class="o">=</span><span class="mf">1.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span> <span class="c1"># vertical shift of basins (approx.)</span>
 
-<span class="n">x_serie</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mf">5.</span><span class="p">,</span> <span class="mf">5.</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">)</span>
+<span class="n">x_serie</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mf">5.</span><span class="p">,</span> <span class="mf">5.</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">)</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_serie</span><span class="p">,</span> <span class="n">double_well</span><span class="p">(</span><span class="n">x_serie</span><span class="p">,</span><span class="n">Eo</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">m</span><span class="p">),</span> <span class="s1">&#39;r-&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_serie</span><span class="p">,</span> <span class="n">double_well</span><span class="p">(</span><span class="n">x_serie</span><span class="p">,</span><span class="n">Eo</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">),</span> <span class="s1">&#39;r-&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Energía&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Doble Pozo Simétrico&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;X (</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Energy (</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Asymmetric Double Well&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -615,22 +703,395 @@ $\displaystyle \frac{8 Eo}{c^{2}}$</div></div>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/systems_double_well_potential_17_0.png" src="../_images/systems_double_well_potential_17_0.png" />
+<img alt="../_images/systems_double_well_potential_22_0.png" src="../_images/systems_double_well_potential_22_0.png" />
 </div>
 </div>
-<p>Efectivamente vemos que el pozo de la izquierda tiene aproximadamente una diferencia del valor de la energía con respecto a la cumbre de la barrera de <strong>aproximadamente</strong> <span class="math notranslate nohighlight">\(E_{0}-m\)</span>, mientras que el pozo de la derecha ha aumentado dicho valor a <strong>aproximadamente</strong> <span class="math notranslate nohighlight">\(E_{0}+m\)</span>.</p>
-<div class="section" id="Frecuencia-de-pequeñas-oscilaciones-en-los-mínimos">
-<h3>Frecuencia de pequeñas oscilaciones en los mínimos<a class="headerlink" href="#Frecuencia-de-pequeñas-oscilaciones-en-los-mínimos" title="Permalink to this headline">¶</a></h3>
-<p>Dado que <span class="math notranslate nohighlight">\(m\)</span> sólo introduce un factor lineal que desaparece en la segunda derivada, la aproximación harmónica de potencial hecha para el caso del doble pozo simétrico sigue siendo válida.</p>
+<p>The value of the energy barrier from the left minimum is <span class="math notranslate nohighlight">\(\approx E_{0}+b\)</span>, while <span class="math notranslate nohighlight">\(\approx E_{0}-b\)</span> accounts for the barrier from the right minimum.</p>
+<div class="section" id="Frequency-of-small-oscillations-around-the-minima.">
+<h3>Frequency of small oscillations around the minima.<a class="headerlink" href="#Frequency-of-small-oscillations-around-the-minima." title="Permalink to this headline">¶</a></h3>
+<p>Given that <span class="math notranslate nohighlight">\(b\)</span> is included as a linear factor in the potential, its effect vanishes in the second derivative. Thereby, the harmonic approximation described for the symmetric double well is exact also for this case. Thus, the frequency and period values for small oscillations around a minimum obtained when <span class="math notranslate nohighlight">\(b=0\)</span> can be considered as a good <strong>approximation</strong> for <span class="math notranslate nohighlight">\(b\neq 0\)</span>. Notice that the positions of the minima, and the position of the barrier, are slightly shifted with respect
+to those for the symmetric double well.</p>
+</div>
+</div>
+<div class="section" id="Working-with-this-test-system">
+<h2>Working with this test system<a class="headerlink" href="#Working-with-this-test-system" title="Permalink to this headline">¶</a></h2>
+<p>The system made by <span class="math notranslate nohighlight">\(N\)</span> particles in this double well potential is predefined to be used with OpenMM in this library a python class:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
+<span></span><span class="kn">from</span> <span class="nn">uibcdf_test_systems</span> <span class="k">import</span> <span class="n">DoubleWell</span>
+
+<span class="n">double_well_symmetric</span> <span class="o">=</span> <span class="n">DoubleWell</span><span class="p">(</span><span class="n">n_particles</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">mass</span> <span class="o">=</span> <span class="mi">64</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">amu</span><span class="p">,</span> <span class="n">Eo</span><span class="o">=</span><span class="mf">4.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span><span class="p">,</span>
+                                   <span class="n">a</span><span class="o">=</span><span class="mf">1.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mf">0.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span><span class="p">)</span>
+
+<span class="n">double_well_asymmetric</span> <span class="o">=</span> <span class="n">DoubleWell</span><span class="p">(</span><span class="n">n_particles</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">mass</span> <span class="o">=</span> <span class="mi">64</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">amu</span><span class="p">,</span> <span class="n">Eo</span><span class="o">=</span><span class="mf">4.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span><span class="p">,</span>
+                                    <span class="n">a</span><span class="o">=</span><span class="mf">1.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mf">1.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span><span class="p">)</span>
+
 </pre></div>
 </div>
 </div>
+<p>The potential expression and the value of the parameters are stored in <code class="docutils literal notranslate"><span class="pre">potential</span></code>:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">double_well_symmetric</span><span class="o">.</span><span class="n">potential_expression</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="math notranslate nohighlight">
+$\displaystyle Eo \left(- \frac{2.0 x^{2}}{a^{2}} + \frac{x^{4}}{a^{4}}\right) + \frac{4.0 Eo \left(y^{2} + z^{2}\right)}{a^{2}} - \frac{b x}{a}$</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">double_well_symmetric</span><span class="o">.</span><span class="n">potential_parameters</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>{&#39;Eo&#39;: Quantity(value=4.0, unit=kilocalorie/mole),
+ &#39;a&#39;: Quantity(value=1.0, unit=nanometer),
+ &#39;b&#39;: Quantity(value=0.0, unit=kilocalorie/mole)}
+</pre></div>
+</div>
+</div>
+<p>And there is a method to evaluate the potential at a given positions:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">double_well_symmetric</span><span class="o">.</span><span class="n">potential</span><span class="p">([</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Quantity(value=2.25, unit=kilocalorie/mole)
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">position</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">200</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
+<span class="n">position</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">5.</span><span class="p">,</span> <span class="mf">5.</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">position</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">double_well_symmetric</span><span class="o">.</span><span class="n">potential</span><span class="p">(</span><span class="n">position</span><span class="p">)</span> <span class="p">,</span> <span class="s1">&#39;r-&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;X (</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Energy (</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Symmetric Double Well&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/systems_double_well_potential_32_0.png" src="../_images/systems_double_well_potential_32_0.png" />
+</div>
+</div>
+<p>And the system to be used with OpenMM is accesible as:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">double_well_symmetric</span><span class="o">.</span><span class="n">system</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;simtk.openmm.openmm.System; proxy of &lt;Swig Object of type &#39;OpenMM::System *&#39; at 0x7f3a340dce70&gt; &gt;
+</pre></div>
+</div>
+</div>
+<div class="section" id="Newtonian-dynamics">
+<h3>Newtonian dynamics<a class="headerlink" href="#Newtonian-dynamics" title="Permalink to this headline">¶</a></h3>
+<p>Thanks to the <code class="docutils literal notranslate"><span class="pre">simulation.newtonian</span></code> method in this library, a simple newtonian dynamics can be run with few efforce:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">uibcdf_test_systems.simulation</span> <span class="k">import</span> <span class="n">newtonian</span>
+
+<span class="n">initial_positions</span> <span class="o">=</span>  <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
+<span class="n">initial_velocities</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span><span class="o">/</span><span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span>
+<span class="n">initial_positions</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.1</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
+
+<span class="n">time</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">velocity</span><span class="p">,</span> <span class="n">kinetic_energy</span><span class="p">,</span> <span class="n">potential_energy</span> <span class="o">=</span> <span class="n">newtonian</span> <span class="p">(</span><span class="n">double_well_symmetric</span><span class="o">.</span><span class="n">system</span><span class="p">,</span>
+                                                                        <span class="n">initial_positions</span> <span class="o">=</span> <span class="n">initial_positions</span><span class="p">,</span>
+                                                                        <span class="n">initial_velocities</span> <span class="o">=</span> <span class="n">initial_velocities</span><span class="p">,</span>
+                                                                        <span class="n">integration_timestep</span> <span class="o">=</span> <span class="mf">0.02</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">,</span>
+                                                                        <span class="n">saving_timestep</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">,</span>
+                                                                        <span class="n">total_time</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>We can now plot the trajectory of the x coordinate:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">position</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time (</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">unit</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;X (</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">position</span><span class="o">.</span><span class="n">unit</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/systems_double_well_potential_38_0.png" src="../_images/systems_double_well_potential_38_0.png" />
+</div>
+</div>
+<p>Now we can wonder, is the period of the oscillations is in agreement with the value calculated before? A shorter run with more points could be enough to say, by inspection, that the calculus is correct.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">mass</span> <span class="o">=</span> <span class="mi">64</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">amu</span>
+<span class="n">T</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">mass</span><span class="o">*</span><span class="n">a</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mf">8.0</span><span class="o">*</span><span class="n">Eo</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The period of the small oscillations around the minimum is&#39;</span><span class="p">,</span><span class="n">T</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+The period of the small oscillations around the minimum is 4.344092140155338 ps
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">time</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">velocity</span><span class="p">,</span> <span class="n">kinetic_energy</span><span class="p">,</span> <span class="n">potential_energy</span> <span class="o">=</span> <span class="n">newtonian</span> <span class="p">(</span><span class="n">double_well_symmetric</span><span class="o">.</span><span class="n">system</span><span class="p">,</span>
+                                                                        <span class="n">initial_positions</span> <span class="o">=</span> <span class="n">initial_positions</span><span class="p">,</span>
+                                                                        <span class="n">initial_velocities</span> <span class="o">=</span> <span class="n">initial_velocities</span><span class="p">,</span>
+                                                                        <span class="n">integration_timestep</span> <span class="o">=</span> <span class="mf">0.02</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">,</span>
+                                                                        <span class="n">saving_timestep</span> <span class="o">=</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">,</span>
+                                                                        <span class="n">total_time</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">position</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time (</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">unit</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;X (</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">position</span><span class="o">.</span><span class="n">unit</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/systems_double_well_potential_41_0.png" src="../_images/systems_double_well_potential_41_0.png" />
+</div>
+</div>
+<p>It seems a good approximation to what is observed graphically in the integrated trajectory. Keep in mind that this is an approximation valid when the particle moves very close the bottom of the basins. In an real harmonic oscillator this period does not change with amplitude, but in this case does it. If the amplitude is large enough the oscillations are far from being well approximated by the cuadratic term of the Taylor expansion. Try to play with larger and shorter initial distances to the
+minimum to see this effect:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">amplitudes</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.02</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">,</span> <span class="mf">1.07</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">,</span> <span class="mf">1.3</span><span class="p">]</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
+<span class="n">trajectories</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">amplitude</span> <span class="ow">in</span> <span class="n">amplitudes</span><span class="p">:</span>
+    <span class="n">initial_positions</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">amplitude</span>
+    <span class="n">time</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">newtonian</span> <span class="p">(</span><span class="n">double_well_symmetric</span><span class="o">.</span><span class="n">system</span><span class="p">,</span> <span class="n">initial_positions</span> <span class="o">=</span> <span class="n">initial_positions</span><span class="p">,</span>
+                                           <span class="n">initial_velocities</span> <span class="o">=</span> <span class="n">initial_velocities</span><span class="p">,</span> <span class="n">integration_timestep</span> <span class="o">=</span> <span class="mf">0.02</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">,</span>
+                                           <span class="n">saving_timestep</span> <span class="o">=</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">,</span> <span class="n">total_time</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">)</span>
+    <span class="n">trajectories</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">trajectory</span> <span class="ow">in</span> <span class="n">trajectories</span><span class="p">:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">trajectory</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">T</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span> <span class="c1"># Period of the harmonic oscillations approximation</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time (</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">unit</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;X (</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">position</span><span class="o">.</span><span class="n">unit</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/systems_double_well_potential_43_0.png" src="../_images/systems_double_well_potential_43_0.png" />
+</div>
+</div>
+<p>The newtonian dynamics can also include damping. This way we can simulate damped oscillations around the minimum.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">time</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">velocity</span><span class="p">,</span> <span class="n">kinetic_energy</span><span class="p">,</span> <span class="n">potential_energy</span> <span class="o">=</span> <span class="n">newtonian</span> <span class="p">(</span><span class="n">double_well_symmetric</span><span class="o">.</span><span class="n">system</span><span class="p">,</span>
+                                                                        <span class="n">friction</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">/</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">,</span>
+                                                                        <span class="n">initial_positions</span> <span class="o">=</span> <span class="n">initial_positions</span><span class="p">,</span>
+                                                                        <span class="n">initial_velocities</span> <span class="o">=</span> <span class="n">initial_velocities</span><span class="p">,</span>
+                                                                        <span class="n">integration_timestep</span> <span class="o">=</span> <span class="mf">0.02</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">,</span>
+                                                                        <span class="n">saving_timestep</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">,</span>
+                                                                        <span class="n">total_time</span> <span class="o">=</span> <span class="mi">40</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">position</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time (</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">unit</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;X (</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">position</span><span class="o">.</span><span class="n">unit</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/systems_double_well_potential_45_0.png" src="../_images/systems_double_well_potential_45_0.png" />
+</div>
+</div>
+<p>What would be the friction value needed to enter in the overdamped regime?</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">time</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">velocity</span><span class="p">,</span> <span class="n">kinetic_energy</span><span class="p">,</span> <span class="n">potential_energy</span> <span class="o">=</span> <span class="n">newtonian</span> <span class="p">(</span><span class="n">double_well_symmetric</span><span class="o">.</span><span class="n">system</span><span class="p">,</span>
+                                                                        <span class="n">friction</span> <span class="o">=</span> <span class="mf">5.0</span> <span class="o">/</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">,</span>
+                                                                        <span class="n">initial_positions</span> <span class="o">=</span> <span class="n">initial_positions</span><span class="p">,</span>
+                                                                        <span class="n">initial_velocities</span> <span class="o">=</span> <span class="n">initial_velocities</span><span class="p">,</span>
+                                                                        <span class="n">integration_timestep</span> <span class="o">=</span> <span class="mf">0.02</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">,</span>
+                                                                        <span class="n">saving_timestep</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">,</span>
+                                                                        <span class="n">total_time</span> <span class="o">=</span> <span class="mi">40</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">position</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time (</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">unit</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;X (</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">position</span><span class="o">.</span><span class="n">unit</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/systems_double_well_potential_47_0.png" src="../_images/systems_double_well_potential_47_0.png" />
+</div>
+</div>
+<p>And the same can be checked for the asymmetric double well potential. In the case of the period of short oscillations around a minimum, keep in mind that there the minimum is not longer <span class="math notranslate nohighlight">\(a\)</span>, and <span class="math notranslate nohighlight">\(T\)</span> was here calculated with the value of the second derivative (equal, no matter the value of <span class="math notranslate nohighlight">\(b\)</span>) in <span class="math notranslate nohighlight">\(a\)</span>. But still is a good approximation.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">amplitudes</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.02</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">,</span> <span class="mf">1.07</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">,</span> <span class="mf">1.3</span><span class="p">]</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
+<span class="n">trajectories</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">amplitude</span> <span class="ow">in</span> <span class="n">amplitudes</span><span class="p">:</span>
+    <span class="n">initial_positions</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">amplitude</span>
+    <span class="n">time</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">newtonian</span> <span class="p">(</span><span class="n">double_well_asymmetric</span><span class="o">.</span><span class="n">system</span><span class="p">,</span> <span class="n">initial_positions</span> <span class="o">=</span> <span class="n">initial_positions</span><span class="p">,</span>
+                                           <span class="n">initial_velocities</span> <span class="o">=</span> <span class="n">initial_velocities</span><span class="p">,</span> <span class="n">integration_timestep</span> <span class="o">=</span> <span class="mf">0.02</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">,</span>
+                                           <span class="n">saving_timestep</span> <span class="o">=</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">,</span> <span class="n">total_time</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">)</span>
+    <span class="n">trajectories</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">trajectory</span> <span class="ow">in</span> <span class="n">trajectories</span><span class="p">:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">trajectory</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">T</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span> <span class="c1"># Period of the harmonic oscillations approximation</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time (</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">unit</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;X (</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">position</span><span class="o">.</span><span class="n">unit</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/systems_double_well_potential_49_0.png" src="../_images/systems_double_well_potential_49_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Langevin-NVT-run">
+<h3>Langevin NVT run<a class="headerlink" href="#Langevin-NVT-run" title="Permalink to this headline">¶</a></h3>
+<p>Thanks to the <code class="docutils literal notranslate"><span class="pre">simulation.langevin_NVT</span></code> method in this library, a simple newtonian dynamics can be run with few efforce:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">uibcdf_test_systems.simulation</span> <span class="k">import</span> <span class="n">langevin_NVT</span>
+
+<span class="n">initial_positions</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
+
+<span class="n">time</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">velocity</span><span class="p">,</span> <span class="n">kinetic_energy</span><span class="p">,</span> <span class="n">potential_energy</span> <span class="o">=</span> <span class="n">langevin_NVT</span> <span class="p">(</span><span class="n">double_well_symmetric</span><span class="o">.</span><span class="n">system</span><span class="p">,</span>
+                                                                           <span class="n">temperature</span> <span class="o">=</span> <span class="mi">300</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kelvin</span><span class="p">,</span>
+                                                                           <span class="n">friction</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">,</span>
+                                                                           <span class="n">initial_positions</span> <span class="o">=</span> <span class="n">initial_positions</span><span class="p">,</span>
+                                                                           <span class="n">initial_velocities</span> <span class="o">=</span> <span class="n">initial_velocities</span><span class="p">,</span>
+                                                                           <span class="n">integration_timestep</span> <span class="o">=</span> <span class="mf">0.02</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">,</span>
+                                                                           <span class="n">saving_timestep</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">,</span>
+                                                                           <span class="n">total_time</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Let us see the time evolution of the coordinate <span class="math notranslate nohighlight">\(x\)</span> of our single particle:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">position</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time (</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">unit</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;X (</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">position</span><span class="o">.</span><span class="n">unit</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/systems_double_well_potential_53_0.png" src="../_images/systems_double_well_potential_53_0.png" />
+</div>
+</div>
+<p>The system is fluctuating around the minimum <span class="math notranslate nohighlight">\(x_{0}=1\)</span>. We need a longer trajectory to observe a jump out the initial visited well.</p>
 </div>
 </div>
 </div>
