@@ -1,7 +1,7 @@
 
-def langevin_NVT(system, temperature=None, friction=None,
-                 initial_positions=None, initial_velocities=None, integration_timestep=None,
-                 saving_timestep=None, total_time=None, platform_name='CPU', verbose=True):
+def newtonian(system, friction=None,
+              initial_positions=None, initial_velocities=None, integration_timestep=None,
+              saving_timestep=None, total_time=None, platform_name='CPU', verbose=True):
 
 
     from simtk.openmm import LangevinIntegrator, Platform, Context
@@ -19,6 +19,9 @@ def langevin_NVT(system, temperature=None, friction=None,
 
     # Integrator.
 
+    temperature = 0.0*unit.kelvin
+    if friction is None:
+        friction = 0.0/unit.picoseconds
     integrator = LangevinIntegrator(temperature, friction, integration_timestep)
 
     # Platform.
