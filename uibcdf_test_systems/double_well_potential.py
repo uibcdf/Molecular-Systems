@@ -1,16 +1,16 @@
 
-
 class DoubleWell():
 
     system = None
-    potential = None
+    potential_expression = None
+    potential_parameters = None
 
-    def __init__(self, n_particles, mass, Eo, c, m):
+    def __init__(self, n_particles, mass, Eo, a, b):
 
         ### mass -> unit.amu
         ### Eo -> unit.kilocalories_per_mole
-        ### c -> unit.nanometers
-        ### m -> unit.kilocalories_per_mole
+        ### a -> unit.nanometers
+        ### b -> unit.kilocalories_per_mole
 
         # OpenMM system
 
@@ -23,11 +23,11 @@ class DoubleWell():
         for ii in range(n_particles):
             self.system.addParticle(mass)
 
-        k = 8.0*Eo/(c**2) # stiffness of the armonic potential for coordinates Y and Z
+        k = 8.0*Eo/(a**2) # stiffness of the armonic potential for coordinates Y and Z
 
-        A = Eo/(c**4)
-        B = -2.0*Eo/(c**2)
-        C = -m/c
+        A = Eo/(a**4)
+        B = -2.0*Eo/(a**2)
+        C = -b/a
         D = k/2.0
 
         force = mm.CustomExternalForce('A*x^4+B*x^2+C*x + D*(y^2+z^2)')
@@ -39,11 +39,16 @@ class DoubleWell():
             force.addParticle(ii, [])
         self.system.addForce(force)
 
-        # Potential expresion
+        # Potential expresion and constants
 
-        import sympy as sy
+        from sympy import symbols
 
-        x, y, z, Eo, c, m = sy.symbols('x y z Eo c m')
-        self.potential = Eo*((x/c)**4-2.0*(x/c)**2)-(m/c)*x + 0.5 *(8.0*Eo/c**2)*(y**2 + z**2)
-        del(x, y, z, Eo, c, m)
+        self.potential_parameters ={'Eo':Eo, 'a':a, 'b':b}
+
+        x, y, z, Eo, a, b = symbols('x y z Eo a b')
+        self.potential._expression = Eo*((x/a)**4-2.0*(x/a)**2)-(b/a)*x + 0.5 *(8.0*Eo/a**2)*(y**2 + z**2)
+        del(x, y, z, Eo, a, b)
+
+    def potential(self):
+        pass
 
