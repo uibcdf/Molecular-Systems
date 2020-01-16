@@ -85,7 +85,11 @@
             
               <p class="caption"><span class="caption-text">Installation</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#latest-stable-version">Latest stable version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#developing-version">Developing version</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">User Guide</span></p>
 <ul>
@@ -117,8 +121,16 @@
 </ul>
 <p class="caption"><span class="caption-text">API Documentation</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="api/index.html">Systems</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/index.html#simulations">Simulations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">Systems</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/_autosummary/uibcdf_test_systems.FreeParticle.html">FreeParticle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/_autosummary/uibcdf_test_systems.HarmonicWell.html">HarmonicWell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/_autosummary/uibcdf_test_systems.DoubleWell.html">DoubleWell</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html#simulations">Simulations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/_autosummary/uibcdf_test_systems.simulation.langevin_NVT.html">simulation.langevin_NVT</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -209,27 +221,31 @@
 </style>
 <div class="section" id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<p>The latest “stable” version of MolModMT can be installed from the UIBCDF Anaconda channel:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda -c uibcdf molmodmt
+<div class="section" id="latest-stable-version">
+<h2>Latest stable version<a class="headerlink" href="#latest-stable-version" title="Permalink to this headline">¶</a></h2>
+<p>The latest stable version of MolModMT can be installed from the UIBCDF Anaconda channel:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda -c uibcdf uibcdf_test_systems
 </pre></div>
 </div>
-<p>If you want to work with the not so tested last beta version, the installation command is the following:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install -c uibcdf/label/dev molmodmt
-</pre></div>
-</div>
-<p>The former beta version is nothing but a quenched version from the main github repository of this project which it is done from time to time with few scruples. The raw code fully alive can be installed from this github repo as follows:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/uibcdf/MolModMT.git
-<span class="nb">cd</span> MolModMT
-python setup.py develop
-</pre></div>
-</div>
-<p>In the first two cases, MolModMT can be uninstalled with conda:</p>
+<p>Once the library was installed, it can be removed from your conda environment with:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda remove molmodmt
 </pre></div>
 </div>
-<p>But if you installed MolModMT straight from its github central repository, do the following to uninstall it:</p>
+</div>
+<div class="section" id="developing-version">
+<h2>Developing version<a class="headerlink" href="#developing-version" title="Permalink to this headline">¶</a></h2>
+<p>The public repository of the whole library is available in the UIBCDF GitHub page. It can be cloned
+in your computer to install it locally (within or without a conda environment, in this case is
+indifferent).</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/uibcdf/UIBCDF_test_systems.git
+<span class="nb">cd</span> uibcdf_test_systems
+python setup.py develop
+</pre></div>
+</div>
+<p>To uninstall this version of the library:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip uninstall molmodmt
 </pre></div>
+</div>
 </div>
 </div>
 

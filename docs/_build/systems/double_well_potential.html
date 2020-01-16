@@ -85,7 +85,11 @@
             
               <p class="caption"><span class="caption-text">Installation</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Installation.html#latest-stable-version">Latest stable version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Installation.html#developing-version">Developing version</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">User Guide</span></p>
 <ul class="current">
@@ -117,8 +121,16 @@
 </ul>
 <p class="caption"><span class="caption-text">API Documentation</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Systems</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html#simulations">Simulations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Systems</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/uibcdf_test_systems.FreeParticle.html">FreeParticle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/uibcdf_test_systems.HarmonicWell.html">HarmonicWell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/uibcdf_test_systems.DoubleWell.html">DoubleWell</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html#simulations">Simulations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/uibcdf_test_systems.simulation.langevin_NVT.html">simulation.langevin_NVT</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -412,16 +424,6 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">%</span><span class="k">load_ext</span> autoreload
-<span class="o">%</span><span class="k">autoreload</span> 2
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">sympy</span> <span class="k">as</span> <span class="nn">sy</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -433,10 +435,11 @@ div.rendered_html tbody tr:hover {
 <h1>Double Well Potential<a class="headerlink" href="#Double-Well-Potential" title="Permalink to this headline">¶</a></h1>
 <p>Our double well potential, in a single dimension, is described by the following expression:</p>
 <p><span class="math">\begin{equation}
-f(x)=E_{0}*\left[ \left(\frac{x}{a}\right)^4 -2\left(\frac{x}{a}\right)^2 \right]-\frac{b}{a}x
+f(x)=E_{0}\left[ \left(\frac{x}{a}\right)^4 -2\left(\frac{x}{a}\right)^2 \right]-\frac{b}{a}x + \frac{1}{2}\frac{8E_{0}}{a^2}\left( y^2 + z^2 \right)
 \end{equation}</span></p>
+<p>Let’s see the meaning of the constants: <span class="math notranslate nohighlight">\(E_{0}\)</span>, <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span>. For this purpose the following method is defined to evaluate the contribution of the potential energy terms corresponding to the double well in <span class="math notranslate nohighlight">\(X\)</span>. The potential for coordinates in <span class="math notranslate nohighlight">\(Y\)</span> and <span class="math notranslate nohighlight">\(Z\)</span> behaves harmonically.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -445,12 +448,11 @@ f(x)=E_{0}*\left[ \left(\frac{x}{a}\right)^4 -2\left(\frac{x}{a}\right)^2 \right
 </pre></div>
 </div>
 </div>
-<p>Lets see the meaning of the constants: <span class="math notranslate nohighlight">\(E_{0}\)</span>, <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span>.</p>
 <div class="section" id="Symmetric-case-(b=0)">
 <h2>Symmetric case (<span class="math notranslate nohighlight">\(b=0\)</span>)<a class="headerlink" href="#Symmetric-case-(b=0)" title="Permalink to this headline">¶</a></h2>
 <p>A symmetric double well potential can be represented by the former mathematical expression when <span class="math notranslate nohighlight">\(b=0\)</span>. In this situation, the double well minima are placed in <span class="math notranslate nohighlight">\(x=-a\)</span> and <span class="math notranslate nohighlight">\(x=a\)</span>. And <span class="math notranslate nohighlight">\(E_{0}\)</span> is the value of the barrier height (equal for both basins). Lets verify these statements with an example:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -475,12 +477,12 @@ f(x)=E_{0}*\left[ \left(\frac{x}{a}\right)^4 -2\left(\frac{x}{a}\right)^2 \right
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/systems_double_well_potential_5_0.png" src="../_images/systems_double_well_potential_5_0.png" />
+<img alt="../_images/systems_double_well_potential_4_0.png" src="../_images/systems_double_well_potential_4_0.png" />
 </div>
 </div>
 <p>You can play with the last cell, changing the <span class="math notranslate nohighlight">\(E_{0}\)</span> and <span class="math notranslate nohighlight">\(a\)</span> values, to check the consistency of their description. Or you can instead work with the first derivative of the potential to do the same analytically:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -492,7 +494,7 @@ f(x)=E_{0}*\left[ \left(\frac{x}{a}\right)^4 -2\left(\frac{x}{a}\right)^2 \right
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -501,7 +503,7 @@ f(x)=E_{0}*\left[ \left(\frac{x}{a}\right)^4 -2\left(\frac{x}{a}\right)^2 \right
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -510,7 +512,7 @@ $\displaystyle Eo \left(- \frac{4 x}{a^{2}} + \frac{4 x^{3}}{a^{4}}\right)$</div
 </div>
 <p>The first derivative can be factorized to unveil the value of its three roots: <span class="math notranslate nohighlight">\(x=0\)</span>, the barrier position, and <span class="math notranslate nohighlight">\(x=a\)</span> y <span class="math notranslate nohighlight">\(x=-a\)</span>, the minima positions.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -519,7 +521,7 @@ $\displaystyle Eo \left(- \frac{4 x}{a^{2}} + \frac{4 x^{3}}{a^{4}}\right)$</div
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -571,7 +573,7 @@ V(x) = \frac{1}{2} k (x-x_{0})^{2} = \frac{1}{2} m \omega^{2} (x-x_{0})^{2}
 \end{equation}</span></p>
 <p>This way the frequency of the small oscillations of a particle with mass <span class="math notranslate nohighlight">\(m\)</span> around a minimum can then by obtained from the value of the second derivative at the minimum:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -585,7 +587,7 @@ V(x) = \frac{1}{2} k (x-x_{0})^{2} = \frac{1}{2} m \omega^{2} (x-x_{0})^{2}
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -594,7 +596,7 @@ $\displaystyle - \frac{4 Eo \left(1 - \frac{3 x^{2}}{a^{2}}\right)}{a^{2}}$</div
 </div>
 <p>Let’s look at the minimum at <span class="math notranslate nohighlight">\(x=a\)</span>:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -603,7 +605,7 @@ $\displaystyle - \frac{4 Eo \left(1 - \frac{3 x^{2}}{a^{2}}\right)}{a^{2}}$</div
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -620,7 +622,7 @@ T = \frac{2\pi}{\omega} = 2\pi \sqrt{\frac{ma^{2}}{8E_{0}}}
 \end{equation}</span></p>
 <p>We can see graphically how the Taylor expansion is a good aproximation when close enough to a minimum:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -662,14 +664,14 @@ T = \frac{2\pi}{\omega} = 2\pi \sqrt{\frac{ma^{2}}{8E_{0}}}
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/systems_double_well_potential_19_0.png" src="../_images/systems_double_well_potential_19_0.png" />
+<img alt="../_images/systems_double_well_potential_18_0.png" src="../_images/systems_double_well_potential_18_0.png" />
 </div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/systems_double_well_potential_19_1.png" src="../_images/systems_double_well_potential_19_1.png" />
+<img alt="../_images/systems_double_well_potential_18_1.png" src="../_images/systems_double_well_potential_18_1.png" />
 </div>
 </div>
 </div>
@@ -678,7 +680,7 @@ T = \frac{2\pi}{\omega} = 2\pi \sqrt{\frac{ma^{2}}{8E_{0}}}
 <h2>Assymetric case (<span class="math notranslate nohighlight">\(b\neq0\)</span>)<a class="headerlink" href="#Assymetric-case-(b\neq0)" title="Permalink to this headline">¶</a></h2>
 <p>In the case of <span class="math notranslate nohighlight">\(b\neq 0\)</span>, our double well turns in to an assymetric potential. In this situation <span class="math notranslate nohighlight">\(E_{0}\)</span> and <span class="math notranslate nohighlight">\(a\)</span> have <strong>approximately</strong> the same interpretation, and <span class="math notranslate nohighlight">\(b\)</span> can be <strong>approximately</strong> understood as the amount energy that basins shift up or down, depending on the relative position to <span class="math notranslate nohighlight">\(x=0\)</span>. In our double well, the left basin raises and the right basin drops when <span class="math notranslate nohighlight">\(b&gt;0\)</span>. Lets see this in a plot:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -703,7 +705,7 @@ T = \frac{2\pi}{\omega} = 2\pi \sqrt{\frac{ma^{2}}{8E_{0}}}
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/systems_double_well_potential_22_0.png" src="../_images/systems_double_well_potential_22_0.png" />
+<img alt="../_images/systems_double_well_potential_21_0.png" src="../_images/systems_double_well_potential_21_0.png" />
 </div>
 </div>
 <p>The value of the energy barrier from the left minimum is <span class="math notranslate nohighlight">\(\approx E_{0}+b\)</span>, while <span class="math notranslate nohighlight">\(\approx E_{0}-b\)</span> accounts for the barrier from the right minimum.</p>
@@ -715,9 +717,9 @@ to those for the symmetric double well.</p>
 </div>
 <div class="section" id="Working-with-this-test-system">
 <h2>Working with this test system<a class="headerlink" href="#Working-with-this-test-system" title="Permalink to this headline">¶</a></h2>
-<p>The system made by <span class="math notranslate nohighlight">\(N\)</span> particles in this double well potential is predefined to be used with OpenMM in this library a python class:</p>
+<p>This test system is fully documented in <a class="reference external" href="../api/_autosummary/uibcdf_test_systems.DoubleWell.html">DoubleWell class API</a>. Let’s see an example of how to interact with it:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -734,7 +736,7 @@ to those for the symmetric double well.</p>
 </div>
 <p>The potential expression and the value of the parameters are stored in <code class="docutils literal notranslate"><span class="pre">potential</span></code>:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -743,7 +745,7 @@ to those for the symmetric double well.</p>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -751,7 +753,7 @@ to those for the symmetric double well.</p>
 $\displaystyle Eo \left(- \frac{2.0 x^{2}}{a^{2}} + \frac{x^{4}}{a^{4}}\right) + \frac{4.0 Eo \left(y^{2} + z^{2}\right)}{a^{2}} - \frac{b x}{a}$</div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -760,7 +762,7 @@ $\displaystyle Eo \left(- \frac{2.0 x^{2}}{a^{2}} + \frac{x^{4}}{a^{4}}\right) +
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -772,7 +774,7 @@ $\displaystyle Eo \left(- \frac{2.0 x^{2}}{a^{2}} + \frac{x^{4}}{a^{4}}\right) +
 </div>
 <p>And there is a method to evaluate the potential at a given positions:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -781,7 +783,7 @@ $\displaystyle Eo \left(- \frac{2.0 x^{2}}{a^{2}} + \frac{x^{4}}{a^{4}}\right) +
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -790,7 +792,7 @@ $\displaystyle Eo \left(- \frac{2.0 x^{2}}{a^{2}} + \frac{x^{4}}{a^{4}}\right) +
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -812,12 +814,12 @@ $\displaystyle Eo \left(- \frac{2.0 x^{2}}{a^{2}} + \frac{x^{4}}{a^{4}}\right) +
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/systems_double_well_potential_32_0.png" src="../_images/systems_double_well_potential_32_0.png" />
+<img alt="../_images/systems_double_well_potential_31_0.png" src="../_images/systems_double_well_potential_31_0.png" />
 </div>
 </div>
 <p>And the system to be used with OpenMM is accesible as:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -826,11 +828,11 @@ $\displaystyle Eo \left(- \frac{2.0 x^{2}}{a^{2}} + \frac{x^{4}}{a^{4}}\right) +
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>&lt;simtk.openmm.openmm.System; proxy of &lt;Swig Object of type &#39;OpenMM::System *&#39; at 0x7f3a340dce70&gt; &gt;
+<span></span>&lt;simtk.openmm.openmm.System; proxy of &lt;Swig Object of type &#39;OpenMM::System *&#39; at 0x7fa57191d0c0&gt; &gt;
 </pre></div>
 </div>
 </div>
@@ -838,7 +840,7 @@ $\displaystyle Eo \left(- \frac{2.0 x^{2}}{a^{2}} + \frac{x^{4}}{a^{4}}\right) +
 <h3>Newtonian dynamics<a class="headerlink" href="#Newtonian-dynamics" title="Permalink to this headline">¶</a></h3>
 <p>Thanks to the <code class="docutils literal notranslate"><span class="pre">simulation.newtonian</span></code> method in this library, a simple newtonian dynamics can be run with few efforce:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -859,7 +861,7 @@ $\displaystyle Eo \left(- \frac{2.0 x^{2}}{a^{2}} + \frac{x^{4}}{a^{4}}\right) +
 </div>
 <p>We can now plot the trajectory of the x coordinate:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -874,12 +876,12 @@ $\displaystyle Eo \left(- \frac{2.0 x^{2}}{a^{2}} + \frac{x^{4}}{a^{4}}\right) +
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/systems_double_well_potential_38_0.png" src="../_images/systems_double_well_potential_38_0.png" />
+<img alt="../_images/systems_double_well_potential_37_0.png" src="../_images/systems_double_well_potential_37_0.png" />
 </div>
 </div>
 <p>Now we can wonder, is the period of the oscillations is in agreement with the value calculated before? A shorter run with more points could be enough to say, by inspection, that the calculus is correct.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -899,7 +901,7 @@ The period of the small oscillations around the minimum is 4.344092140155338 ps
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -921,13 +923,13 @@ The period of the small oscillations around the minimum is 4.344092140155338 ps
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/systems_double_well_potential_41_0.png" src="../_images/systems_double_well_potential_41_0.png" />
+<img alt="../_images/systems_double_well_potential_40_0.png" src="../_images/systems_double_well_potential_40_0.png" />
 </div>
 </div>
 <p>It seems a good approximation to what is observed graphically in the integrated trajectory. Keep in mind that this is an approximation valid when the particle moves very close the bottom of the basins. In an real harmonic oscillator this period does not change with amplitude, but in this case does it. If the amplitude is large enough the oscillations are far from being well approximated by the cuadratic term of the Taylor expansion. Try to play with larger and shorter initial distances to the
 minimum to see this effect:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -955,12 +957,12 @@ minimum to see this effect:</p>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/systems_double_well_potential_43_0.png" src="../_images/systems_double_well_potential_43_0.png" />
+<img alt="../_images/systems_double_well_potential_42_0.png" src="../_images/systems_double_well_potential_42_0.png" />
 </div>
 </div>
 <p>The newtonian dynamics can also include damping. This way we can simulate damped oscillations around the minimum.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -983,12 +985,12 @@ minimum to see this effect:</p>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/systems_double_well_potential_45_0.png" src="../_images/systems_double_well_potential_45_0.png" />
+<img alt="../_images/systems_double_well_potential_44_0.png" src="../_images/systems_double_well_potential_44_0.png" />
 </div>
 </div>
 <p>What would be the friction value needed to enter in the overdamped regime?</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1011,12 +1013,12 @@ minimum to see this effect:</p>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/systems_double_well_potential_47_0.png" src="../_images/systems_double_well_potential_47_0.png" />
+<img alt="../_images/systems_double_well_potential_46_0.png" src="../_images/systems_double_well_potential_46_0.png" />
 </div>
 </div>
 <p>And the same can be checked for the asymmetric double well potential. In the case of the period of short oscillations around a minimum, keep in mind that there the minimum is not longer <span class="math notranslate nohighlight">\(a\)</span>, and <span class="math notranslate nohighlight">\(T\)</span> was here calculated with the value of the second derivative (equal, no matter the value of <span class="math notranslate nohighlight">\(b\)</span>) in <span class="math notranslate nohighlight">\(a\)</span>. But still is a good approximation.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1044,7 +1046,7 @@ minimum to see this effect:</p>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/systems_double_well_potential_49_0.png" src="../_images/systems_double_well_potential_49_0.png" />
+<img alt="../_images/systems_double_well_potential_48_0.png" src="../_images/systems_double_well_potential_48_0.png" />
 </div>
 </div>
 </div>
@@ -1052,7 +1054,7 @@ minimum to see this effect:</p>
 <h3>Langevin NVT run<a class="headerlink" href="#Langevin-NVT-run" title="Permalink to this headline">¶</a></h3>
 <p>Thanks to the <code class="docutils literal notranslate"><span class="pre">simulation.langevin_NVT</span></code> method in this library, a simple newtonian dynamics can be run with few efforce:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1073,7 +1075,7 @@ minimum to see this effect:</p>
 </div>
 <p>Let us see the time evolution of the coordinate <span class="math notranslate nohighlight">\(x\)</span> of our single particle:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1088,7 +1090,7 @@ minimum to see this effect:</p>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/systems_double_well_potential_53_0.png" src="../_images/systems_double_well_potential_53_0.png" />
+<img alt="../_images/systems_double_well_potential_52_0.png" src="../_images/systems_double_well_potential_52_0.png" />
 </div>
 </div>
 <p>The system is fluctuating around the minimum <span class="math notranslate nohighlight">\(x_{0}=1\)</span>. We need a longer trajectory to observe a jump out the initial visited well.</p>

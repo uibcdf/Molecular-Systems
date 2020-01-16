@@ -37,7 +37,9 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="simulation.langevin_NVT" href="uibcdf_test_systems.simulation.langevin_NVT.html" />
+    <link rel="prev" title="HarmonicWell" href="uibcdf_test_systems.HarmonicWell.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -83,7 +85,11 @@
             
               <p class="caption"><span class="caption-text">Installation</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Installation.html#latest-stable-version">Latest stable version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Installation.html#developing-version">Developing version</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">User Guide</span></p>
 <ul>
@@ -114,9 +120,17 @@
 </li>
 </ul>
 <p class="caption"><span class="caption-text">API Documentation</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../index.html">Systems</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../index.html#simulations">Simulations</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Systems</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="uibcdf_test_systems.FreeParticle.html">FreeParticle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uibcdf_test_systems.HarmonicWell.html">HarmonicWell</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">DoubleWell</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#simulations">Simulations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="uibcdf_test_systems.simulation.langevin_NVT.html">simulation.langevin_NVT</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -161,6 +175,8 @@
   <ul class="wy-breadcrumbs">
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Systems</a> &raquo;</li>
         
       <li>DoubleWell</li>
     
@@ -207,6 +223,148 @@
 </style>
 <div class="section" id="doublewell">
 <h1>DoubleWell<a class="headerlink" href="#doublewell" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="uibcdf_test_systems.DoubleWell">
+<em class="property">class </em><code class="sig-prename descclassname">uibcdf_test_systems.</code><code class="sig-name descname">DoubleWell</code><span class="sig-paren">(</span><em class="sig-param">n_particles</em>, <em class="sig-param">mass</em>, <em class="sig-param">Eo</em>, <em class="sig-param">a</em>, <em class="sig-param">b</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/uibcdf_test_systems/double_well_potential.html#DoubleWell"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#uibcdf_test_systems.DoubleWell" title="Permalink to this definition">¶</a></dt>
+<dd><p>Particles in an double well potential</p>
+<p>Test system with particles in a quadratic double well potential.</p>
+<div class="math notranslate nohighlight">
+\[Eo\left[\left(\frac{x}{a}\right)^4-2\left(\frac{x}{a}\right)^2\right]-\frac{b}{a}x + \frac{4Eo}{a^{2}}\left(y^2 + z^2\right)\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>system</strong></dt><dd><p>Openmm system</p>
+</dd>
+<dt><strong>potential_expression</strong></dt><dd><p>External potential expression as a sympy function.</p>
+</dd>
+<dt><strong>potential_parameters</strong></dt><dd><p>Dictionary with the values of the parameters of the potential.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#uibcdf_test_systems.DoubleWell.potential" title="uibcdf_test_systems.DoubleWell.potential"><code class="xref py py-obj docutils literal notranslate"><span class="pre">potential</span></code></a>(self, coordinates)</p></td>
+<td><p>Potential evaluation</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="uibcdf_test_systems.DoubleWell.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">n_particles</em>, <em class="sig-param">mass</em>, <em class="sig-param">Eo</em>, <em class="sig-param">a</em>, <em class="sig-param">b</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/uibcdf_test_systems/double_well_potential.html#DoubleWell.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#uibcdf_test_systems.DoubleWell.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creating a new instance of DoubleWell</p>
+<p>A new test system is returned with the openmm system of particles in an external double
+well potential.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>n_particles: int</strong></dt><dd><p>Number of particles in the system</p>
+</dd>
+<dt><strong>mass: unit.Quantity</strong></dt><dd><p>Mass of the particles (in units of mass).</p>
+</dd>
+<dt><strong>Eo: unit.Quantity</strong></dt><dd><p>Parameter of the external potential with units of energy.</p>
+</dd>
+<dt><strong>a: unit.Quantity</strong></dt><dd><p>Parameter of the external potential with units of length.</p>
+</dd>
+<dt><strong>b: unit.Quantity</strong></dt><dd><p>Parameter of the external potential with units of energy.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>See <a class="reference external" href="../../systems/double_well_potential.html">corresponding documentation in the user guide regarding this class</a>.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">uibcdf_test_systems</span> <span class="k">import</span> <span class="n">DoubleWell</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">simtk</span> <span class="k">import</span> <span class="n">unit</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">double_well</span> <span class="o">=</span> <span class="n">DoubleWell</span><span class="p">(</span><span class="n">n_particles</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">mass</span> <span class="o">=</span> <span class="mi">64</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">amu</span><span class="p">,</span> <span class="n">Eo</span><span class="o">=</span><span class="mf">4.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mf">1.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mf">0.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span><span class="p">))</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>system: openmm.System</strong></dt><dd><p>bla bla</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#uibcdf_test_systems.DoubleWell.__init__" title="uibcdf_test_systems.DoubleWell.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(self, n_particles, mass, Eo, a, b)</p></td>
+<td><p>Creating a new instance of DoubleWell</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#uibcdf_test_systems.DoubleWell.potential" title="uibcdf_test_systems.DoubleWell.potential"><code class="xref py py-obj docutils literal notranslate"><span class="pre">potential</span></code></a>(self, coordinates)</p></td>
+<td><p>Potential evaluation</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">potential_expression</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">potential_parameters</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">system</span></code></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="uibcdf_test_systems.DoubleWell.potential">
+<code class="sig-name descname">potential</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">coordinates</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/uibcdf_test_systems/double_well_potential.html#DoubleWell.potential"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#uibcdf_test_systems.DoubleWell.potential" title="Permalink to this definition">¶</a></dt>
+<dd><p>Potential evaluation</p>
+<p>The potential energy is evaluated at the position/s specified by the input argument
+<cite>coordinates</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>coordinates: unit.Quantity</strong></dt><dd><p>Spatial coordinates of the point or points where the potential energy is evaluated. A
+list, tuple or numpy.ndarray can be used of shape (3) or (n_points,3) with length
+units.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>unit.Quantity</dt><dd><p>Value of the energy at the point or points given by the input argment <cite>coordinates</cite>.
+The value of the unit.Quantity will be a single float number or a numpy.ndarray of
+float numbers depending on the shape of <cite>coordinates</cite>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>See <a class="reference external" href="../../systems/double_well_potential.html">corresponding documentation in the user guide regarding this class</a>.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">uibcdf_test_systems</span> <span class="k">import</span> <span class="n">DoubleWell</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">simtk</span> <span class="k">import</span> <span class="n">unit</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">double_well</span> <span class="o">=</span> <span class="n">DoubleWell</span><span class="p">(</span><span class="n">n_particles</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">mass</span> <span class="o">=</span> <span class="mi">64</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">amu</span><span class="p">,</span> <span class="n">Eo</span><span class="o">=</span><span class="mf">4.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mf">1.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mf">0.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">double_well</span><span class="o">.</span><span class="n">potential</span><span class="p">([</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span><span class="p">)</span>
+<span class="go">Quantity(value=2.25, unit=kilocalorie/mole)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 
 
@@ -214,6 +372,15 @@
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="uibcdf_test_systems.simulation.langevin_NVT.html" class="btn btn-neutral float-right" title="simulation.langevin_NVT" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="uibcdf_test_systems.HarmonicWell.html" class="btn btn-neutral float-left" title="HarmonicWell" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

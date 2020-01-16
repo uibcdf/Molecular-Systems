@@ -37,7 +37,9 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="DoubleWell" href="uibcdf_test_systems.DoubleWell.html" />
+    <link rel="prev" title="FreeParticle" href="uibcdf_test_systems.FreeParticle.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -83,7 +85,11 @@
             
               <p class="caption"><span class="caption-text">Installation</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Installation.html#latest-stable-version">Latest stable version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Installation.html#developing-version">Developing version</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">User Guide</span></p>
 <ul>
@@ -114,9 +120,17 @@
 </li>
 </ul>
 <p class="caption"><span class="caption-text">API Documentation</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../index.html">Systems</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../index.html#simulations">Simulations</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Systems</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="uibcdf_test_systems.FreeParticle.html">FreeParticle</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">HarmonicWell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uibcdf_test_systems.DoubleWell.html">DoubleWell</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#simulations">Simulations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="uibcdf_test_systems.simulation.langevin_NVT.html">simulation.langevin_NVT</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -161,6 +175,8 @@
   <ul class="wy-breadcrumbs">
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Systems</a> &raquo;</li>
         
       <li>HarmonicWell</li>
     
@@ -207,6 +223,80 @@
 </style>
 <div class="section" id="harmonicwell">
 <h1>HarmonicWell<a class="headerlink" href="#harmonicwell" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="uibcdf_test_systems.HarmonicWell">
+<em class="property">class </em><code class="sig-prename descclassname">uibcdf_test_systems.</code><code class="sig-name descname">HarmonicWell</code><span class="sig-paren">(</span><em class="sig-param">n_particles</em>, <em class="sig-param">mass</em>, <em class="sig-param">k</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/uibcdf_test_systems/harmonic_well_potential.html#HarmonicWell"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#uibcdf_test_systems.HarmonicWell" title="Permalink to this definition">¶</a></dt>
+<dd><p>Particles in an harmonic well potential</p>
+<p>Test system with particles in an harmonic well potential.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>system</strong></dt><dd><p>Openmm system</p>
+</dd>
+<dt><strong>potential</strong></dt><dd><p>External potential expression as a sympy function.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="method">
+<dt id="uibcdf_test_systems.HarmonicWell.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">n_particles</em>, <em class="sig-param">mass</em>, <em class="sig-param">k</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/uibcdf_test_systems/harmonic_well_potential.html#HarmonicWell.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#uibcdf_test_systems.HarmonicWell.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creating a new instance of HarmonicWell</p>
+<p>A new test system is returned with the openmm system of particles in an external harmonic
+well potential:</p>
+<blockquote>
+<div><p>$0.5*k*x**2$</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>n_particles: int</strong></dt><dd><p>Number of particles in the system</p>
+</dd>
+<dt><strong>mass: unit.Quantity</strong></dt><dd><p>Mass of the particles</p>
+</dd>
+<dt><strong>k: unit.Quantity</strong></dt><dd><p>Parameter of the external potential (units of energy/length**2) corresponding to the
+stiffness of the harmonic well.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">uibcdf_test_systems</span> <span class="k">import</span> <span class="n">HarmonicWell</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">simtk</span> <span class="k">import</span> <span class="n">unit</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">harmonic_well_potential</span> <span class="o">=</span> <span class="n">HarmonicWell</span><span class="p">(</span><span class="n">n_particles</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">mass</span><span class="o">=</span><span class="mi">32</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">amu</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mf">10.0</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">kilocalorie</span><span class="o">/</span><span class="p">(</span><span class="n">unit</span><span class="o">.</span><span class="n">mole</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#uibcdf_test_systems.HarmonicWell.__init__" title="uibcdf_test_systems.HarmonicWell.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(self, n_particles, mass, k)</p></td>
+<td><p>Creating a new instance of HarmonicWell</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">potential</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">system</span></code></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </div>
 
 
@@ -214,6 +304,15 @@
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="uibcdf_test_systems.DoubleWell.html" class="btn btn-neutral float-right" title="DoubleWell" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="uibcdf_test_systems.FreeParticle.html" class="btn btn-neutral float-left" title="FreeParticle" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

@@ -14,6 +14,7 @@ DoubleWell
    .. autosummary::
    
       ~DoubleWell.__init__
+      ~DoubleWell.potential
    
    
 
@@ -23,7 +24,8 @@ DoubleWell
 
    .. autosummary::
    
-      ~DoubleWell.potential
+      ~DoubleWell.potential_expression
+      ~DoubleWell.potential_parameters
       ~DoubleWell.system
    
    
