@@ -25,7 +25,7 @@ about:
   license: MIT License
   summary: ""
   description: |
-    This toolkit library provides some useful classes, functions, pipes and wrappers daily used in the uibcdf lab when molecular systems and molecular dynamics are manipulated.
+    This library provides some useful molecular test systems daily used in the UIBCDF lab.
   dev_url: https://github.com/uibcdf/UIBCDF_test_systems
   doc_url: https://uibcdf.org/UIBCDF_test_systems
 
