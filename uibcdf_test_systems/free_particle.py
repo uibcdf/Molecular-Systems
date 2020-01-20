@@ -10,13 +10,10 @@ class FreeParticle():
     ----------
     system : openmm.system
         Openmm system
-    potential : sympy.function
-        External potential expression as a sympy function.
 
     """
 
     system = None
-    potential = None
 
     def __init__(self, n_particles, mass):
 

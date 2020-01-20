@@ -23,7 +23,6 @@ FreeParticle
 
    .. autosummary::
    
-      ~FreeParticle.potential
       ~FreeParticle.system
    
    

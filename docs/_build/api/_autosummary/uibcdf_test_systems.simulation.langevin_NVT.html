@@ -38,7 +38,7 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="prev" title="DoubleWell" href="uibcdf_test_systems.DoubleWell.html" /> 
+    <link rel="prev" title="simulation.newtonian" href="uibcdf_test_systems.simulation.newtonian.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -93,8 +93,22 @@
 <p class="caption"><span class="caption-text">User Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../systems/index.html">Systems</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../systems/free_particle.html">Free Particle</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../systems/harmonic_well_potential.html">Harmonic Well Potential</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../systems/free_particle.html">Free Particle</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../systems/free_particle.html#Working-with-this-test-system">Working with this test system</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../systems/free_particle.html#Newtonian-dynamics">Newtonian dynamics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../systems/free_particle.html#Langevin-NVT-run">Langevin NVT run</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../systems/harmonic_well_potential.html">Harmonic Well Potential</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../systems/harmonic_well_potential.html#Working-with-this-test-system">Working with this test system</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../systems/harmonic_well_potential.html#Newtonian-dynamics">Newtonian dynamics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../systems/harmonic_well_potential.html#Langevin-NVT-run">Langevin NVT run</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../systems/double_well_potential.html">Double Well Potential</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../systems/double_well_potential.html#Symmetric-case-(b=0)">Symmetric case (<span class="math notranslate nohighlight">\(b=0\)</span>)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../systems/double_well_potential.html#Frequency-of-small-oscillations-around-the-minima">Frequency of small oscillations around the minima</a></li>
@@ -114,6 +128,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../simulations/index.html">Simulations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../simulations/newtonian.html">Newtonian</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../simulations/langevin_NVT.html">Langevin NVT</a></li>
 </ul>
 </li>
@@ -127,6 +142,7 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html#simulations">Simulations</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="uibcdf_test_systems.simulation.newtonian.html">simulation.newtonian</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">simulation.langevin_NVT</a></li>
 </ul>
 </li>
@@ -225,7 +241,84 @@
 <dl class="function">
 <dt id="uibcdf_test_systems.simulation.langevin_NVT">
 <code class="sig-prename descclassname">uibcdf_test_systems.simulation.</code><code class="sig-name descname">langevin_NVT</code><span class="sig-paren">(</span><em class="sig-param">system</em>, <em class="sig-param">temperature=None</em>, <em class="sig-param">friction=None</em>, <em class="sig-param">initial_positions=None</em>, <em class="sig-param">initial_velocities=None</em>, <em class="sig-param">integration_timestep=None</em>, <em class="sig-param">saving_timestep=None</em>, <em class="sig-param">total_time=None</em>, <em class="sig-param">platform_name='CPU'</em>, <em class="sig-param">verbose=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/uibcdf_test_systems/simulation/langevin_NVT.html#langevin_NVT"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#uibcdf_test_systems.simulation.langevin_NVT" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Langevin NVT dynamics of a molecular system with OpenMM.</p>
+<p>The trajectory of an NVT Langevin dynamics of a molecular system is obtained together with the
+values of potential and kinetic energy. This method is nothing but a short cut to run quick
+molecular dynamics with the test systems of this library by means of OpenMM.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>system: simtk.openmm.System</strong></dt><dd><p>Molecular system as a system class of OpenMM (see: link)</p>
+</dd>
+<dt><strong>temperature: unit.Quantity</strong></dt><dd><p>Temperature (in units of temperature).</p>
+</dd>
+<dt><strong>friction: unit.Quantity</strong></dt><dd><p>Damping parameter of the Langevin dynamics (in units of 1/time).</p>
+</dd>
+<dt><strong>initial_positions: unit.Quantity</strong></dt><dd><p>Initial positions of the system as a numpy array with shape [n_particles, 3] and units of
+length. Where ‘n_particles’ is the number of particles of the system.</p>
+</dd>
+<dt><strong>initial_velocities: unit.Quantity</strong></dt><dd><p>Initial velocities of the system as a numpy array with shape [n_particles, 3] and units of
+length/time. Where ‘n_particles’ is the number of particles of the system.</p>
+</dd>
+<dt><strong>integration_timestep: unit.Quantity</strong></dt><dd><p>Time step used by the integrator of the equations of motion. The parameter needs to have
+units of time.</p>
+</dd>
+<dt><strong>saving_timestep: unit.Quantity</strong></dt><dd><p>Time step used to report the output trajectory. The parameter needs to have units of time.</p>
+</dd>
+<dt><strong>total_time: unit.Quantity</strong></dt><dd><p>Total runing time of the simulation. The parameter needs to have units of time.</p>
+</dd>
+<dt><strong>platform_name: str (default: ‘CPU’)</strong></dt><dd><p>Platform to run the dynamics: ‘CPU’, ‘OPENCL’ or ‘CUDA’ (according to those options to run
+OpenMM, see documentation),</p>
+</dd>
+<dt><strong>verbose: bool (default: True)</strong></dt><dd><p>Verbose switcher. The method will print out information if the value is True.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>time: unit.Quantity</dt><dd><p>Time as numpy array of shape [n_frames] with units of picoseconds.</p>
+</dd>
+<dt>position: unit.Quantity</dt><dd><p>Positions of the systems particles in every reported frame as numpy array of shape [n_frames, n_particles, 3] with units of nanometers.</p>
+</dd>
+<dt>velocity: unit.Quantity</dt><dd><p>Velocities of the systems particles in every reported frame as numpy array of shape
+[n_frames, n_particles, 3] with units of nanometers/picoseconds.</p>
+</dd>
+<dt>kinetic_energy: unit.Quantity</dt><dd><p>Kinetic energy of the system in every reported frame as numpy array of shape
+[n_frames] with units of kilocalories/mole.</p>
+</dd>
+<dt>potential_energy: unit.Quantity</dt><dd><p>Potential energy of the system in every reported frame as numpy array of shape
+[n_frames] with units of kilocalories/mole.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<dl class="simple">
+<dt>See the <a href="#id1"><span class="problematic" id="id2">`</span></a>corresponding documentation in the user guide regarding this method</dt><dd><p>&lt;../../simulations/langevin_NVT.html&gt;`_.</p>
+</dd>
+</dl>
+<p>Some simple examples on how this method is used can be found in the users guide sections
+corresponding to <a class="reference external" href="../../systems/free_particle.html">the free particle</a>, <a class="reference external" href="../../systems/harmonic_well_potential.html">the harmonic
+well potential</a> or <a class="reference external" href="../../systems/double_well_potential.html">the double well potential</a>.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">uibcdf_test_systems</span> <span class="kn">import</span> <span class="n">DoubleWell</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">uibcdf_test_systems.simulation</span> <span class="kn">import</span> <span class="n">langevin_NVT</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">simtk</span> <span class="kn">import</span> <span class="n">unit</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">double_well</span> <span class="o">=</span> <span class="n">DoubleWell</span><span class="p">(</span><span class="n">n_particles</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">mass</span> <span class="o">=</span> <span class="mi">64</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">amu</span><span class="p">,</span> <span class="n">Eo</span><span class="o">=</span><span class="mf">4.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mf">1.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mf">0.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">initial_positions</span> <span class="o">=</span>  <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">initial_velocities</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span><span class="o">/</span><span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">initial_positions</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">time</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">velocity</span><span class="p">,</span> <span class="n">kinetic_energy</span><span class="p">,</span> <span class="n">potential_energy</span> <span class="o">=</span> <span class="n">langevin_NVT</span><span class="p">(</span><span class="n">double_well</span><span class="o">.</span><span class="n">system</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>                                                                          <span class="n">temperature</span> <span class="o">=</span> <span class="mi">300</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">kelvin</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>                                                                          <span class="n">friction</span> <span class="o">=</span> <span class="mf">0.5</span><span class="o">/</span><span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>                                                                          <span class="n">initial_positions</span> <span class="o">=</span> <span class="n">initial_positions</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>                                                                          <span class="n">initial_velocities</span> <span class="o">=</span> <span class="n">initial_velocities</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>                                                                          <span class="n">integration_timestep</span> <span class="o">=</span> <span class="mf">0.02</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>                                                                          <span class="n">saving_timestep</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>                                                                          <span class="n">total_time</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
 
 </div>
 
@@ -238,7 +331,7 @@
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="uibcdf_test_systems.DoubleWell.html" class="btn btn-neutral float-left" title="DoubleWell" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="uibcdf_test_systems.simulation.newtonian.html" class="btn btn-neutral float-left" title="simulation.newtonian" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

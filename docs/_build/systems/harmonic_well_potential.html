@@ -94,8 +94,22 @@
 <p class="caption"><span class="caption-text">User Guide</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Systems</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="free_particle.html">Free Particle</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Harmonic Well Potential</a></li>
+<li class="toctree-l2"><a class="reference internal" href="free_particle.html">Free Particle</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="free_particle.html#Working-with-this-test-system">Working with this test system</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="free_particle.html#Newtonian-dynamics">Newtonian dynamics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="free_particle.html#Langevin-NVT-run">Langevin NVT run</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Harmonic Well Potential</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Working-with-this-test-system">Working with this test system</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Newtonian-dynamics">Newtonian dynamics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Langevin-NVT-run">Langevin NVT run</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="double_well_potential.html">Double Well Potential</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="double_well_potential.html#Symmetric-case-(b=0)">Symmetric case (<span class="math notranslate nohighlight">\(b=0\)</span>)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="double_well_potential.html#Frequency-of-small-oscillations-around-the-minima">Frequency of small oscillations around the minima</a></li>
@@ -115,6 +129,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../simulations/index.html">Simulations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../simulations/newtonian.html">Newtonian</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../simulations/langevin_NVT.html">Langevin NVT</a></li>
 </ul>
 </li>
@@ -128,6 +143,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../api/index.html#simulations">Simulations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/uibcdf_test_systems.simulation.newtonian.html">simulation.newtonian</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/uibcdf_test_systems.simulation.langevin_NVT.html">simulation.langevin_NVT</a></li>
 </ul>
 </li>
@@ -420,18 +436,371 @@ div.rendered_html tbody tr:hover {
 }
 </style>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">sympy</span> <span class="k">as</span> <span class="nn">sy</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">simtk</span> <span class="kn">import</span> <span class="n">unit</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="Harmonic-Well-Potential">
 <h1>Harmonic Well Potential<a class="headerlink" href="#Harmonic-Well-Potential" title="Permalink to this headline">¶</a></h1>
+<p>The harmonic well potential is described by the following expression:</p>
+<p><span class="math">\begin{equation}
+f(x)=\frac{1}{2} k \left(x^2 + y^2 + z^2 \right)
+\end{equation}</span></p>
+<p>Where <span class="math notranslate nohighlight">\(k\)</span> is the only parameter and represents the stiffness of the harmonic potential -or the stiffness of the harmonic spring described by the hookes’ law-. Notice that the potential for potential dimensions <span class="math notranslate nohighlight">\(Y\)</span> and <span class="math notranslate nohighlight">\(Z\)</span>, has the same shape. In this way we have a three dimensional harmonic well. But let’s see here only the proyection over a single dimension <span class="math notranslate nohighlight">\(X\)</span> since <span class="math notranslate nohighlight">\(Y\)</span> and <span class="math notranslate nohighlight">\(Z\)</span> are decorrelated, and there by will behave as <span class="math notranslate nohighlight">\(X\)</span>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">harmonic_well</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">k</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">k</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">k</span><span class="o">=</span><span class="mf">5.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span><span class="o">/</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span><span class="o">**</span><span class="mi">2</span> <span class="c1"># stiffness of the harmonic potential</span>
+
+<span class="n">x_serie</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mf">5.</span><span class="p">,</span> <span class="mf">5.</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">)</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_serie</span><span class="p">,</span> <span class="n">harmonic_well</span><span class="p">(</span><span class="n">x_serie</span><span class="p">,</span> <span class="n">k</span><span class="p">),</span> <span class="s1">&#39;r-&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;X (</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Energy (</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Harmonic Well&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/systems_harmonic_well_potential_3_0.png" src="../_images/systems_harmonic_well_potential_3_0.png" />
+</div>
+</div>
+<p>Different values of <span class="math notranslate nohighlight">\(k\)</span> can be tested to graphically see how this parameter accounts for the openness of the well’s arms. Or, as it is described below, the period of oscillations of a particle of mass <span class="math notranslate nohighlight">\(m\)</span> in a newtonian dynamics.</p>
+<p>The hooks’ law describes the force suffered by a mass attached to an ideal spring as:</p>
+<p><span class="math">\begin{equation}
+F(x) = -k(x-x_{0})
+\end{equation}</span></p>
+<p>Where <span class="math notranslate nohighlight">\(k\)</span> is the stiffness of the spring and <span class="math notranslate nohighlight">\(x_{0}\)</span> is the equilibrium position. Now, since the force is minus the gradient of the potential energy <span class="math notranslate nohighlight">\(V(x)\)</span>,</p>
+<p><span class="math">\begin{equation}
+F(x) = -\frac{d V(x)}{dx},
+\end{equation}</span></p>
+<p>we can proof that the spring force is the result of the first harmonic potential derivative:</p>
+<p><span class="math">\begin{equation}
+V(x) = \frac{1}{2} k (x-x_{0})^{2}
+\end{equation}</span></p>
+<p>And the angular frequency of oscillations of a spring, or a particle goberned by the former potential, is:</p>
+<p><span class="math">\begin{equation}
+\omega = \sqrt{\frac{k}{m}}
+\end{equation}</span></p>
+<p>Where <span class="math notranslate nohighlight">\(m\)</span> is the mass of the particle. This way the potential can also be written as:</p>
+<p><span class="math">\begin{equation}
+V(x) = \frac{1}{2} k (x-x_{0})^{2} = \frac{1}{2} m \omega^{2} (x-x_{0})^{2}
+\end{equation}</span></p>
+<p>Finnally, the time period of these oscillations are immediately computed from the mass of the particle, <span class="math notranslate nohighlight">\(m\)</span>, and the stiffness parameter <span class="math notranslate nohighlight">\(k\)</span>. Given that by definition:</p>
+<p><span class="math">\begin{equation}
+T = 2\pi / \omega
+\end{equation}</span></p>
+<p>Then:</p>
+<p><span class="math">\begin{equation}
+T = 2\pi \sqrt{\frac{m}{k}}
+\end{equation}</span></p>
+<div class="section" id="Working-with-this-test-system">
+<h2>Working with this test system<a class="headerlink" href="#Working-with-this-test-system" title="Permalink to this headline">¶</a></h2>
+<p>This test system is fully documented in <a class="reference external" href="../api/_autosummary/uibcdf_test_systems.HarmonicWell.html">HarmonicWell class API</a>. Let’s see an example of how to interact with it:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">uibcdf_test_systems</span> <span class="kn">import</span> <span class="n">HarmonicWell</span>
+
+<span class="n">harmonic_well</span> <span class="o">=</span> <span class="n">HarmonicWell</span><span class="p">(</span><span class="n">n_particles</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">mass</span> <span class="o">=</span> <span class="mi">32</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">amu</span><span class="p">,</span>
+                             <span class="n">k</span><span class="o">=</span><span class="mf">5.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span><span class="o">/</span><span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>The potential expression and the value of the parameters are stored in <code class="docutils literal notranslate"><span class="pre">potential</span></code>:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">harmonic_well</span><span class="o">.</span><span class="n">potential_expression</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="math notranslate nohighlight">
+$\displaystyle 0.5 k \left(x^{2} + y^{2} + z^{2}\right)$</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">harmonic_well</span><span class="o">.</span><span class="n">potential_parameters</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>{&#39;k&#39;: Quantity(value=5.0, unit=kilocalorie/(nanometer**2*mole))}
+</pre></div>
+</div>
+</div>
+<p>And there is a method to evaluate the potential at a given positions:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">harmonic_well</span><span class="o">.</span><span class="n">potential</span><span class="p">([</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Quantity(value=5.625, unit=kilocalorie/mole)
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">position</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">200</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
+<span class="n">position</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">5.</span><span class="p">,</span> <span class="mf">5.</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">position</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">harmonic_well</span><span class="o">.</span><span class="n">potential</span><span class="p">(</span><span class="n">position</span><span class="p">)</span> <span class="p">,</span> <span class="s1">&#39;r-&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;X (</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Energy (</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Harmonic Well&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/systems_harmonic_well_potential_13_0.png" src="../_images/systems_harmonic_well_potential_13_0.png" />
+</div>
+</div>
+<div class="section" id="Newtonian-dynamics">
+<h3>Newtonian dynamics<a class="headerlink" href="#Newtonian-dynamics" title="Permalink to this headline">¶</a></h3>
+<p>A newtonian dynamics can be easily run thanks to the method ‘simulation.newtonian’ included in this library. This method is nothing but the sequence of instructions to simulate a system with OpenMM wrapped up here for the sake of .</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">uibcdf_test_systems.simulation</span> <span class="kn">import</span> <span class="n">newtonian</span>
+
+<span class="n">initial_positions</span> <span class="o">=</span>  <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
+<span class="n">initial_velocities</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span><span class="o">/</span><span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span>
+<span class="n">initial_positions</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.1</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
+
+<span class="n">time</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">velocity</span><span class="p">,</span> <span class="n">kinetic_energy</span><span class="p">,</span> <span class="n">potential_energy</span> <span class="o">=</span> <span class="n">newtonian</span> <span class="p">(</span><span class="n">harmonic_well</span><span class="o">.</span><span class="n">system</span><span class="p">,</span>
+                                                                        <span class="n">initial_positions</span> <span class="o">=</span> <span class="n">initial_positions</span><span class="p">,</span>
+                                                                        <span class="n">initial_velocities</span> <span class="o">=</span> <span class="n">initial_velocities</span><span class="p">,</span>
+                                                                        <span class="n">integration_timestep</span> <span class="o">=</span> <span class="mf">0.02</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">,</span>
+                                                                        <span class="n">saving_timestep</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">,</span>
+                                                                        <span class="n">total_time</span> <span class="o">=</span> <span class="mi">50</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>We can now plot the trajectory of the x coordinate:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">position</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time (</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">unit</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;X (</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">position</span><span class="o">.</span><span class="n">unit</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/systems_harmonic_well_potential_18_0.png" src="../_images/systems_harmonic_well_potential_18_0.png" />
+</div>
+</div>
+<p>We can wonder now if the period of these oscillations is in agreement with the value calculated above.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">mass</span> <span class="o">=</span> <span class="mi">32</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">amu</span>
+<span class="n">T</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mass</span><span class="o">/</span><span class="n">k</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The period of the small oscillations around the minimum is&#39;</span><span class="p">,</span><span class="n">T</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+The period of the small oscillations around the minimum is 7.770948260727904 ps
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">position</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">T</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span> <span class="c1"># Period of the harmonic oscillations</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time (</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">unit</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;X (</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">position</span><span class="o">.</span><span class="n">unit</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/systems_harmonic_well_potential_21_0.png" src="../_images/systems_harmonic_well_potential_21_0.png" />
+</div>
+</div>
+<p>Remember that the integration timestep must be smaller than <span class="math notranslate nohighlight">\(\sim T/10.0\)</span> to guarantee that no artifacts are introduced by the timestep size.</p>
+<p>The newtonian dynamics can also include damping. This way we can simulate damped oscillations around the minimum.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">time</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">velocity</span><span class="p">,</span> <span class="n">kinetic_energy</span><span class="p">,</span> <span class="n">potential_energy</span> <span class="o">=</span> <span class="n">newtonian</span> <span class="p">(</span><span class="n">harmonic_well</span><span class="o">.</span><span class="n">system</span><span class="p">,</span>
+                                                                        <span class="n">friction</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">/</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">,</span>
+                                                                        <span class="n">initial_positions</span> <span class="o">=</span> <span class="n">initial_positions</span><span class="p">,</span>
+                                                                        <span class="n">initial_velocities</span> <span class="o">=</span> <span class="n">initial_velocities</span><span class="p">,</span>
+                                                                        <span class="n">integration_timestep</span> <span class="o">=</span> <span class="mf">0.02</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">,</span>
+                                                                        <span class="n">saving_timestep</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">,</span>
+                                                                        <span class="n">total_time</span> <span class="o">=</span> <span class="mi">50</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">position</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time (</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">unit</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;X (</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">position</span><span class="o">.</span><span class="n">unit</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/systems_harmonic_well_potential_24_0.png" src="../_images/systems_harmonic_well_potential_24_0.png" />
+</div>
+</div>
+<p>What would be the friction value needed to enter in the overdamped regime?</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">time</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">velocity</span><span class="p">,</span> <span class="n">kinetic_energy</span><span class="p">,</span> <span class="n">potential_energy</span> <span class="o">=</span> <span class="n">newtonian</span> <span class="p">(</span><span class="n">harmonic_well</span><span class="o">.</span><span class="n">system</span><span class="p">,</span>
+                                                                        <span class="n">friction</span> <span class="o">=</span> <span class="mf">5.0</span> <span class="o">/</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">,</span>
+                                                                        <span class="n">initial_positions</span> <span class="o">=</span> <span class="n">initial_positions</span><span class="p">,</span>
+                                                                        <span class="n">initial_velocities</span> <span class="o">=</span> <span class="n">initial_velocities</span><span class="p">,</span>
+                                                                        <span class="n">integration_timestep</span> <span class="o">=</span> <span class="mf">0.02</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">,</span>
+                                                                        <span class="n">saving_timestep</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">,</span>
+                                                                        <span class="n">total_time</span> <span class="o">=</span> <span class="mi">50</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">position</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time (</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">unit</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;X (</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">position</span><span class="o">.</span><span class="n">unit</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/systems_harmonic_well_potential_26_0.png" src="../_images/systems_harmonic_well_potential_26_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Langevin-NVT-run">
+<h3>Langevin NVT run<a class="headerlink" href="#Langevin-NVT-run" title="Permalink to this headline">¶</a></h3>
+<p>Thanks to the <code class="docutils literal notranslate"><span class="pre">simulation.langevin_NVT</span></code> method in this library, a simple newtonian dynamics can be run with few efforce:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">uibcdf_test_systems.simulation</span> <span class="kn">import</span> <span class="n">langevin_NVT</span>
+
+<span class="n">initial_positions</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
+
+<span class="n">time</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">velocity</span><span class="p">,</span> <span class="n">kinetic_energy</span><span class="p">,</span> <span class="n">potential_energy</span> <span class="o">=</span> <span class="n">langevin_NVT</span> <span class="p">(</span><span class="n">harmonic_well</span><span class="o">.</span><span class="n">system</span><span class="p">,</span>
+                                                                           <span class="n">temperature</span> <span class="o">=</span> <span class="mi">300</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kelvin</span><span class="p">,</span>
+                                                                           <span class="n">friction</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">,</span>
+                                                                           <span class="n">initial_positions</span> <span class="o">=</span> <span class="n">initial_positions</span><span class="p">,</span>
+                                                                           <span class="n">initial_velocities</span> <span class="o">=</span> <span class="n">initial_velocities</span><span class="p">,</span>
+                                                                           <span class="n">integration_timestep</span> <span class="o">=</span> <span class="mf">0.02</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">,</span>
+                                                                           <span class="n">saving_timestep</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">,</span>
+                                                                           <span class="n">total_time</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanoseconds</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Let us see the time evolution of the coordinate <span class="math notranslate nohighlight">\(x\)</span> of our single particle:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">position</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time (</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">unit</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;X (</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">position</span><span class="o">.</span><span class="n">unit</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/systems_harmonic_well_potential_30_0.png" src="../_images/systems_harmonic_well_potential_30_0.png" />
+</div>
+</div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -439,6 +808,8 @@ div.rendered_html tbody tr:hover {
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span>
 </pre></div>
+</div>
+</div>
 </div>
 </div>
 </div>

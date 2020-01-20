@@ -39,7 +39,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Systems" href="../api/index.html" />
-    <link rel="prev" title="Simulations" href="index.html" /> 
+    <link rel="prev" title="Newtonian" href="newtonian.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -94,8 +94,22 @@
 <p class="caption"><span class="caption-text">User Guide</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../systems/index.html">Systems</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../systems/free_particle.html">Free Particle</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../systems/harmonic_well_potential.html">Harmonic Well Potential</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../systems/free_particle.html">Free Particle</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../systems/free_particle.html#Working-with-this-test-system">Working with this test system</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../systems/free_particle.html#Newtonian-dynamics">Newtonian dynamics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../systems/free_particle.html#Langevin-NVT-run">Langevin NVT run</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../systems/harmonic_well_potential.html">Harmonic Well Potential</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../systems/harmonic_well_potential.html#Working-with-this-test-system">Working with this test system</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../systems/harmonic_well_potential.html#Newtonian-dynamics">Newtonian dynamics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../systems/harmonic_well_potential.html#Langevin-NVT-run">Langevin NVT run</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../systems/double_well_potential.html">Double Well Potential</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../systems/double_well_potential.html#Symmetric-case-(b=0)">Symmetric case (<span class="math notranslate nohighlight">\(b=0\)</span>)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../systems/double_well_potential.html#Frequency-of-small-oscillations-around-the-minima">Frequency of small oscillations around the minima</a></li>
@@ -115,6 +129,7 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Simulations</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="newtonian.html">Newtonian</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Langevin NVT</a></li>
 </ul>
 </li>
@@ -128,6 +143,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../api/index.html#simulations">Simulations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/uibcdf_test_systems.simulation.newtonian.html">simulation.newtonian</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/uibcdf_test_systems.simulation.langevin_NVT.html">simulation.langevin_NVT</a></li>
 </ul>
 </li>
@@ -420,24 +436,135 @@ div.rendered_html tbody tr:hover {
 }
 </style>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">sympy</span> <span class="k">as</span> <span class="nn">sy</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">simtk</span> <span class="kn">import</span> <span class="n">unit</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="Langevin-NVT">
 <h1>Langevin NVT<a class="headerlink" href="#Langevin-NVT" title="Permalink to this headline">¶</a></h1>
+<p>To easily run tests with langevin dynamics, the method <code class="docutils literal notranslate"><span class="pre">simulations.langevin_NVT</span></code> provides a simple interface. Let’s first of all see a simple example on how to use it:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
+<span></span><span class="kn">from</span> <span class="nn">uibcdf_test_systems.simulation</span> <span class="kn">import</span> <span class="n">langevin_NVT</span>
+<span class="kn">from</span> <span class="nn">uibcdf_test_systems</span> <span class="kn">import</span> <span class="n">FreeParticle</span>
+
+<span class="n">free_particle</span> <span class="o">=</span> <span class="n">FreeParticle</span><span class="p">(</span><span class="n">n_particles</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">mass</span><span class="o">=</span><span class="mi">10</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">amu</span><span class="p">)</span>
+
+<span class="n">initial_positions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
+<span class="n">initial_velocities</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span><span class="o">/</span><span class="n">unit</span><span class="o">.</span><span class="n">picometers</span>
+
+<span class="n">time</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">velocity</span><span class="p">,</span> <span class="n">kinetic_energy</span><span class="p">,</span> <span class="n">potential_energy</span> <span class="o">=</span> <span class="n">langevin_NVT</span><span class="p">(</span><span class="n">system</span><span class="o">=</span><span class="n">free_particle</span><span class="o">.</span><span class="n">system</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="mi">300</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">kelvin</span><span class="p">,</span>
+                                                                         <span class="n">friction</span><span class="o">=</span><span class="mf">1.0</span><span class="o">/</span><span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">,</span> <span class="n">initial_positions</span><span class="o">=</span><span class="n">initial_positions</span><span class="p">,</span>
+                                                                         <span class="n">initial_velocities</span><span class="o">=</span><span class="n">initial_velocities</span><span class="p">,</span> <span class="n">integration_timestep</span><span class="o">=</span><span class="mf">0.1</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">,</span>
+                                                                         <span class="n">saving_timestep</span><span class="o">=</span><span class="mf">1.0</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">,</span> <span class="n">total_time</span><span class="o">=</span><span class="mf">0.5</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">nanoseconds</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
+<p>Every method in the module <code class="docutils literal notranslate"><span class="pre">simulation</span></code> has at least five possible output arguments: <code class="docutils literal notranslate"><span class="pre">time</span></code>, <code class="docutils literal notranslate"><span class="pre">position</span></code>, <code class="docutils literal notranslate"><span class="pre">velocity</span></code>, <code class="docutils literal notranslate"><span class="pre">kinetic_energy</span></code> and <code class="docutils literal notranslate"><span class="pre">potential_energy</span></code>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">position</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>[&lt;matplotlib.lines.Line2D at 0x7f15fe60f8d0&gt;]
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/simulations_langevin_NVT_4_1.png" src="../_images/simulations_langevin_NVT_4_1.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># %load ../../uibcdf_test_systems/simulation/langevin_NVT.py</span>
+
+<span class="k">def</span> <span class="nf">langevin_NVT</span><span class="p">(</span><span class="n">system</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">friction</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">initial_positions</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">initial_velocities</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">integration_timestep</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">saving_timestep</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">total_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">platform_name</span><span class="o">=</span><span class="s1">&#39;CPU&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+
+    <span class="kn">from</span> <span class="nn">simtk.openmm</span> <span class="kn">import</span> <span class="n">LangevinIntegrator</span><span class="p">,</span> <span class="n">Platform</span><span class="p">,</span> <span class="n">Context</span>
+    <span class="kn">from</span> <span class="nn">simtk</span> <span class="kn">import</span> <span class="n">unit</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+    <span class="c1"># System parameters.</span>
+    <span class="n">n_particles</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">getNumParticles</span><span class="p">()</span>
+
+    <span class="c1"># Integration parameters.</span>
+
+    <span class="n">steps_per_cicle</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">saving_timestep</span><span class="o">/</span><span class="n">integration_timestep</span><span class="p">))</span>
+    <span class="n">n_steps</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">total_time</span><span class="o">/</span><span class="n">integration_timestep</span><span class="p">))</span>
+    <span class="n">n_cicles</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">n_steps</span><span class="o">/</span><span class="n">steps_per_cicle</span><span class="p">))</span>
+
+    <span class="c1"># Integrator.</span>
+
+    <span class="n">integrator</span> <span class="o">=</span> <span class="n">LangevinIntegrator</span><span class="p">(</span><span class="n">temperature</span><span class="p">,</span> <span class="n">friction</span><span class="p">,</span> <span class="n">integration_timestep</span><span class="p">)</span>
+
+    <span class="c1"># Platform.</span>
+
+    <span class="n">platform</span> <span class="o">=</span> <span class="n">Platform</span><span class="o">.</span><span class="n">getPlatformByName</span><span class="p">(</span><span class="n">platform_name</span><span class="p">)</span>
+
+    <span class="c1"># Context.</span>
+
+    <span class="n">context</span> <span class="o">=</span> <span class="n">Context</span><span class="p">(</span><span class="n">system</span><span class="p">,</span> <span class="n">integrator</span><span class="p">,</span> <span class="n">platform</span><span class="p">)</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">setPositions</span><span class="p">(</span><span class="n">initial_positions</span><span class="p">)</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">setVelocities</span><span class="p">(</span><span class="n">initial_velocities</span><span class="p">)</span>
+
+    <span class="c1"># Reporter arrays: time, position, velocity, kinetic_energy, potential_energy</span>
+
+    <span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">n_cicles</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span>
+    <span class="n">position</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">n_cicles</span><span class="p">,</span> <span class="n">n_particles</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
+    <span class="n">velocity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">n_cicles</span><span class="p">,</span> <span class="n">n_particles</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span><span class="o">/</span><span class="n">unit</span><span class="o">.</span><span class="n">picosecond</span>
+    <span class="n">kinetic_energy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">n_cicles</span><span class="p">,</span> <span class="n">n_particles</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span>
+    <span class="n">potential_energy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">n_cicles</span><span class="p">,</span> <span class="n">n_particles</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span>
+
+    <span class="c1"># Initial context in reporters</span>
+
+    <span class="n">state</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">getState</span><span class="p">(</span><span class="n">getPositions</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">getVelocities</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">getEnergy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">getTime</span><span class="p">()</span>
+    <span class="n">position</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">getPositions</span><span class="p">()</span>
+    <span class="n">velocity</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">getVelocities</span><span class="p">()</span>
+    <span class="n">kinetic_energy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">getKineticEnergy</span><span class="p">()</span>
+    <span class="n">potential_energy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">getPotentialEnergy</span><span class="p">()</span>
+
+    <span class="c1"># Integration loop saving every cicle steps</span>
+
+    <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_cicles</span><span class="p">):</span>
+        <span class="n">context</span><span class="o">.</span><span class="n">getIntegrator</span><span class="p">()</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">steps_per_cicle</span><span class="p">)</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">getState</span><span class="p">(</span><span class="n">getPositions</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">getVelocities</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">getEnergy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">time</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">getTime</span><span class="p">()</span>
+        <span class="n">position</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">getPositions</span><span class="p">()</span>
+        <span class="n">velocity</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">getVelocities</span><span class="p">()</span>
+        <span class="n">kinetic_energy</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">getKineticEnergy</span><span class="p">()</span>
+        <span class="n">potential_energy</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">getPotentialEnergy</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">time</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">velocity</span><span class="p">,</span> <span class="n">kinetic_energy</span><span class="p">,</span> <span class="n">potential_energy</span>
+
 </pre></div>
 </div>
 </div>
@@ -454,7 +581,7 @@ div.rendered_html tbody tr:hover {
         <a href="../api/index.html" class="btn btn-neutral float-right" title="Systems" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral float-left" title="Simulations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="newtonian.html" class="btn btn-neutral float-left" title="Newtonian" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

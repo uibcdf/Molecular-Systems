@@ -22,6 +22,7 @@ Simulation methods
 .. autosummary::
    :toctree: _autosummary
 
+   simulation.newtonian
    simulation.langevin_NVT
 
 

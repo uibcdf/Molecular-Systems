@@ -51,12 +51,6 @@ class DoubleWell():
         b: unit.Quantity
             Parameter of the external potential with units of energy.
 
-        Attributes
-        ----------
-        system: openmm.System
-            bla bla
-
-
         Examples
         --------
 
