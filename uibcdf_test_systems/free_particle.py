@@ -1,5 +1,3 @@
-
-
 class FreeParticle():
 
     """Free particles
@@ -28,7 +26,7 @@ class FreeParticle():
        n_particles: int
            Number of particles in the system
        mass: unit.Quantity
-           Mass of the particles
+           Mass of the particles (in unites of mass)
 
        Examples
        --------
@@ -36,9 +34,6 @@ class FreeParticle():
        >>> from uibcdf_test_systems import FreeParticle
        >>> from simtk import unit
        >>> free_particles = FreeParticle(n_particles=10, mass=32*unit.amu)
-
-       See Also
-       --------
 
        Notes
        -----

@@ -13,10 +13,15 @@ class HarmonicWell():
     ----------
     system
         Openmm system
-    potential expression
+    potential_expression
         External potential expression as a sympy function.
     potential_parameters
         Dictionary with the values of the parameters of the potential.
+
+    Methods
+    -------
+    potential
+        Potential evaluation at certain coordinates.
 
     """
 
@@ -150,5 +155,4 @@ class HarmonicWell():
         else:
 
             raise ValueError('The input argument coordinates needs a specific shape.')
-
 

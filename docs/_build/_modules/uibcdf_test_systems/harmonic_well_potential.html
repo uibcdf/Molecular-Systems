@@ -223,10 +223,15 @@
 <span class="sd">    ----------</span>
 <span class="sd">    system</span>
 <span class="sd">        Openmm system</span>
-<span class="sd">    potential expression</span>
+<span class="sd">    potential_expression</span>
 <span class="sd">        External potential expression as a sympy function.</span>
 <span class="sd">    potential_parameters</span>
 <span class="sd">        Dictionary with the values of the parameters of the potential.</span>
+
+<span class="sd">    Methods</span>
+<span class="sd">    -------</span>
+<span class="sd">    potential</span>
+<span class="sd">        Potential evaluation at certain coordinates.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -360,7 +365,6 @@
         <span class="k">else</span><span class="p">:</span>
 
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;The input argument coordinates needs a specific shape.&#39;</span><span class="p">)</span></div></div>
-
 
 </pre></div>
 

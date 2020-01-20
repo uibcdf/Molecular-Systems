@@ -208,9 +208,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for uibcdf_test_systems.free_particle</h1><div class="highlight"><pre>
-<span></span>
-
-<div class="viewcode-block" id="FreeParticle"><a class="viewcode-back" href="../../api/_autosummary/uibcdf_test_systems.FreeParticle.html#uibcdf_test_systems.FreeParticle">[docs]</a><span class="k">class</span> <span class="nc">FreeParticle</span><span class="p">():</span>
+<div class="viewcode-block" id="FreeParticle"><a class="viewcode-back" href="../../api/_autosummary/uibcdf_test_systems.FreeParticle.html#uibcdf_test_systems.FreeParticle">[docs]</a><span></span><span class="k">class</span> <span class="nc">FreeParticle</span><span class="p">():</span>
 
     <span class="sd">&quot;&quot;&quot;Free particles</span>
 
@@ -238,7 +236,7 @@
 <span class="sd">       n_particles: int</span>
 <span class="sd">           Number of particles in the system</span>
 <span class="sd">       mass: unit.Quantity</span>
-<span class="sd">           Mass of the particles</span>
+<span class="sd">           Mass of the particles (in unites of mass)</span>
 
 <span class="sd">       Examples</span>
 <span class="sd">       --------</span>
@@ -246,9 +244,6 @@
 <span class="sd">       &gt;&gt;&gt; from uibcdf_test_systems import FreeParticle</span>
 <span class="sd">       &gt;&gt;&gt; from simtk import unit</span>
 <span class="sd">       &gt;&gt;&gt; free_particles = FreeParticle(n_particles=10, mass=32*unit.amu)</span>
-
-<span class="sd">       See Also</span>
-<span class="sd">       --------</span>
 
 <span class="sd">       Notes</span>
 <span class="sd">       -----</span>
