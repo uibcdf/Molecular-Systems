@@ -118,8 +118,8 @@ def newtonian(system, friction=None,
     time = np.zeros([n_cicles], np.float32) * unit.picoseconds
     position = np.zeros([n_cicles, n_particles, 3], np.float32) * unit.nanometers
     velocity = np.zeros([n_cicles, n_particles, 3], np.float32) * unit.nanometers/unit.picosecond
-    kinetic_energy = np.zeros([n_cicles, n_particles, 3], np.float32) * unit.kilocalories_per_mole
-    potential_energy = np.zeros([n_cicles, n_particles, 3], np.float32) * unit.kilocalories_per_mole
+    kinetic_energy = np.zeros([n_cicles], np.float32) * unit.kilocalories_per_mole
+    potential_energy = np.zeros([n_cicles], np.float32) * unit.kilocalories_per_mole
 
     # Initial context in reporters
 
