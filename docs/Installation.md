@@ -2,7 +2,7 @@
 
 ## Latest stable version
 
-The latest stable version of MolModMT can be installed from the UIBCDF Anaconda channel:
+The latest stable version of UIBCDF_test_systems can be installed from the UIBCDF Anaconda channel:
 
 ```bash
 conda -c uibcdf uibcdf_test_systems
@@ -11,7 +11,7 @@ conda -c uibcdf uibcdf_test_systems
 Once the library was installed, it can be removed from your conda environment with:
 
 ```bash
-conda remove molmodmt
+conda remove uibcdf_test_systems
 ```
 
 ## Developing version
@@ -29,6 +29,6 @@ python setup.py develop
 To uninstall this version of the library:
 
 ```bash
-pip uninstall molmodmt
+pip uninstall uibcdf_test_systems
 ```
 
