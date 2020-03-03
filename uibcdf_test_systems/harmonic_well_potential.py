@@ -11,6 +11,10 @@ class HarmonicWell():
 
     Attributes
     ----------
+    n_particles
+        Number of particles
+    mass
+        Mass of particles
     system
         Openmm system
     potential_expression
@@ -69,6 +73,8 @@ class HarmonicWell():
         import simtk.openmm.app as app
 
         self.system = mm.System()
+        self.n_particles = n_particles
+        self.mass = mass
 
         for ii in range(n_particles):
             self.system.addParticle(mass)

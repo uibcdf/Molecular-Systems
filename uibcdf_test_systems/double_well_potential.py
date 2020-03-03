@@ -11,6 +11,10 @@ class DoubleWell():
 
     Attributes
     ----------
+    n_particles
+        Number of particles
+    mass
+        Mass of particles
     system
         Openmm system
     potential_expression
@@ -29,6 +33,8 @@ class DoubleWell():
     system = None
     potential_expression = None
     potential_parameters = None
+    n_particles = None
+    mass = None
 
     def __init__(self, n_particles, mass, Eo, a, b):
 
@@ -73,6 +79,8 @@ class DoubleWell():
         import simtk.openmm.app as app
 
         self.system = mm.System()
+        self.n_particles = n_particles
+        self.mass = mass
 
         for ii in range(n_particles):
             self.system.addParticle(mass)

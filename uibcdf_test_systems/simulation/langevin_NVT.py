@@ -1,7 +1,7 @@
 
 def langevin_NVT(system, temperature=None, friction=None,
                  initial_positions=None, initial_velocities=None, integration_timestep=None,
-                 saving_timestep=None, total_time=None, platform_name='CPU', verbose=True):
+                 saving_timestep=None, total_time=None, platform_name='CUDA', verbose=True):
 
     """Langevin NVT dynamics of a molecular system with OpenMM.
 
@@ -131,9 +131,18 @@ def langevin_NVT(system, temperature=None, friction=None,
     kinetic_energy[0] = state.getKineticEnergy()
     potential_energy[0] = state.getPotentialEnergy()
 
+    # Iterator:
+
+    if verbose==True:
+        from tqdm import tqdm
+        iterator=tqdm(range(1, n_cicles))
+    else:
+        iterator=range(1, n_cicles)
+
+
     # Integration loop saving every cicle steps
 
-    for ii in range(1, n_cicles):
+    for ii in iterator:
         context.getIntegrator().step(steps_per_cicle)
         state = context.getState(getPositions=True, getVelocities=True, getEnergy=True)
         time[ii] = state.getTime()
