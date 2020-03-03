@@ -1,4 +1,4 @@
-def probability_density(item, range=None, n_bins=None, temperature=None):
+def get_probability_density(item, range=None, n_bins=None, temperature=None):
 
     from simtk import unit
 
@@ -42,7 +42,7 @@ def probability_density(item, range=None, n_bins=None, temperature=None):
     return probability_density, coordinates, bin_limites, delta_x
 
 
-def partition_function(item, range=None, n_bins=None, temperature=None):
+def get_partition_function(item, range=None, n_bins=None, temperature=None):
 
     if hasattr(item, 'system'):
 
