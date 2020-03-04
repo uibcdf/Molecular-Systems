@@ -32,6 +32,7 @@ class HarmonicWell():
     system = None
     potential_expression = None
     potential_parameters = None
+    oscillation_period = None
 
     def __init__(self, n_particles, mass, k):
 
@@ -71,6 +72,7 @@ class HarmonicWell():
         import simtk.openmm as mm
         import simtk.unit as unit
         import simtk.openmm.app as app
+        from numpy import pi, sqrt
 
         self.system = mm.System()
         self.n_particles = n_particles
@@ -86,6 +88,10 @@ class HarmonicWell():
         for ii in range(n_particles):
             force.addParticle(ii, [])
         self.system.addForce(force)
+
+        # Oscillation period
+
+        self.oscillation_period = 2*pi*sqrt(mass/k)
 
         # Potential expresion and constants
 
@@ -162,3 +168,5 @@ class HarmonicWell():
 
             raise ValueError('The input argument coordinates needs a specific shape.')
 
+    def get_standard_deviation(temperature):
+        pass
