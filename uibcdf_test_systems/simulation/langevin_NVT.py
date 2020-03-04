@@ -21,9 +21,10 @@ def langevin_NVT(system, temperature=None, friction=None,
     initial_positions: unit.Quantity
         Initial positions of the system as a numpy array with shape [n_particles, 3] and units of
         length. Where 'n_particles' is the number of particles of the system.
-    initial_velocities: unit.Quantity
+    initial_velocities: unit.Quantity, (default is None)
         Initial velocities of the system as a numpy array with shape [n_particles, 3] and units of
-        length/time. Where 'n_particles' is the number of particles of the system.
+        length/time. Where 'n_particles' is the number of particles of the system. If None, random
+        velocities according to the Boltzmann distribution at the given temperature.
     integration_timestep: unit.Quantity
         Time step used by the integrator of the equations of motion. The parameter needs to have
         units of time.
@@ -112,7 +113,10 @@ def langevin_NVT(system, temperature=None, friction=None,
 
     context = Context(system, integrator, platform)
     context.setPositions(initial_positions)
-    context.setVelocities(initial_velocities)
+    if initial_velocities is None:
+        context.setVelocitiesToTemperature(temperature)
+    else:
+        context.setVelocities(initial_velocities)
 
     # Reporter arrays: time, position, velocity, kinetic_energy, potential_energy
 
