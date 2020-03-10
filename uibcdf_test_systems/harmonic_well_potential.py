@@ -168,5 +168,12 @@ class HarmonicWell():
 
             raise ValueError('The input argument coordinates needs a specific shape.')
 
-    def get_standard_deviation(temperature):
-        pass
+    def standard_deviation(self, temperature):
+
+        from numpy import sqrt
+        from simtk.unit import BOLTZMANN_CONSTANT_kB, AVOGADRO_CONSTANT_NA
+
+        k = self.potential_parameters['k']
+        kB = BOLTZMANN_CONSTANT_kB * AVOGADRO_CONSTANT_NA
+        return sqrt(kB*temperature/k)
+
