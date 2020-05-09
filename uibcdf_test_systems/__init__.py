@@ -1,6 +1,4 @@
-from .free_particle import FreeParticle
-from .harmonic_well_potential import HarmonicWell
-from .double_well_potential import DoubleWell
+from . import systems as systems
 from . import simulation as simulation
 from . import analysis as analysis
 
