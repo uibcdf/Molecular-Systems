@@ -3,3 +3,7 @@ from .harmonic_well_potential import HarmonicWell
 from .double_well_potential import DoubleWell
 from .dialanine import AlanineDipeptideVacuum
 from .dialanine import AlanineDipeptideImplicitSolvent
+from .dialanine import AlanineDipeptideExplicitSolvent
+from .pentalanine import AlaninePentapeptideVacuum
+from .pentalanine import AlaninePentapeptideImplicitSolvent
+from .pentalanine import AlaninePentapeptideExplicitSolvent

@@ -2,11 +2,11 @@ import simtk.openmm as mm
 import simtk.unit as unit
 import simtk.openmm.app as app
 
-class AlanineDipeptideVacuum():
+class AlaninePentapeptideVacuum():
 
-    """Alanine dipeptide in vacuum
+    """Alanine pentapeptide in vacuum
 
-    Alanine dipeptide same as OpenMMTools
+    Alanine pentapeptide same as OpenMMTools
 
 
     Attributes
@@ -43,15 +43,15 @@ class AlanineDipeptideVacuum():
         Examples
         --------
 
-        >>> from uibcdf_test_systems.systems import AlanineDipeptideVacuum
+        >>> from uibcdf_test_systems.systems import AlaninePentapeptideVacuum
         >>> from simtk import unit
-        >>> dialanine = AlanineDipeptideVacuum(forcefield='xxx')
+        >>> pentalanine = AlaninePentapeptideVacuum(forcefield='xxx')
 
         Notes
         -----
 
         See `corresponding documentation in the user guide regarding this class
-        <../../systems/dialanine.html>`_.
+        <../../systems/pentalanine.html>`_.
 
         """
 
@@ -61,15 +61,15 @@ class AlanineDipeptideVacuum():
 
             import molsysmt as msm
             sequence = 'seq3:AceAlaNme'
-            msm.build_peptide(sequence, forcefield='AMBER96', to_form=['dialanine_amber96_vacuum.prmtop','dialaninen_amber96_vacuum.inpcrd'])
+            msm.build_peptide(sequence, forcefield='AMBER96', to_form=['pentalanine_amber96_vacuum.prmtop','pentalaninen_amber96_vacuum.inpcrd'])
         """
 
         import pathlib
         dirdata = pathlib.Path(__file__).parent.absolute()
 
         if forcefield=='AMBER96':
-            prmtop_filepath = pathlib.PurePath(dirdata).joinpath('dialanine_amber96_gbsa.prmtop')
-            inpcrd_filepath = pathlib.PurePath(dirdata).joinpath('dialanine_amber96_gbsa.inpcrd')
+            prmtop_filepath = pathlib.PurePath(dirdata).joinpath('pentalanine_amber96_gbsa.prmtop')
+            inpcrd_filepath = pathlib.PurePath(dirdata).joinpath('pentalanine_amber96_gbsa.inpcrd')
         else:
             raise NotImplementedError('The system was not implemented yet with this forcefield.')
 
@@ -81,11 +81,11 @@ class AlanineDipeptideVacuum():
         self.system = amber_prmtop_file.createSystem(implicitSolvent=None, constraints=constraints,
                                                      nonbondedCutoff=None, hydrogenMass=hydrogen_mass)
 
-class AlanineDipeptideImplicitSolvent():
+class AlaninePentapeptideImplicitSolvent():
 
-    """Alanine dipeptide in implicit solvent
+    """Alanine pentapeptide in implicit solvent
 
-    Alanine dipeptide same as OpenMMTools
+    Alanine pentapeptide same as OpenMMTools
 
 
     Attributes
@@ -108,7 +108,7 @@ class AlanineDipeptideImplicitSolvent():
 
     def __init__(self, forcefield='AMBER96', implicit_solvent=app.OBC1, constraints=app.HBonds, hydrogen_mass=None):
 
-        """Creating a new instance of AlanineDipeptideImplicitSolvent
+        """Creating a new instance of AlaninePentapeptideImplicitSolvent
 
         ...
 
@@ -125,15 +125,15 @@ class AlanineDipeptideImplicitSolvent():
         Examples
         --------
 
-        >>> from uibcdf_test_systems.systems import AlanineDipeptideImplicitSolvent
+        >>> from uibcdf_test_systems.systems import AlaninePentapeptideImplicitSolvent
         >>> from simtk import unit
-        >>> dialanine = AlanineDipeptideImplicitSolvent(forcefield='xxx')
+        >>> pentalanine = AlaninePentapeptideImplicitSolvent(forcefield='xxx')
 
         Notes
         -----
 
         See `corresponding documentation in the user guide regarding this class
-        <../../systems/dialanine.html>`_.
+        <../../systems/pentalanine.html>`_.
 
         """
 
@@ -143,15 +143,15 @@ class AlanineDipeptideImplicitSolvent():
 
             import molsysmt as msm
             sequence = 'seq3:AceAlaNme'
-            msm.build_peptide(sequence, forcefield='AMBER96', to_form=['dialanine_amber96_vacuum.prmtop','dialaninen_amber96_vacuum.inpcrd'])
+            msm.build_peptide(sequence, forcefield='AMBER96', to_form=['pentalanine_amber96_vacuum.prmtop','pentalaninen_amber96_vacuum.inpcrd'])
         """
 
         import pathlib
         dirdata = pathlib.Path(__file__).parent.absolute()
 
         if forcefield=='AMBER96':
-            prmtop_filepath = pathlib.PurePath(dirdata).joinpath('dialanine_amber96_gbsa.prmtop')
-            inpcrd_filepath = pathlib.PurePath(dirdata).joinpath('dialanine_amber96_gbsa.inpcrd')
+            prmtop_filepath = pathlib.PurePath(dirdata).joinpath('pentalanine_amber96_gbsa.prmtop')
+            inpcrd_filepath = pathlib.PurePath(dirdata).joinpath('pentalanine_amber96_gbsa.inpcrd')
         else:
             raise NotImplementedError('The system was not implemented yet with this forcefield.')
 
@@ -163,11 +163,11 @@ class AlanineDipeptideImplicitSolvent():
         self.system = amber_prmtop_file.createSystem(implicitSolvent=implicit_solvent, constraints=constraints,
                                                      nonbondedCutoff=None, hydrogenMass=hydrogen_mass)
 
-class AlanineDipeptideExplicitSolvent():
+class AlaninePentapeptideExplicitSolvent():
 
-    """Alanine dipeptide in explicit solvent
+    """Alanine pentapeptide in explicit solvent
 
-    Alanine dipeptide same as OpenMMTools
+    Alanine pentapeptide same as OpenMMTools
 
 
     Attributes
@@ -192,7 +192,7 @@ class AlanineDipeptideExplicitSolvent():
                  nonbonded_cutoff = 10.0 * unit.angstroms, use_dispersion_correction = True, nonbonded_method = app.PME,
                  hydrogen_mass = None, switch_width = 1.5 * unit.angstroms, ewald_error_tolerance = 1.0e-5):
 
-        """Creating a new instance of AlanineDipeptideExplicitSolvent
+        """Creating a new instance of AlaninePentapeptideExplicitSolvent
 
         clearance: 10 angstroms and box_geometry: truncated_octahedral
 
@@ -209,15 +209,15 @@ class AlanineDipeptideExplicitSolvent():
         Examples
         --------
 
-        >>> from uibcdf_test_systems.systems import AlanineDipeptideExplicitSolvent
+        >>> from uibcdf_test_systems.systems import AlaninePentapeptideExplicitSolvent
         >>> from simtk import unit
-        >>> dialanine = AlanineDipeptideExplicitSolvent()
+        >>> pentalanine = AlaninePentapeptideExplicitSolvent()
 
         Notes
         -----
 
         See `corresponding documentation in the user guide regarding this class
-        <../../systems/dialanine.html>`_.
+        <../../systems/pentalanine.html>`_.
 
         """
 
@@ -227,15 +227,15 @@ class AlanineDipeptideExplicitSolvent():
 
             import molsysmt as msm
             sequence = 'seq3:AceAlaNme'
-            msm.build_peptide(sequence, forcefield='AMBER96', to_form=['dialanine_amber96_vacuum.prmtop','dialaninen_amber96_vacuum.inpcrd'])
+            msm.build_peptide(sequence, forcefield='AMBER96', to_form=['pentalanine_amber96_vacuum.prmtop','pentalaninen_amber96_vacuum.inpcrd'])
         """
 
         import pathlib
         dirdata = pathlib.Path(__file__).parent.absolute()
 
         if forcefield=='AMBER96' and water_model=='TIP3P':
-            prmtop_filepath = pathlib.PurePath(dirdata).joinpath('dialanine_amber96_tip3p.prmtop')
-            inpcrd_filepath = pathlib.PurePath(dirdata).joinpath('dialanine_amber96_tip3p.inpcrd')
+            prmtop_filepath = pathlib.PurePath(dirdata).joinpath('pentalanine_amber96_tip3p.prmtop')
+            inpcrd_filepath = pathlib.PurePath(dirdata).joinpath('pentalanine_amber96_tip3p.inpcrd')
         else:
             raise NotImplementedError('The system was not implemented yet with this forcefield.')
 
