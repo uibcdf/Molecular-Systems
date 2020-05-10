@@ -1,7 +1,8 @@
 
-def langevin_NVT(system, temperature=None, friction=None,
+def langevin_NVT(uibcdf_test_system, temperature=None, friction=None,
                  initial_positions=None, initial_velocities=None, integration_timestep=None,
-                 saving_timestep=None, total_time=None, platform_name='CUDA', verbose=True):
+                 saving_timestep=None, total_time=None, platform_name='CUDA',
+                 output='numpy.ndarrays', verbose=True):
 
     """Langevin NVT dynamics of a molecular system with OpenMM.
 
@@ -12,8 +13,8 @@ def langevin_NVT(system, temperature=None, friction=None,
     Parameters
     ----------
 
-    system: simtk.openmm.System
-        Molecular system as a system class of OpenMM (see: link)
+    uibcdf_test_system:
+        inside has openmm system, topology and positions
     temperature: unit.Quantity
         Temperature (in units of temperature).
     friction: unit.Quantity
@@ -89,11 +90,17 @@ def langevin_NVT(system, temperature=None, friction=None,
     """
 
     from simtk.openmm import LangevinIntegrator, Platform, Context
+    from simtk.openmm.app import Simulation
     from simtk import unit
     import numpy as np
 
+    # Initial positions
+
+    if initial_positions is None:
+        initial_positions=uibcdf_test_system.positions
+
     # System parameters.
-    n_particles = system.getNumParticles()
+    n_particles = uibcdf_test_system.system.getNumParticles()
 
     # Integration parameters.
 
@@ -109,51 +116,71 @@ def langevin_NVT(system, temperature=None, friction=None,
 
     platform = Platform.getPlatformByName(platform_name)
 
-    # Context.
+    if output=='numpy.ndarrays':
 
-    context = Context(system, integrator, platform)
-    context.setPositions(initial_positions)
-    if initial_velocities is None:
-        context.setVelocitiesToTemperature(temperature)
-    else:
-        context.setVelocities(initial_velocities)
+        # Context.
 
-    # Reporter arrays: time, position, velocity, kinetic_energy, potential_energy
+        context = Context(uibcdf_test_system.system, integrator, platform)
+        context.setPositions(initial_positions)
+        if initial_velocities is None:
+            context.setVelocitiesToTemperature(temperature)
+        else:
+            context.setVelocities(initial_velocities)
 
-    time = np.zeros([n_cicles], np.float32) * unit.picoseconds
-    position = np.zeros([n_cicles, n_particles, 3], np.float32) * unit.nanometers
-    velocity = np.zeros([n_cicles, n_particles, 3], np.float32) * unit.nanometers/unit.picosecond
-    kinetic_energy = np.zeros([n_cicles], np.float32) * unit.kilocalories_per_mole
-    potential_energy = np.zeros([n_cicles], np.float32) * unit.kilocalories_per_mole
+        # Reporter arrays: time, position, velocity, kinetic_energy, potential_energy
 
-    # Initial context in reporters
+        time = np.zeros([n_cicles], np.float32) * unit.picoseconds
+        position = np.zeros([n_cicles, n_particles, 3], np.float32) * unit.nanometers
+        velocity = np.zeros([n_cicles, n_particles, 3], np.float32) * unit.nanometers/unit.picosecond
+        kinetic_energy = np.zeros([n_cicles], np.float32) * unit.kilocalories_per_mole
+        potential_energy = np.zeros([n_cicles], np.float32) * unit.kilocalories_per_mole
 
-    state = context.getState(getPositions=True, getVelocities=True, getEnergy=True)
-    time[0] = state.getTime()
-    position[0] = state.getPositions()
-    velocity[0] = state.getVelocities()
-    kinetic_energy[0] = state.getKineticEnergy()
-    potential_energy[0] = state.getPotentialEnergy()
+        # Initial context in reporters
 
-    # Iterator:
-
-    if verbose==True:
-        from tqdm import tqdm
-        iterator=tqdm(range(1, n_cicles))
-    else:
-        iterator=range(1, n_cicles)
-
-
-    # Integration loop saving every cicle steps
-
-    for ii in iterator:
-        context.getIntegrator().step(steps_per_cicle)
         state = context.getState(getPositions=True, getVelocities=True, getEnergy=True)
-        time[ii] = state.getTime()
-        position[ii] = state.getPositions()
-        velocity[ii] = state.getVelocities()
-        kinetic_energy[ii] = state.getKineticEnergy()
-        potential_energy[ii] = state.getPotentialEnergy()
+        time[0] = state.getTime()
+        position[0] = state.getPositions()
+        velocity[0] = state.getVelocities()
+        kinetic_energy[0] = state.getKineticEnergy()
+        potential_energy[0] = state.getPotentialEnergy()
 
-    return time, position, velocity, kinetic_energy, potential_energy
+        # Iterator:
 
+        if verbose==True:
+            from tqdm import tqdm
+            iterator=tqdm(range(1, n_cicles))
+        else:
+            iterator=range(1, n_cicles)
+
+
+        # Integration loop saving every cicle steps
+
+        for ii in iterator:
+            context.getIntegrator().step(steps_per_cicle)
+            state = context.getState(getPositions=True, getVelocities=True, getEnergy=True)
+            time[ii] = state.getTime()
+            position[ii] = state.getPositions()
+            velocity[ii] = state.getVelocities()
+            kinetic_energy[ii] = state.getKineticEnergy()
+            potential_energy[ii] = state.getPotentialEnergy()
+
+        return time, position, velocity, kinetic_energy, potential_energy
+
+    elif output.endswith('.h5'):
+
+        from mdtraj.reporters import HDF5Reporter
+
+        # Simulation
+
+        simulation = Simulation(uibcdf_test_system.topology, uibcdf_test_system.system, integrator)
+
+        simulation.context.setPositions(initial_positions)
+        if initial_velocities is None:
+            simulation.context.setVelocitiesToTemperature(temperature)
+        else:
+            simulation.context.setVelocities(initial_velocities)
+
+        simulation.reporters.append(HDF5Reporter(output, steps_per_cicle))
+        simulation.step(n_steps)
+
+        pass
