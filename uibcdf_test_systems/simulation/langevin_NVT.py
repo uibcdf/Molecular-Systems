@@ -172,7 +172,8 @@ def langevin_NVT(uibcdf_test_system, temperature=None, friction=None,
 
         # Simulation
 
-        simulation = Simulation(uibcdf_test_system.topology, uibcdf_test_system.system, integrator)
+        simulation = Simulation(uibcdf_test_system.topology, uibcdf_test_system.system, integrator,
+                               platform)
 
         simulation.context.setPositions(initial_positions)
         if initial_velocities is None:
