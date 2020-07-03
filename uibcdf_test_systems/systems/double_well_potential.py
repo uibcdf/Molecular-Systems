@@ -1,3 +1,5 @@
+from simtk.unit import amu, kilocalories_per_mole, nanometers
+from numpy import zeros
 
 class DoubleWell():
 
@@ -29,14 +31,21 @@ class DoubleWell():
 
     """
 
-
-    system = None
-    potential_expression = None
-    potential_parameters = None
     n_particles = None
     mass = None
+    potential_expression = None
+    potential_parameters = None
 
-    def __init__(self, n_particles, mass, Eo, a, b):
+    forcefield = None
+    system_parameters = None
+
+    system = None
+    coordinates = None
+    topology = None
+
+
+    def __init__(self, n_particles=1, mass=64*amu, Eo=4.0*kilocalories_per_mole, a=1.0*nanometers,
+                 b=0.0*kilocalories_per_mole, coordinates= zeros([1,3],dtype=float)*nanometers):
 
         """Creating a new instance of DoubleWell
 
@@ -81,6 +90,8 @@ class DoubleWell():
         self.system = mm.System()
         self.n_particles = n_particles
         self.mass = mass
+        self.coordinates = coordinates
+        self.topology = None
 
         for ii in range(n_particles):
             self.system.addParticle(mass)
@@ -112,7 +123,7 @@ class DoubleWell():
         self.potential_expression = Eo*((x/a)**4-2.0*(x/a)**2)-(b/a)*x + 0.5 *(8.0*Eo/a**2)*(y**2 + z**2)
         del(x, y, z, Eo, a, b)
 
-    def potential(self, coordinates):
+    def potential(self, coordinates=None):
 
         """Potential evaluation
 
@@ -154,10 +165,14 @@ class DoubleWell():
 
         from numpy import array
 
-        coordinates._value = array(coordinates._value)
         Eo = self.potential_parameters['Eo']
         a = self.potential_parameters['a']
         b = self.potential_parameters['b']
+
+        if coordinates == None:
+            coordinates = self.coordinates
+        else:
+            coordinates._value = array(coordinates._value)
 
         if len(coordinates._value.shape)==1 and coordinates._value.shape[0]==3:
 
@@ -178,4 +193,113 @@ class DoubleWell():
         else:
 
             raise ValueError('The input argument coordinates needs a specific shape.')
+
+    def coordinates_minima(self):
+
+        import sympy as sy
+
+        Eo = self.potential_parameters['Eo']
+        a = self.potential_parameters['a']
+        b = self.potential_parameters['b']
+
+        x, y, z = sy.symbols('x y z')
+        xu = x*nanometers
+        yu = y*nanometers
+        zu = z*nanometers
+        potential_x = Eo*((xu/a)**4-2.0*(xu/a)**2)-(b/a)*xu
+        potential_y = 0.5 *(8.0*Eo/a**2)*(yu**2)
+        potential_z = 0.5 *(8.0*Eo/a**2)*(zu**2)
+
+        g=sy.diff(potential_x,x)
+        gg=sy.diff(potential_x,x,x)
+        roots_diff=sy.roots(g,x)
+
+        roots_x=[]
+        for root in roots_diff.keys():
+            effective_k=gg.subs(x,root)
+            if effective_k>0:
+                roots_x.append(root*nanometers)
+
+        del(x, y, z)
+
+        return roots_x
+
+    def coordinates_maxima(self):
+
+        import sympy as sy
+
+        Eo = self.potential_parameters['Eo']
+        a = self.potential_parameters['a']
+        b = self.potential_parameters['b']
+
+        x, y, z = sy.symbols('x y z')
+        xu = x*nanometers
+        yu = y*nanometers
+        zu = z*nanometers
+
+        potential_x = Eo*((xu/a)**4-2.0*(xu/a)**2)-(b/a)*xu
+        potential_y = 0.5 *(8.0*Eo/a**2)*(yu**2)
+        potential_z = 0.5 *(8.0*Eo/a**2)*(zu**2)
+
+        g=sy.diff(potential_x,x)
+        gg=sy.diff(potential_x,x,x)
+        roots_diff=sy.roots(g,x)
+
+        roots_x=[]
+        for root in roots_diff.keys():
+            effective_k=gg.subs(x,root)
+            if effective_k<0:
+                roots_x.append(root*nanometers)
+
+        del(x, y, z)
+
+        return roots_x
+
+    def armonic_oscillation_periods(self):
+
+        import sympy as sy
+        import numpy as np
+
+        Eo = self.potential_parameters['Eo']
+        a = self.potential_parameters['a']
+        b = self.potential_parameters['b']
+
+        x, y, z = sy.symbols('x y z')
+        xu = x*nanometers
+        yu = y*nanometers
+        zu = z*nanometers
+
+        potential_x = Eo*((xu/a)**4-2.0*(xu/a)**2)-(b/a)*xu
+        potential_y = 0.5 *(8.0*Eo/a**2)*(yu**2)
+        potential_z = 0.5 *(8.0*Eo/a**2)*(zu**2)
+
+        g=sy.diff(potential_x,x)
+        gg=sy.diff(potential_x,x,x)
+        roots_diff=sy.roots(g,x)
+
+        roots_x=[]
+        Ts_x=[]
+        for root in roots_diff.keys():
+            effective_k=gg.subs(x,root)
+            if effective_k>0:
+                roots_x.append(root*nanometers)
+                T = 2*np.pi*np.sqrt(self.mass/(effective_k * kilocalories_per_mole/nanometers**2))
+                Ts_x.append(T)
+
+        g=sy.diff(potential_y,y)
+        gg=sy.diff(potential_y,y,y)
+        roots_diff=sy.roots(g,y)
+
+        roots_y=[]
+        Ts_y=[]
+        for root in roots_diff.keys():
+            effective_k=gg.subs(y,root)
+            if effective_k>0:
+                roots_y.append(root*nanometers)
+                T = 2*np.pi*np.sqrt(self.mass/(effective_k * kilocalories_per_mole/nanometers**2))
+                Ts_y.append(T)
+
+        del(x, y, z)
+
+        return roots_x, Ts_x, roots_y, Ts_y
 
