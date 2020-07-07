@@ -1,4 +1,4 @@
-from simtk.unit import amu, kilocalories_per_mole, nanometers
+from simtk.unit import amu, kilocalories_per_mole, nanometers, picoseconds
 from numpy import zeros
 
 class DoubleWell():
@@ -123,7 +123,7 @@ class DoubleWell():
         self.potential_expression = Eo*((x/a)**4-2.0*(x/a)**2)-(b/a)*x + 0.5 *(8.0*Eo/a**2)*(y**2 + z**2)
         del(x, y, z, Eo, a, b)
 
-    def potential(self, coordinates=None):
+    def potential_energy(self, coordinates=None):
 
         """Potential evaluation
 
@@ -169,7 +169,7 @@ class DoubleWell():
         a = self.potential_parameters['a']
         b = self.potential_parameters['b']
 
-        if coordinates == None:
+        if coordinates is None:
             coordinates = self.coordinates
         else:
             coordinates._value = array(coordinates._value)
@@ -214,15 +214,17 @@ class DoubleWell():
         gg=sy.diff(potential_x,x,x)
         roots_diff=sy.roots(g,x)
 
-        roots_x=[]
+        roots=[]
         for root in roots_diff.keys():
             effective_k=gg.subs(x,root)
             if effective_k>0:
-                roots_x.append(root*nanometers)
+                root_3d=zeros([3],dtype=float)*nanometers
+                root_3d[0]=root*nanometers
+                roots.append(root_3d)
 
         del(x, y, z)
 
-        return roots_x
+        return roots
 
     def coordinates_maxima(self):
 
@@ -245,15 +247,17 @@ class DoubleWell():
         gg=sy.diff(potential_x,x,x)
         roots_diff=sy.roots(g,x)
 
-        roots_x=[]
+        roots=[]
         for root in roots_diff.keys():
             effective_k=gg.subs(x,root)
             if effective_k<0:
-                roots_x.append(root*nanometers)
+                root_3d=zeros([3],dtype=float)*nanometers
+                root_3d[0]=root*nanometers
+                roots.append(root_3d)
 
         del(x, y, z)
 
-        return roots_x
+        return roots
 
     def armonic_oscillation_periods(self):
 
@@ -273,33 +277,39 @@ class DoubleWell():
         potential_y = 0.5 *(8.0*Eo/a**2)*(yu**2)
         potential_z = 0.5 *(8.0*Eo/a**2)*(zu**2)
 
-        g=sy.diff(potential_x,x)
-        gg=sy.diff(potential_x,x,x)
-        roots_diff=sy.roots(g,x)
-
-        roots_x=[]
-        Ts_x=[]
-        for root in roots_diff.keys():
-            effective_k=gg.subs(x,root)
-            if effective_k>0:
-                roots_x.append(root*nanometers)
-                T = 2*np.pi*np.sqrt(self.mass/(effective_k * kilocalories_per_mole/nanometers**2))
-                Ts_x.append(T)
-
         g=sy.diff(potential_y,y)
         gg=sy.diff(potential_y,y,y)
         roots_diff=sy.roots(g,y)
 
-        roots_y=[]
-        Ts_y=[]
+        root_y=None
+        T_y=None
         for root in roots_diff.keys():
             effective_k=gg.subs(y,root)
             if effective_k>0:
-                roots_y.append(root*nanometers)
-                T = 2*np.pi*np.sqrt(self.mass/(effective_k * kilocalories_per_mole/nanometers**2))
-                Ts_y.append(T)
+                root_y=root*nanometers
+                T_y = 2*np.pi*np.sqrt(self.mass/(effective_k * kilocalories_per_mole/nanometers**2))
+
+        g=sy.diff(potential_x,x)
+        gg=sy.diff(potential_x,x,x)
+        roots_diff=sy.roots(g,x)
+
+        roots=[]
+        Ts=[]
+        for root in roots_diff.keys():
+            effective_k=gg.subs(x,root)
+            if effective_k>0:
+                root_3d=zeros([3],dtype=float)*nanometers
+                root_3d[0]=root*nanometers
+                root_3d[1]=root_y
+                root_3d[2]=root_y
+                roots.append(root_3d)
+                T_3d=zeros([3],dtype=float)*picoseconds
+                T_3d[0] = 2*np.pi*np.sqrt(self.mass/(effective_k * kilocalories_per_mole/nanometers**2))
+                T_3d[1] = T_y
+                T_3d[2] = T_y
+                Ts.append(T_3d)
 
         del(x, y, z)
 
-        return roots_x, Ts_x, roots_y, Ts_y
+        return roots, Ts
 
