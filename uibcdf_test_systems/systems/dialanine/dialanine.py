@@ -188,7 +188,7 @@ class AlanineDipeptideExplicitSolvent():
     positions = None
     topology = None
 
-    def __init__(self, forcefield = 'AMBER96', water_model = 'TIP3P', rigid_water = True, constraints = app.HBonds,
+    def __init__(self, forcefield = 'AMBER14', water_model = 'TIP3P', rigid_water = True, constraints = app.HBonds,
                  nonbonded_cutoff = 10.0 * unit.angstroms, use_dispersion_correction = True, nonbonded_method = app.PME,
                  hydrogen_mass = None, switch_width = 1.5 * unit.angstroms, ewald_error_tolerance = 1.0e-5):
 
@@ -226,8 +226,10 @@ class AlanineDipeptideExplicitSolvent():
         """ How these files were created:
 
             import molsysmt as msm
-            sequence = 'seq3:AceAlaNme'
-            msm.build_peptide(sequence, forcefield='AMBER96', to_form=['dialanine_amber96_vacuum.prmtop','dialaninen_amber96_vacuum.inpcrd'])
+            msm.build_peptide('aminoacids3:AceAlaNme', forcefield='AMBER14', water_model='TIP3P',
+                  clearance=14.0*unit.angstroms, box_geometry='truncated_octahedral',
+                  to_form=['dialanine_amber14_tip3p.prmtop','dialanine_amber14_tip3p.inpcrd'],
+                  verbose=True)
         """
 
         import pathlib
@@ -236,6 +238,9 @@ class AlanineDipeptideExplicitSolvent():
         if forcefield=='AMBER96' and water_model=='TIP3P':
             prmtop_filepath = pathlib.PurePath(dirdata).joinpath('dialanine_amber96_tip3p.prmtop')
             inpcrd_filepath = pathlib.PurePath(dirdata).joinpath('dialanine_amber96_tip3p.inpcrd')
+        elif forcefield=='AMBER14' and water_model=='TIP3P':
+            prmtop_filepath = pathlib.PurePath(dirdata).joinpath('dialanine_amber14_tip3p.prmtop')
+            inpcrd_filepath = pathlib.PurePath(dirdata).joinpath('dialanine_amber14_tip3p.inpcrd')
         else:
             raise NotImplementedError('The system was not implemented yet with this forcefield.')
 
