@@ -1,10 +1,8 @@
+.. molecular_systems documentation master file
 
-.. uibcdf_test_systems documentation master file
-
-===================
-UIBCDF Test Systems
-===================
-
+=================
+Molecular Systems
+=================
 
 .. toctree::
    :caption: Installation
@@ -13,11 +11,16 @@ UIBCDF Test Systems
    Installation.md
 
 .. toctree::
-   :caption: User Guide
+   :caption: Molecular Systems
    :maxdepth: 2
 
-   systems/index.rst
-   simulations/index.rst
+   contents/lennard_jones_fluid/index.rst
+
+.. toctree::
+   :caption: Test Systems
+   :maxdepth: 2
+
+   test_systems/index.rst
 
 .. toctree::
    :caption: API Documentation
