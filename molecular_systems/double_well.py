@@ -1,7 +1,10 @@
-from simtk import unit
-from numpy import zeros
+import simtk.unit as unit
 import numpy as np
 import sympy as sy
+import simtk.unit as unit
+import simtk.openmm as mm
+import simtk.openmm.app as app
+
 
 class DoubleWell():
 
@@ -33,22 +36,16 @@ class DoubleWell():
 
     """
 
-    n_particles = None
-    mass = None
-    potential_expression = None
-    potential_parameters = None
-
-    forcefield = None
-    system_parameters = None
-
-    system = None
-    coordinates = None
+    parameters = {}
     topology = None
+    coordinates = None
+    system = None
 
+    potential_expression = None
 
     def __init__(self, n_particles=1, mass=64*unit.amu, Eo=4.0*unit.kilocalories_per_mole,
                  a=1.0*unit.nanometers, b=0.0*unit.kilocalories_per_mole,
-                 coordinates= zeros([1,3],dtype=float)*unit.nanometers):
+                 coordinates= [[0.0, 0.0, 0.0]]*unit.nanometers):
 
         """Creating a new instance of DoubleWell
 
@@ -84,15 +81,21 @@ class DoubleWell():
 
         """
 
-        # OpenMM system
+        # Parameters
 
-        import simtk.openmm as mm
-        import simtk.openmm.app as app
+        self.parameters['n_particles']=n_particles
+        self.parameters['mass']=mass
+        self.parameters['Eo']=Eo
+        self.parameters['a']=a
+        self.parameters['b']=b
 
-        self.system = mm.System()
-        self.n_particles = n_particles
-        self.mass = mass
-        self.coordinates = coordinates
+        # Coordinates
+
+        coordinates = coordinates.in_units_of(unit.nanometers)
+        self.coordinates = np.array(coordinates._value)*unit.nanometers
+
+        # OpenMM topology
+
         self.topology = app.Topology()
 
         try:
@@ -106,6 +109,10 @@ class DoubleWell():
         for _ in range(n_particles):
             residue = self.topology.addResidue('DUM', chain)
             atom = self.topology.addAtom(name='DUM', element= dummy_element, residue=residue)
+
+        # OpenMM system
+
+        self.system = mm.System()
 
         for _ in range(n_particles):
             self.system.addParticle(dummy_element.mass)
@@ -129,15 +136,11 @@ class DoubleWell():
 
         # Potential expresion and constants
 
-        from sympy import symbols
-
-        self.potential_parameters ={'Eo':Eo, 'a':a, 'b':b}
-
         x, y, z, Eo, a, b = symbols('x y z Eo a b')
         self.potential_expression = Eo*((x/a)**4-2.0*(x/a)**2)-(b/a)*x + 0.5 *(8.0*Eo/a**2)*(y**2 + z**2)
         del(x, y, z, Eo, a, b)
 
-    def potential_energy(self, coordinates=None):
+    def evaluate_potential(self, coordinates=None):
 
         """Potential evaluation
 
@@ -177,11 +180,9 @@ class DoubleWell():
 
         """
 
-        from numpy import array
-
-        Eo = self.potential_parameters['Eo']
-        a = self.potential_parameters['a']
-        b = self.potential_parameters['b']
+        Eo = self.parameters['Eo']
+        a = self.parameters['a']
+        b = self.parameters['b']
 
         if coordinates is None:
             coordinates = self.coordinates
@@ -208,11 +209,11 @@ class DoubleWell():
 
             raise ValueError('The input argument coordinates needs a specific shape.')
 
-    def coordinates_minima(self):
+    def get_coordinates_minima(self):
 
-        Eo = self.potential_parameters['Eo']
-        a = self.potential_parameters['a']
-        b = self.potential_parameters['b']
+        Eo = self.parameters['Eo']
+        a = self.parameters['a']
+        b = self.parameters['b']
 
         x, y, z = sy.symbols('x y z')
         xu = x*unit.nanometers
@@ -238,13 +239,11 @@ class DoubleWell():
 
         return roots
 
-    def coordinates_maxima(self):
+    def get_coordinates_maxima(self):
 
-        import sympy as sy
-
-        Eo = self.potential_parameters['Eo']
-        a = self.potential_parameters['a']
-        b = self.potential_parameters['b']
+        Eo = self.parameters['Eo']
+        a = self.parameters['a']
+        b = self.parameters['b']
 
         x, y, z = sy.symbols('x y z')
         xu = x*nanometers
@@ -271,10 +270,7 @@ class DoubleWell():
 
         return roots
 
-    def harmonic_oscillation_periods(self):
-
-        import sympy as sy
-        import numpy as np
+    def get_small_oscillations_time_periods(self):
 
         Eo = self.potential_parameters['Eo']
         a = self.potential_parameters['a']

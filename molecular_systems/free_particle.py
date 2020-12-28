@@ -1,3 +1,8 @@
+import simtk.unit as unit
+import simtk.openmm as mm
+import simtk.openmm.app as app
+import numpy as np
+
 class FreeParticle():
 
     """Free particles
@@ -10,17 +15,20 @@ class FreeParticle():
         Dictionary with parameters to initializate the molecular system
     topology : openmm.topology
         Openmm topology
-    positions :
+    coordinates :
         Position of particles
     system : openmm.system
         Openmm system
 
-
     """
 
+    parameters = {}
+    topology = None
+    coordinates = None
     system = None
 
-    def __init__(self, n_particles, mass):
+
+    def __init__(self, n_particles=1, mass=16*unit.amus, coordinates=[[0.0, 0.0, 0.0]]*unit.nanometers):  # CH4 as input example
 
        """Creating a new instance of FreeParticle
 
@@ -40,7 +48,7 @@ class FreeParticle():
 
        >>> from uibcdf_test_systems import FreeParticle
        >>> from simtk import unit
-       >>> free_particles = FreeParticle(n_particles=10, mass=32*unit.amu)
+       >>> free_particle = FreeParticle(n_particles=1, mass=16*unit.amu)
 
        Notes
        -----
@@ -50,15 +58,23 @@ class FreeParticle():
 
        """
 
+       # Parameters
+
+       self.parameters['n_particles']=n_particles
+       self.parameters['mass']=mass
+
+       # Coordinates
+
+       coordinates = coordinates.in_units_of(unit.nanometers)
+       self.coordinates = np.array(coordinates._value)*unit.nanometers
+
+       # OpenMM topology
+
+       self.topology = None
+
        # OpenMM system
 
-       import simtk.openmm as mm
-       import simtk.unit as unit
-       import simtk.openmm.app as app
-
        self.system = mm.System()
-       self.n_particles = n_particles
-       self.mass = mass
 
        for ii in range(n_particles):
            self.system.addParticle(mass)

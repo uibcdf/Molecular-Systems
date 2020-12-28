@@ -1,3 +1,8 @@
+import simtk.unit as unit
+import simtk.openmm as mm
+import simtk.openmm.app as app
+import numpy as np
+from sympy import symbols
 
 class HarmonicWell():
 
@@ -29,12 +34,16 @@ class HarmonicWell():
 
     """
 
+    parameters = {}
+    topology = None
+    coordinates = None
     system = None
-    potential_expression = None
-    potential_parameters = None
-    oscillation_period = None
 
-    def __init__(self, n_particles, mass, k):
+    potential_expression = None
+
+    def __init__(self, n_particles=1, mass=32*unit.amu,
+                 k=10.0*unit.kilocalorie/(unit.mole*unit.nanometers**2),
+                 coordinates=[[0.0, 0.0, 0.0]]*unit.nanometers):
 
         """Creating a new instance of HarmonicWell
 
@@ -67,17 +76,24 @@ class HarmonicWell():
 
         """
 
+        # Parameters
+
+        self.parameters['n_particles']=n_particles
+        self.parameters['mass']=mass
+        self.parameters['k']=k
+
+        # Coordinates
+
+        coordinates = coordinates.in_units_of(unit.nanometers)
+        self.coordinates = np.array(coordinates._value)*unit.nanometers
+
+        # OpenMM topology
+
+        self.topology = None
+
         # OpenMM system
 
-        import simtk.openmm as mm
-        import simtk.unit as unit
-        import simtk.openmm.app as app
-        from numpy import pi, sqrt
-
         self.system = mm.System()
-        self.n_particles = n_particles
-        self.mass = mass
-
         for ii in range(n_particles):
             self.system.addParticle(mass)
 
@@ -89,21 +105,13 @@ class HarmonicWell():
             force.addParticle(ii, [])
         self.system.addForce(force)
 
-        # Oscillation period
-
-        self.oscillation_period = 2*pi*sqrt(mass/k)
-
-        # Potential expresion and constants
-
-        from sympy import symbols
-
-        self.potential_parameters ={'k': k}
+        # Potential expresion
 
         x, y, z, k = symbols('x y z k')
         self.potential_expression = (1.0/2.0)*k*(x**2 + y**2 + z**2)
         del(x, y, z, k)
 
-    def potential(self, coordinates):
+    def evaluate_potential(self, coordinates):
 
         """Potential evaluation
 
@@ -143,10 +151,8 @@ class HarmonicWell():
 
         """
 
-        from numpy import array
-
-        coordinates._value = array(coordinates._value)
-        k = self.potential_parameters['k']
+        coordinates._value = np.array(coordinates._value)
+        k = self.parameters['k']
 
         if len(coordinates._value.shape)==1 and coordinates._value.shape[0]==3:
 
@@ -168,12 +174,16 @@ class HarmonicWell():
 
             raise ValueError('The input argument coordinates needs a specific shape.')
 
-    def standard_deviation(self, temperature):
+    def get_oscillations_time_period(self):
 
-        from numpy import sqrt
-        from simtk.unit import BOLTZMANN_CONSTANT_kB, AVOGADRO_CONSTANT_NA
+        mass = self.parameters['mass']
+        k = self.parameters['k']
 
-        k = self.potential_parameters['k']
-        kB = BOLTZMANN_CONSTANT_kB * AVOGADRO_CONSTANT_NA
-        return sqrt(kB*temperature/k)
+        return 2*np.pi*np.sqrt(mass/k)
+
+    def get_standard_deviation(self, temperature=300*unit.kelvin):
+
+        k = self.parameters['k']
+        kB = unit.BOLTZMANN_CONSTANT_kB * unit.AVOGADRO_CONSTANT_NA
+        return np.sqrt(kB*temperature/k)
 
