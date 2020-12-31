@@ -1,5 +1,5 @@
 
-.. systems documentation
+.. lennard jones fluid documentation
 
 ===================
 Lennard Jones Fluid

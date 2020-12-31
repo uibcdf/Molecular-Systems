@@ -36,12 +36,12 @@ class DoubleWell():
 
     """
 
-    parameters = {}
-    topology = None
-    coordinates = None
-    system = None
-
-    potential_expression = None
+#    parameters = {}
+#    topology = None
+#    coordinates = None
+#    system = None
+#
+#    potential_expression = None
 
     def __init__(self, n_particles=1, mass=64*unit.amu, Eo=4.0*unit.kilocalories_per_mole,
                  a=1.0*unit.nanometers, b=0.0*unit.kilocalories_per_mole,
@@ -83,6 +83,7 @@ class DoubleWell():
 
         # Parameters
 
+        self.parameters={}
         self.parameters['n_particles']=n_particles
         self.parameters['mass']=mass
         self.parameters['Eo']=Eo
@@ -136,7 +137,7 @@ class DoubleWell():
 
         # Potential expresion and constants
 
-        x, y, z, Eo, a, b = symbols('x y z Eo a b')
+        x, y, z, Eo, a, b = sy.symbols('x y z Eo a b')
         self.potential_expression = Eo*((x/a)**4-2.0*(x/a)**2)-(b/a)*x + 0.5 *(8.0*Eo/a**2)*(y**2 + z**2)
         del(x, y, z, Eo, a, b)
 
@@ -187,7 +188,7 @@ class DoubleWell():
         if coordinates is None:
             coordinates = self.coordinates
         else:
-            coordinates._value = array(coordinates._value)
+            coordinates._value = np.array(coordinates._value)
 
         if len(coordinates._value.shape)==1 and coordinates._value.shape[0]==3:
 
@@ -231,7 +232,7 @@ class DoubleWell():
         for root in roots_diff.keys():
             effective_k=gg.subs(x,root)
             if effective_k>0:
-                root_3d=zeros([3],dtype=float)*unit.nanometers
+                root_3d=np.zeros([3],dtype=float)*unit.nanometers
                 root_3d[0]=root*unit.nanometers
                 roots.append(root_3d)
 
@@ -246,9 +247,9 @@ class DoubleWell():
         b = self.parameters['b']
 
         x, y, z = sy.symbols('x y z')
-        xu = x*nanometers
-        yu = y*nanometers
-        zu = z*nanometers
+        xu = x*unit.nanometers
+        yu = y*unit.nanometers
+        zu = z*unit.nanometers
 
         potential_x = Eo*((xu/a)**4-2.0*(xu/a)**2)-(b/a)*xu
         potential_y = 0.5 *(8.0*Eo/a**2)*(yu**2)
@@ -262,7 +263,7 @@ class DoubleWell():
         for root in roots_diff.keys():
             effective_k=gg.subs(x,root)
             if effective_k<0:
-                root_3d=zeros([3],dtype=float)*unit.nanometers
+                root_3d=np.zeros([3],dtype=float)*unit.nanometers
                 root_3d[0]=root*unit.nanometers
                 roots.append(root_3d)
 
@@ -272,9 +273,10 @@ class DoubleWell():
 
     def get_small_oscillations_time_periods(self):
 
-        Eo = self.potential_parameters['Eo']
-        a = self.potential_parameters['a']
-        b = self.potential_parameters['b']
+        Eo = self.parameters['Eo']
+        a = self.parameters['a']
+        b = self.parameters['b']
+        mass = self.parameters['mass']
 
         x, y, z = sy.symbols('x y z')
         xu = x*unit.nanometers
@@ -295,7 +297,7 @@ class DoubleWell():
             effective_k=gg.subs(y,root)
             if effective_k>0:
                 root_y=root*unit.nanometers
-                T_y = 2*np.pi*np.sqrt(self.mass/(effective_k * unit.kilocalories_per_mole/unit.nanometers**2))
+                T_y = 2*np.pi*np.sqrt(mass/(effective_k * unit.kilocalories_per_mole/unit.nanometers**2))
 
         g=sy.diff(potential_x,x)
         gg=sy.diff(potential_x,x,x)
@@ -306,13 +308,13 @@ class DoubleWell():
         for root in roots_diff.keys():
             effective_k=gg.subs(x,root)
             if effective_k>0:
-                root_3d=zeros([3],dtype=float)*unit.nanometers
+                root_3d=np.zeros([3],dtype=float)*unit.nanometers
                 root_3d[0]=root*unit.nanometers
                 root_3d[1]=root_y
                 root_3d[2]=root_y
                 roots.append(root_3d)
-                T_3d=zeros([3],dtype=float)*unit.picoseconds
-                T_3d[0] = 2*np.pi*np.sqrt(self.mass/(effective_k * unit.kilocalories_per_mole/unit.nanometers**2))
+                T_3d=np.zeros([3],dtype=float)*unit.picoseconds
+                T_3d[0] = 2*np.pi*np.sqrt(mass/(effective_k * unit.kilocalories_per_mole/unit.nanometers**2))
                 T_3d[1] = T_y
                 T_3d[2] = T_y
                 Ts.append(T_3d)
@@ -321,14 +323,14 @@ class DoubleWell():
 
         return roots, Ts
 
-    def harmonic_standard_deviations(self, temperature=298.0*unit.kelvin):
+    def get_harmonic_standard_deviations_around_minima(self, temperature=298.0*unit.kelvin):
 
 
         kB = unit.BOLTZMANN_CONSTANT_kB * unit.AVOGADRO_CONSTANT_NA
 
-        Eo = self.potential_parameters['Eo']
-        a = self.potential_parameters['a']
-        b = self.potential_parameters['b']
+        Eo = self.parameters['Eo']
+        a = self.parameters['a']
+        b = self.parameters['b']
 
         x, y, z = sy.symbols('x y z')
         xu = x*unit.nanometers
@@ -360,12 +362,12 @@ class DoubleWell():
         for root in roots_diff.keys():
             effective_k=gg.subs(x,root)
             if effective_k>0:
-                root_3d=zeros([3],dtype=float)*unit.nanometers
+                root_3d=np.zeros([3],dtype=float)*unit.nanometers
                 root_3d[0]=root*unit.nanometers
                 root_3d[1]=root_y
                 root_3d[2]=root_y
                 roots.append(root_3d)
-                sigma_3d=zeros([3],dtype=float)*unit.nanometers
+                sigma_3d=np.zeros([3],dtype=float)*unit.nanometers
                 sigma_3d[0] = np.sqrt(kB*temperature/(effective_k*unit.kilocalories_per_mole/unit.nanometers**2))
                 sigma_3d[1] = sigma_y
                 sigma_3d[2] = sigma_y

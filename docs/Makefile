@@ -5,7 +5,7 @@
 SPHINXOPTS    =
 SPHINXBUILD   = sphinx-build
 SOURCEDIR     = .
-BUILDDIR      = _build
+BUILDDIR      = build
 
 
 .PHONY: help builddir html builddir_es pots pots_to_pos html_es clean clean_es

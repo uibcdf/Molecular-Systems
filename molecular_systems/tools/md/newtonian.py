@@ -1,5 +1,5 @@
 
-def newtonian(system, friction=None,
+def newtonian(item, friction=None,
               initial_positions=None, initial_velocities=None, integration_timestep=None,
               saving_timestep=None, total_time=None, platform_name='CPU', verbose=True):
 
@@ -62,7 +62,7 @@ def newtonian(system, friction=None,
     >>> initial_positions =  np.zeros([1, 3], np.float32) * unit.nanometers
     >>> initial_velocities = np.zeros([1, 3], np.float32) * unit.nanometers/unit.picoseconds
     >>> initial_positions[0,0] = 1.0 * unit.nanometers
-    >>> time, position, velocity, kinetic_energy, potential_energy = langevin_NVT(double_well.system,
+    >>> time, position, velocity, kinetic_energy, potential_energy = langevin_NVT(double_well,
     >>>                                                                           friction = 0.1/unit.picoseconds,
     >>>                                                                           initial_positions = initial_positions,
     >>>                                                                           initial_velocities = initial_velocities,
@@ -88,13 +88,13 @@ def newtonian(system, friction=None,
     import numpy as np
 
     # System parameters.
-    n_particles = system.getNumParticles()
+    n_particles = item.system.getNumParticles()
 
     # Integration parameters.
 
-    steps_per_cicle = int(round(saving_timestep/integration_timestep))
-    n_steps = int(round(total_time/integration_timestep))
-    n_cicles = int(round(n_steps/steps_per_cicle))
+    steps_per_cicle = round(saving_timestep/integration_timestep)
+    n_steps = round(total_time/integration_timestep)
+    n_cicles = round(n_steps/steps_per_cicle)
 
     # Integrator.
 
@@ -109,8 +109,13 @@ def newtonian(system, friction=None,
 
     # Context.
 
-    context = Context(system, integrator, platform)
+    context = Context(item.system, integrator, platform)
+
     context.setPositions(initial_positions)
+
+    if initial_velocities is None:
+        initial_velocities = np.zeros([n_particles, 3], np.float32) * unit.nanometers/unit.picosecond
+
     context.setVelocities(initial_velocities)
 
     # Reporter arrays: time, position, velocity, kinetic_energy, potential_energy

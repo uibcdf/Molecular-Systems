@@ -23,13 +23,13 @@ from recommonmark.parser import CommonMarkParser
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 
 sys.path.insert(0, os.path.abspath('.'))
-sys.path.insert(0, os.path.abspath('./../uibcdf_test_systems'))
+sys.path.insert(0, os.path.abspath('./../molecular_systems'))
 
 print(sys.path)
 
 # -- Project information -----------------------------------------------------
 
-project = 'UIBCDF Test Systems'
+project = 'Molecular Systems'
 copyright = '2020, UIBCDF Lab at the Mexico City Childrens Hospital Federico Gomez and authors'
 author = 'UIBCDF Lab'
 
@@ -66,6 +66,11 @@ autosummary_generate = True
 autodoc_default_options = {'members':True, 'inherited-members':True}
 numpydoc_class_members_toctree = False
 
+# sphinxcontrib-bibtex
+bibtex_bibfiles = [] # list of *.bib files
+bibtex_default_style = 'alpha'
+bibtex_encoding = 'utf-8-sig'
+
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
@@ -95,7 +100,7 @@ gettext_compact = False
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path .
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', '**.ipynb_checkpoints']
+exclude_patterns = ['build', 'Thumbs.db', '.DS_Store', '**.ipynb_checkpoints']
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'

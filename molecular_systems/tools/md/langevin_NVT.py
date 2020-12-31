@@ -1,5 +1,5 @@
 
-def langevin_NVT(uibcdf_test_system, temperature=None, friction=None,
+def langevin_NVT(item, temperature=None, friction=None,
                  initial_positions=None, initial_velocities=None, integration_timestep=None,
                  saving_timestep=None, total_time=None, platform_name='CUDA',
                  output='numpy.ndarrays', verbose=True):
@@ -97,16 +97,16 @@ def langevin_NVT(uibcdf_test_system, temperature=None, friction=None,
     # Initial positions
 
     if initial_positions is None:
-        initial_positions=uibcdf_test_system.positions
+        initial_positions=item.positions
 
     # System parameters.
-    n_particles = uibcdf_test_system.system.getNumParticles()
+    n_particles = item.system.getNumParticles()
 
     # Integration parameters.
 
-    steps_per_cicle = int(round(saving_timestep/integration_timestep))
-    n_steps = int(round(total_time/integration_timestep))
-    n_cicles = int(round(n_steps/steps_per_cicle))
+    steps_per_cicle = round(saving_timestep/integration_timestep)
+    n_steps = round(total_time/integration_timestep)
+    n_cicles = round(n_steps/steps_per_cicle)
 
     # Integrator.
 
@@ -120,7 +120,7 @@ def langevin_NVT(uibcdf_test_system, temperature=None, friction=None,
 
         # Context.
 
-        context = Context(uibcdf_test_system.system, integrator, platform)
+        context = Context(item.system, integrator, platform)
         context.setPositions(initial_positions)
         if initial_velocities is None:
             context.setVelocitiesToTemperature(temperature)

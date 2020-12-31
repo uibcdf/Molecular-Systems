@@ -5,6 +5,12 @@ Molecular Systems
 =================
 
 .. toctree::
+   :caption: Installation
+   :maxdepth: 1
+
+   Installation.md
+
+.. toctree::
    :caption: Molecular Systems
    :maxdepth: 2
 
@@ -12,5 +18,17 @@ Molecular Systems
    contents/harmonic_well/index.rst
    contents/double_well/index.rst
    contents/lennard_jones_fluid/index.rst
-   contents/alanine_dipeptide/index.rst
+
+.. toctree::
+   :caption: API Documentation
+   :maxdepth: 1
+
+   api/index
+
+Glossary, indices and tables
+============================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
 

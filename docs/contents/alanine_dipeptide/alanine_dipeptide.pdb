@@ -1,4 +1,4 @@
-REMARK   1 CREATED WITH OPENMM 7.4.2 BY MOLSYSMT, 2020-12-01
+REMARK   1 CREATED WITH OPENMM 7.5, 2020-12-30
 HETATM    1  H1  ACE 1   1       2.000   1.000  -0.000  1.00  0.00           H  
 HETATM    2  CH3 ACE 1   1       2.000   2.090   0.000  1.00  0.00           C  
 HETATM    3  H2  ACE 1   1       1.486   2.454   0.890  1.00  0.00           H  
