@@ -30,7 +30,7 @@ print(sys.path)
 # -- Project information -----------------------------------------------------
 
 project = 'Molecular Systems'
-copyright = '2020, UIBCDF Lab at the Mexico City Childrens Hospital Federico Gomez and authors'
+copyright = '2021, UIBCDF Lab at the Mexico City Childrens Hospital Federico Gomez and authors'
 author = 'UIBCDF Lab'
 
 # The short X.Y version
@@ -59,7 +59,9 @@ extensions = [
     'numpydoc',
     'sphinx.ext.githubpages',
     'sphinxcontrib.bibtex',
-    'nbsphinx'
+    'nbsphinx',
+    'recommonmark',
+    'sphinx_markdown_tables'
 ]
 
 autosummary_generate = True
@@ -67,7 +69,7 @@ autodoc_default_options = {'members':True, 'inherited-members':True}
 numpydoc_class_members_toctree = False
 
 # sphinxcontrib-bibtex
-bibtex_bibfiles = [] # list of *.bib files
+bibtex_bibfiles = ['bibliography.bib'] # list of *.bib files
 bibtex_default_style = 'alpha'
 bibtex_encoding = 'utf-8-sig'
 
@@ -78,7 +80,7 @@ templates_path = ['_templates']
 # You can specify multiple suffix as a list of string:
 
 source_parsers={
-  '.md': CommonMarkParser
+#  '.md': CommonMarkParser
 }
 
 source_suffix = ['.rst', '.md']
@@ -139,7 +141,7 @@ html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+html_static_path = ['static']
 
 #### I should check
 #### https://github.com/lotharschulz/sphinx-pages/blob/master/conf.py for more
