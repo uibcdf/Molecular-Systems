@@ -17,7 +17,7 @@ class AlanineDipeptideVacuum():
 
     """
 
-    def __init__(self, forcefield='AMBER96', constraints='h_bonds', hydrogen_mass=None):
+    def __init__(self, forcefield='AMBER14', constraints='h_bonds', hydrogen_mass=None):
 
         """XXX
 
@@ -98,8 +98,9 @@ class AlanineDipeptideImplicitSolvent():
 
     """
 
-    def __init__(self, forcefield='AMBER96', implicit_solvent='obc1', solute_dielectric=1.0,
+    def __init__(self, forcefield='AMBER14', implicit_solvent='OBC1', solute_dielectric=1.0,
                  solvent_dielectric=78.3, implicit_solvent_kappa=0.0/unit.nanometer,
+                 implicit_solvent_salt_conc=0.0*unit.mole/unit.liter,
                  constraints='h_bonds', hydrogen_mass=None):
 
         """Creating a new instance of AlanineDipeptideImplicitSolvent
@@ -158,7 +159,9 @@ class AlanineDipeptideImplicitSolvent():
         self.system = convert(item_modeller, to_form='openmm.System', forcefield=forcefield,
                               constraints=constraints, hydrogen_mass=hydrogen_mass, non_bonded_method='no_cutoff',
                               implicit_solvent=implicit_solvent, solute_dielectric=solute_dielectric,
-                              solvent_dielectric=solvent_dielectric, implicit_solvent_kappa=implicit_solvent_kappa
+                              solvent_dielectric=solvent_dielectric,
+                              implicit_solvent_kappa=implicit_solvent_kappa,
+                              implicit_solvent_salt_conc=implicit_solvent_salt_conc
                              )
 
 #class AlanineDipeptideExplicitSolvent():
