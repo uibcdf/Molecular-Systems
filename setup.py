@@ -6,17 +6,17 @@ from numpy.distutils.extension import Extension
 extensions_list=[]
 
 setup(
-    name='Molecular Systems',
+    name='OpenMolecularSystems',
     version='0.0.1',
     author='UIBCDF Lab',
     author_email='uibcdf@gmail.com',
-    package_dir={'molecular_systems': 'molecular_systems'},
+    package_dir={'openmolecularsystems': 'openmolecularsystems'},
     packages=find_packages(),
     ext_modules=extensions_list,
-    package_data={'molecular_systems': []},
+    package_data={'openmolecularsystems': []},
     scripts=[],
     url='http://uibcdf.org',
-    download_url ='https://github.com/uibcdf/Molecular_Systems',
+    download_url ='https://github.com/uibcdf/OpenMolecularSystems',
     license='MIT',
     description="---",
     long_description="---",

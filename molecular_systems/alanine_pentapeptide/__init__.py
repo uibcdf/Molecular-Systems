@@ -1,3 +1,0 @@
-from .pentalanine import AlaninePentapeptideVacuum
-from .pentalanine import AlaninePentapeptideImplicitSolvent
-from .pentalanine import AlaninePentapeptideExplicitSolvent

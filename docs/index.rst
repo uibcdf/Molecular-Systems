@@ -1,8 +1,8 @@
-.. molecular_systems documentation master file
+.. openmolecularsystems documentation master file
 
-=================
-Molecular Systems
-=================
+====================
+OpenMolecularSystems
+====================
 
 .. toctree::
    :caption: About
@@ -19,7 +19,8 @@ Molecular Systems
    contents/double_well/index.rst
    contents/lennard_jones_fluid/index.rst
    contents/alanine_dipeptide/index.rst
-   contents/AAA.ipynb
+   contents/alanine_tetrapeptide/index.rst
+   contents/alanine_pentapeptide/index.rst
 
 .. toctree::
    :caption: Bibliography
