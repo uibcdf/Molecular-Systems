@@ -281,7 +281,7 @@ class DoubleWell():
 
         return roots
 
-    def get_small_oscillations_time_periods(self):
+    def get_small_oscillations_time_periods_around_minima(self):
 
         Eo = self.parameters['Eo']
         a = self.parameters['a']

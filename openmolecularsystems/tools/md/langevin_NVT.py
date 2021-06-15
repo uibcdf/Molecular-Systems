@@ -130,7 +130,8 @@ def langevin_NVT(item, time = None, saving_timestep = None, integration_timestep
 
     if saving_timestep is not None and len(reporters)==0:
         saving_steps_interval = int(saving_timestep/integration_timestep)
-        default_reporter = DictReporter(saving_steps_interval, time=True, coordinates=True, potentialEnergy=True, kineticEnergy=True)
+        default_reporter = DictReporter(saving_steps_interval, time=True, coordinates=True,
+                potentialEnergy=True, kineticEnergy=True, box=True)
         reporters.append(default_reporter)
 
     for reporter in reporters:

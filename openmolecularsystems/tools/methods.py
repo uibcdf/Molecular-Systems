@@ -1,3 +1,28 @@
+def get_potential_energy(item, coordinates=None, platform_name='CUDA'):
+
+    from simtk.openmm import LangevinIntegrator, Platform, Context
+    from simtk import unit
+    import numpy as np
+
+    integrator = LangevinIntegrator(0.0*unit.kelvin, 0.0/unit.picoseconds, 2.0*unit.femtoseconds)
+
+    platform = Platform.getPlatformByName(platform_name)
+
+    context = Context(item.system, integrator, platform)
+
+    if coordinates is None:
+        context.setPositions(item.coordinates)
+    else:
+        context.setPositions(coordinates)
+
+    if item.box is not None:
+        context.setPeriodicBoxVectors(item.box[0], item.box[1], item.box[2])
+
+    state = context.getState(getEnergy=True)
+    potential_energy = state.getPotentialEnergy()
+
+    return potential_energy
+
 def get_probability_density(item, range=None, n_bins=None, temperature=None):
 
     from simtk import unit

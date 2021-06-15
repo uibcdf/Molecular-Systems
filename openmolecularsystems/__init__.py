@@ -1,8 +1,9 @@
 from .free_particle import FreeParticle
 from .harmonic_well import HarmonicWell
 from .double_well import DoubleWell
-from .alanine_dipeptide import AlanineDipeptideVacuum, AlanineDipeptideImplicitSolvent, AlanineDipeptideExplicitSolvent
-from .alanine_tetrapeptide import AlanineTetrapeptideVacuum, AlanineTetrapeptideImplicitSolvent, AlanineTetrapeptideExplicitSolvent
-from .alanine_pentapeptide import AlaninePentapeptideVacuum, AlaninePentapeptideImplicitSolvent, AlaninePentapeptideExplicitSolvent
+from .two_LJ_particles import TwoLJParticles
+#from .alanine_dipeptide import AlanineDipeptideVacuum, AlanineDipeptideImplicitSolvent, AlanineDipeptideExplicitSolvent
+#from .alanine_tetrapeptide import AlanineTetrapeptideVacuum, AlanineTetrapeptideImplicitSolvent, AlanineTetrapeptideExplicitSolvent
+#from .alanine_pentapeptide import AlaninePentapeptideVacuum, AlaninePentapeptideImplicitSolvent, AlaninePentapeptideExplicitSolvent
 from . import files
 
