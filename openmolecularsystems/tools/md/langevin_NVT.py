@@ -1,33 +1,31 @@
 from simtk import unit
+from simtk.openmm.app import Simulation
+from openmolecularsystems.tools.reporters import DictReporter
+from openmolecularsystems.tools.reporters import TQDMReporter
 
-def langevin_NVT(item, temperature=None, friction=None,
-                 initial_positions=None, initial_velocities=None,
-                 integration_timestep=2.0*unit.femtoseconds,
-                 saving_timestep=None, total_time=None, platform_name='CUDA',
-                 output='numpy.ndarrays', verbose=True):
+def langevin_NVT(item, time = None, saving_timestep = None, integration_timestep= 2*unit.femtoseconds,
+                 friction=1.0/unit.picoseconds, temperature=300.0*unit.kelvin, initial_velocities=None, platform_name='CUDA',
+                 reporters=None, tqdm=True):
 
-    """Langevin NVT dynamics of a molecular system with OpenMM.
+    """Newtonian classical dynamics of a molecular system with OpenMM.
 
-    The trajectory of an NVT Langevin dynamics of a molecular system is obtained together with the
+    The trajectory of a newtonian classical dynamics of a molecular system is obtained together with the
     values of potential and kinetic energy. This method is nothing but a short cut to run quick
     molecular dynamics with the test systems of this library by means of OpenMM.
 
     Parameters
     ----------
 
-    uibcdf_test_system:
-        inside has openmm system, topology and positions
-    temperature: unit.Quantity
-        Temperature (in units of temperature).
+    system: simtk.openmm.System
+        Molecular system as a system class of OpenMM (see: link)
     friction: unit.Quantity
         Damping parameter of the Langevin dynamics (in units of 1/time).
     initial_positions: unit.Quantity
         Initial positions of the system as a numpy array with shape [n_particles, 3] and units of
         length. Where 'n_particles' is the number of particles of the system.
-    initial_velocities: unit.Quantity, (default is None)
+    initial_velocities: unit.Quantity
         Initial velocities of the system as a numpy array with shape [n_particles, 3] and units of
-        length/time. Where 'n_particles' is the number of particles of the system. If None, random
-        velocities according to the Boltzmann distribution at the given temperature.
+        length/time. Where 'n_particles' is the number of particles of the system.
     integration_timestep: unit.Quantity
         Time step used by the integrator of the equations of motion. The parameter needs to have
         units of time.
@@ -40,7 +38,6 @@ def langevin_NVT(item, temperature=None, friction=None,
         OpenMM, see documentation),
     verbose: bool (default: True)
         Verbose switcher. The method will print out information if the value is True.
-
 
     Returns
     -------
@@ -63,15 +60,14 @@ def langevin_NVT(item, temperature=None, friction=None,
     --------
 
     >>> from uibcdf_test_systems import DoubleWell
-    >>> from uibcdf_test_systems.simulation import langevin_NVT
+    >>> from uibcdf_test_systems.simulation import newtonian
     >>> from simtk import unit
     >>> double_well = DoubleWell(n_particles = 1, mass = 64 * unit.amu, Eo=4.0 * unit.kilocalories_per_mole, a=1.0 * unit.nanometers, b=0.0 * unit.kilocalories_per_mole))
     >>> initial_positions =  np.zeros([1, 3], np.float32) * unit.nanometers
     >>> initial_velocities = np.zeros([1, 3], np.float32) * unit.nanometers/unit.picoseconds
     >>> initial_positions[0,0] = 1.0 * unit.nanometers
-    >>> time, position, velocity, kinetic_energy, potential_energy = langevin_NVT(double_well.system,
-    >>>                                                                           temperature = 300*unit.kelvin,
-    >>>                                                                           friction = 0.5/unit.picoseconds,
+    >>> time, position, velocity, kinetic_energy, potential_energy = langevin_NVT(double_well,
+    >>>                                                                           friction = 0.1/unit.picoseconds,
     >>>                                                                           initial_positions = initial_positions,
     >>>                                                                           initial_velocities = initial_velocities,
     >>>                                                                           integration_timestep = 0.02 * unit.picoseconds,
@@ -82,7 +78,7 @@ def langevin_NVT(item, temperature=None, friction=None,
     -----
 
     See the `corresponding documentation in the user guide regarding this method
-        <../../simulations/langevin_NVT.html>`_.
+        <../../simulations/newtonian.html>`_.
 
     Some simple examples on how this method is used can be found in the users guide sections
     corresponding to `the free particle <../../systems/free_particle.html>`_, `the harmonic
@@ -92,22 +88,11 @@ def langevin_NVT(item, temperature=None, friction=None,
     """
 
     from simtk.openmm import LangevinIntegrator, Platform, Context
-    from simtk.openmm.app import Simulation
+    from simtk import unit
     import numpy as np
-
-    # Initial positions
-
-    if initial_positions is None:
-        initial_positions=item.coordinates
 
     # System parameters.
     n_particles = item.system.getNumParticles()
-
-    # Integration parameters.
-
-    steps_per_cicle = round(saving_timestep/integration_timestep)
-    n_steps = round(total_time/integration_timestep)
-    n_cicles = round(n_steps/steps_per_cicle)
 
     # Integrator.
 
@@ -117,72 +102,56 @@ def langevin_NVT(item, temperature=None, friction=None,
 
     platform = Platform.getPlatformByName(platform_name)
 
-    if output=='numpy.ndarrays':
+    # Simulation.
 
-        # Context.
+    simulation = Simulation(item.topology, item.system, integrator, platform)
 
-        context = Context(item.system, integrator, platform)
-        context.setPositions(initial_positions)
-        if initial_velocities is None:
-            context.setVelocitiesToTemperature(temperature)
-        else:
-            context.setVelocities(initial_velocities)
+    # Initial Context.
 
-        # Reporter arrays: time, position, velocity, kinetic_energy, potential_energy
+    initial_coordinates = item.coordinates
+    simulation.context.setPositions(initial_coordinates)
 
-        time = np.zeros([n_cicles], np.float32) * unit.picoseconds
-        position = np.zeros([n_cicles, n_particles, 3], np.float32) * unit.nanometers
-        velocity = np.zeros([n_cicles, n_particles, 3], np.float32) * unit.nanometers/unit.picosecond
-        kinetic_energy = np.zeros([n_cicles], np.float32) * unit.kilocalories_per_mole
-        potential_energy = np.zeros([n_cicles], np.float32) * unit.kilocalories_per_mole
-
-        # Initial context in reporters
-
-        state = context.getState(getPositions=True, getVelocities=True, getEnergy=True)
-        time[0] = state.getTime()
-        position[0] = state.getPositions()
-        velocity[0] = state.getVelocities()
-        kinetic_energy[0] = state.getKineticEnergy()
-        potential_energy[0] = state.getPotentialEnergy()
-
-        # Iterator:
-
-        if verbose==True:
-            from tqdm import tqdm
-            iterator=tqdm(range(1, n_cicles))
-        else:
-            iterator=range(1, n_cicles)
+    if initial_velocities=='zeros' or initial_velocities is None:
+        initial_velocities = np.zeros([n_particles, 3], np.float32) * unit.nanometers/unit.picosecond
+        simulation.context.setVelocities(initial_velocities)
+    elif initial_velocities=='boltzmann':
+        simulation.context.setVelocitiesToTemperature(temperature)
+    else:
+        simulation.context.setVelocities(initial_velocities)
 
 
-        # Integration loop saving every cicle steps
+    # Reporters.
 
-        for ii in iterator:
-            context.getIntegrator().step(steps_per_cicle)
-            state = context.getState(getPositions=True, getVelocities=True, getEnergy=True)
-            time[ii] = state.getTime()
-            position[ii] = state.getPositions()
-            velocity[ii] = state.getVelocities()
-            kinetic_energy[ii] = state.getKineticEnergy()
-            potential_energy[ii] = state.getPotentialEnergy()
+    default_reporter = False
+    tqdm_reporter = False
 
-        return time, position, velocity, kinetic_energy, potential_energy
+    if reporters is None:
+        reporters = []
 
-    elif output.endswith('.h5'):
+    if saving_timestep is not None and len(reporters)==0:
+        saving_steps_interval = int(saving_timestep/integration_timestep)
+        default_reporter = DictReporter(saving_steps_interval, time=True, coordinates=True, potentialEnergy=True, kineticEnergy=True)
+        reporters.append(default_reporter)
 
-        from mdtraj.reporters import HDF5Reporter
+    for reporter in reporters:
+        simulation.reporters.append(reporter)
 
-        # Simulation
+    # Initial report
+    initial_state = simulation.context.getState(getEnergy=True, getPositions=True, getVelocities=True)
+    for reporter in reporters:
+        reporter.report(simulation, initial_state)
 
-        simulation = Simulation(uibcdf_test_system.topology, uibcdf_test_system.system, integrator,
-                               platform)
+    n_steps = int(time/integration_timestep)
+    if tqdm:
+        tqdm_reporter = TQDMReporter(n_steps, 100)
+        simulation.reporters.append(tqdm_reporter)
+    simulation.step(n_steps)
 
-        simulation.context.setPositions(initial_positions)
-        if initial_velocities is None:
-            simulation.context.setVelocitiesToTemperature(temperature)
-        else:
-            simulation.context.setVelocities(initial_velocities)
+    if tqdm_reporter:
+        tqdm_reporter.finalize()
 
-        simulation.reporters.append(HDF5Reporter(output, steps_per_cicle))
-        simulation.step(n_steps)
-
+    if default_reporter:
+        return default_reporter.finalize()
+    else:
         pass
+

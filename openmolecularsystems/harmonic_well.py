@@ -34,16 +34,16 @@ class HarmonicWell():
 
     """
 
-    parameters = {}
-    topology = None
-    coordinates = None
-    system = None
-
-    potential_expression = None
+#    parameters = {}
+#    topology = None
+#    coordinates = None
+#    system = None
+#
+#    potential_expression = None
 
     def __init__(self, n_particles=1, mass=32*unit.amu,
                  k=10.0*unit.kilocalorie/(unit.mole*unit.nanometers**2),
-                 coordinates=[[0.0, 0.0, 0.0]]*unit.nanometers):
+                 coordinates=None):
 
         """Creating a new instance of HarmonicWell
 
@@ -82,11 +82,6 @@ class HarmonicWell():
         self.parameters['mass']=mass
         self.parameters['k']=k
 
-        # Coordinates
-
-        coordinates = coordinates.in_units_of(unit.nanometers)
-        self.coordinates = np.array(coordinates._value)*unit.nanometers
-
         # OpenMM topology
 
         self.topology = None
@@ -103,13 +98,28 @@ class HarmonicWell():
         force.addGlobalParameter('A', A)
         for ii in range(n_particles):
             force.addParticle(ii, [])
-        self.system.addForce(force)
+        _ = self.system.addForce(force)
+
+        # Coordinates
+
+        self.set_coordinates(coordinates)
 
         # Potential expresion
 
         x, y, z, k = symbols('x y z k')
         self.potential_expression = (1.0/2.0)*k*(x**2 + y**2 + z**2)
         del(x, y, z, k)
+
+    def set_coordinates(self, coordinates=None):
+
+        if coordinates is None:
+            coordinates = np.zeros([self.parameters['n_particles'], 3], np.float32) * unit.nanometers
+        else:
+            coordinates = coordinates.in_units_of(unit.nanometers)
+
+        self.coordinates = np.array(coordinates._value)*unit.nanometers
+
+        pass
 
     def evaluate_potential(self, coordinates):
 

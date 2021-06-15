@@ -1,0 +1,10 @@
+development:
+        jupyterlab
+        numpy
+        matplotlib
+        tqdm
+        openmm
+        sympy
+
+production:
+

@@ -45,7 +45,7 @@ class DoubleWell():
 
     def __init__(self, n_particles=1, mass=64*unit.amu, Eo=4.0*unit.kilocalories_per_mole,
                  a=1.0*unit.nanometers, b=0.0*unit.kilocalories_per_mole,
-                 coordinates= [[0.0, 0.0, 0.0]]*unit.nanometers):
+                 coordinates= None):
 
         """Creating a new instance of DoubleWell
 
@@ -90,11 +90,6 @@ class DoubleWell():
         self.parameters['a']=a
         self.parameters['b']=b
 
-        # Coordinates
-
-        coordinates = coordinates.in_units_of(unit.nanometers)
-        self.coordinates = np.array(coordinates._value)*unit.nanometers
-
         # OpenMM topology
 
         self.topology = app.Topology()
@@ -133,13 +128,28 @@ class DoubleWell():
 
         for ii in range(n_particles):
             force.addParticle(ii, [])
-        self.system.addForce(force)
+        _ = self.system.addForce(force)
+
+        # Coordinates
+
+        self.set_coordinates(coordinates)
 
         # Potential expresion and constants
 
         x, y, z, Eo, a, b = sy.symbols('x y z Eo a b')
         self.potential_expression = Eo*((x/a)**4-2.0*(x/a)**2)-(b/a)*x + 0.5 *(8.0*Eo/a**2)*(y**2 + z**2)
         del(x, y, z, Eo, a, b)
+
+    def set_coordinates(self, coordinates=None):
+
+        if coordinates is None:
+            coordinates = np.zeros([self.parameters['n_particles'], 3], np.float32) * unit.nanometers
+        else:
+            coordinates = coordinates.in_units_of(unit.nanometers)
+
+        self.coordinates = np.array(coordinates._value)*unit.nanometers
+
+        pass
 
     def evaluate_potential(self, coordinates=None):
 
@@ -240,7 +250,7 @@ class DoubleWell():
 
         return roots
 
-    def get_coordinates_maxima(self):
+    def get_coordinates_maximum(self):
 
         Eo = self.parameters['Eo']
         a = self.parameters['a']
@@ -323,7 +333,7 @@ class DoubleWell():
 
         return roots, Ts
 
-    def get_harmonic_standard_deviations_around_minima(self, temperature=298.0*unit.kelvin):
+    def get_harmonic_standard_deviations_around_minima(self, temperature=300.0*unit.kelvin):
 
 
         kB = unit.BOLTZMANN_CONSTANT_kB * unit.AVOGADRO_CONSTANT_NA

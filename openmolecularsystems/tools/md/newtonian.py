@@ -1,7 +1,11 @@
+from simtk import unit
+from simtk.openmm.app import Simulation
+from openmolecularsystems.tools.reporters import DictReporter
+from openmolecularsystems.tools.reporters import TQDMReporter
 
-def newtonian(item, friction=None,
-              initial_positions=None, initial_velocities=None, integration_timestep=None,
-              saving_timestep=None, total_time=None, platform_name='CPU', verbose=True):
+def newtonian(item, time = None, saving_timestep = None, integration_timestep= 2*unit.femtoseconds,
+              friction=0.0/unit.picoseconds, initial_velocities=None, platform_name='CUDA',
+              reporters=None, tqdm=True):
 
     """Newtonian classical dynamics of a molecular system with OpenMM.
 
@@ -90,12 +94,6 @@ def newtonian(item, friction=None,
     # System parameters.
     n_particles = item.system.getNumParticles()
 
-    # Integration parameters.
-
-    steps_per_cicle = round(saving_timestep/integration_timestep)
-    n_steps = round(total_time/integration_timestep)
-    n_cicles = round(n_steps/steps_per_cicle)
-
     # Integrator.
 
     temperature = 0.0*unit.kelvin
@@ -107,44 +105,56 @@ def newtonian(item, friction=None,
 
     platform = Platform.getPlatformByName(platform_name)
 
-    # Context.
+    # Simulation.
 
-    context = Context(item.system, integrator, platform)
+    simulation = Simulation(item.topology, item.system, integrator, platform)
 
-    context.setPositions(initial_positions)
+    # Initial Context.
 
-    if initial_velocities is None:
+    initial_coordinates = item.coordinates
+    simulation.context.setPositions(initial_coordinates)
+
+    if initial_velocities=='zeros' or initial_velocities is None:
         initial_velocities = np.zeros([n_particles, 3], np.float32) * unit.nanometers/unit.picosecond
+        simulation.context.setVelocities(initial_velocities)
+    elif initial_velocities=='boltzmann':
+        simulation.context.setVelocitiesToTemperature(temperature)
+    else:
+        simulation.context.setVelocities(initial_velocities)
 
-    context.setVelocities(initial_velocities)
 
-    # Reporter arrays: time, position, velocity, kinetic_energy, potential_energy
+    # Reporters.
 
-    time = np.zeros([n_cicles], np.float32) * unit.picoseconds
-    position = np.zeros([n_cicles, n_particles, 3], np.float32) * unit.nanometers
-    velocity = np.zeros([n_cicles, n_particles, 3], np.float32) * unit.nanometers/unit.picosecond
-    kinetic_energy = np.zeros([n_cicles], np.float32) * unit.kilocalories_per_mole
-    potential_energy = np.zeros([n_cicles], np.float32) * unit.kilocalories_per_mole
+    default_reporter = False
+    tqdm_reporter = False
 
-    # Initial context in reporters
+    if reporters is None:
+        reporters = []
 
-    state = context.getState(getPositions=True, getVelocities=True, getEnergy=True)
-    time[0] = state.getTime()
-    position[0] = state.getPositions()
-    velocity[0] = state.getVelocities()
-    kinetic_energy[0] = state.getKineticEnergy()
-    potential_energy[0] = state.getPotentialEnergy()
+    if saving_timestep is not None and len(reporters)==0:
+        saving_steps_interval = int(saving_timestep/integration_timestep)
+        default_reporter = DictReporter(saving_steps_interval, time=True, coordinates=True, potentialEnergy=True, kineticEnergy=True)
+        reporters.append(default_reporter)
 
-    # Integration loop saving every cicle steps
+    for reporter in reporters:
+        simulation.reporters.append(reporter)
 
-    for ii in range(1, n_cicles):
-        context.getIntegrator().step(steps_per_cicle)
-        state = context.getState(getPositions=True, getVelocities=True, getEnergy=True)
-        time[ii] = state.getTime()
-        position[ii] = state.getPositions()
-        velocity[ii] = state.getVelocities()
-        kinetic_energy[ii] = state.getKineticEnergy()
-        potential_energy[ii] = state.getPotentialEnergy()
+    # Initial report
+    initial_state = simulation.context.getState(getEnergy=True, getPositions=True, getVelocities=True)
+    for reporter in reporters:
+        reporter.report(simulation, initial_state)
 
-    return time, position, velocity, kinetic_energy, potential_energy
+    n_steps = int(time/integration_timestep)
+    if tqdm:
+        tqdm_reporter = TQDMReporter(n_steps, 100)
+        simulation.reporters.append(tqdm_reporter)
+    simulation.step(n_steps)
+
+    if tqdm_reporter:
+        tqdm_reporter.finalize()
+
+    if default_reporter:
+        return default_reporter.finalize()
+    else:
+        pass
 

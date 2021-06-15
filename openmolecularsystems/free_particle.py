@@ -28,54 +28,64 @@ class FreeParticle():
     system = None
 
 
-    def __init__(self, n_particles=1, mass=16*unit.amus, coordinates=[[0.0, 0.0, 0.0]]*unit.nanometers):  # CH4 as input example
+    def __init__(self, n_particles=1, mass=16*unit.amus, coordinates=None):
 
-       """Creating a new instance of FreeParticle
+        """Creating a new instance of FreeParticle
 
-       A new test system is returned with the openmm system of particles behaving freely -no
-       potential external potential-.
+        A new test system is returned with the openmm system of particles behaving freely -no
+        potential external potential-.
 
-       Parameters
-       ----------
+        Parameters
+        ----------
 
-       n_particles: int
-           Number of particles in the system
-       mass: unit.Quantity
-           Mass of the particles (in unites of mass)
+        n_particles: int
+            Number of particles in the system
+        mass: unit.Quantity
+            Mass of the particles (in unites of mass) # mass of CH4
 
-       Examples
-       --------
+        Examples
+        --------
 
-       >>> from uibcdf_test_systems import FreeParticle
-       >>> from simtk import unit
-       >>> free_particle = FreeParticle(n_particles=1, mass=16*unit.amu)
+        >>> from uibcdf_test_systems import FreeParticle
+        >>> from simtk import unit
+        >>> free_particle = FreeParticle(n_particles=1, mass=16*unit.amu)
 
-       Notes
-       -----
+        Notes
+        -----
 
-       See `the free particle documentation in the user guide section
-       <../../systems/free_particle.html>`_.
+        See `the free particle documentation in the user guide section
+        <../../systems/free_particle.html>`_.
 
-       """
+        """
 
-       # Parameters
+        # Parameters
 
-       self.parameters['n_particles']=n_particles
-       self.parameters['mass']=mass
+        self.parameters['n_particles']=n_particles
+        self.parameters['mass']=mass
 
-       # Coordinates
+        # OpenMM topology
 
-       coordinates = coordinates.in_units_of(unit.nanometers)
-       self.coordinates = np.array(coordinates._value)*unit.nanometers
+        self.topology = None
 
-       # OpenMM topology
+        # OpenMM system
 
-       self.topology = None
+        self.system = mm.System()
 
-       # OpenMM system
+        for ii in range(n_particles):
+            self.system.addParticle(mass)
 
-       self.system = mm.System()
+        # Coordinates
 
-       for ii in range(n_particles):
-           self.system.addParticle(mass)
+        self.set_coordinates(coordinates)
+
+    def set_coordinates(self, coordinates=None):
+
+        if coordinates is None:
+            coordinates = np.zeros([self.parameters['n_particles'], 3], np.float32) * unit.nanometers
+        else:
+            coordinates = coordinates.in_units_of(unit.nanometers)
+
+        self.coordinates = np.array(coordinates._value)*unit.nanometers
+
+        pass
 
