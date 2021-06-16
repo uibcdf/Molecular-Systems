@@ -5,6 +5,7 @@ development:
         tqdm
         openmm
         sympy
+        molsysmt
 
 production:
 
