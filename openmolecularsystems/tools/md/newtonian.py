@@ -1,7 +1,7 @@
 from simtk import unit
 from simtk.openmm.app import Simulation
-from openmolecularsystems.tools.reporters import DictReporter
-from openmolecularsystems.tools.reporters import TQDMReporter
+from openopenmmreporters import MolSysMTTrajectoryDictReporter
+from openopenmmreporters import TQDMReporter
 
 def newtonian(item, time = None, saving_timestep = None, integration_timestep= 2*unit.femtoseconds,
               friction=0.0/unit.picoseconds, initial_velocities=None, platform_name='CUDA',
@@ -133,7 +133,7 @@ def newtonian(item, time = None, saving_timestep = None, integration_timestep= 2
 
     if saving_timestep is not None and len(reporters)==0:
         saving_steps_interval = int(saving_timestep/integration_timestep)
-        default_reporter = DictReporter(saving_steps_interval, time=True, coordinates=True, potentialEnergy=True, kineticEnergy=True)
+        default_reporter = MolSysMTTrajectoryDictReporter(saving_steps_interval, time=True, coordinates=True, potentialEnergy=True, kineticEnergy=True)
         reporters.append(default_reporter)
 
     for reporter in reporters:

@@ -23,7 +23,7 @@ class FreeParticle(OpenMolecularSystem):
 
     """
 
-    def __init__(self, n_particles=1, mass=16*unit.amus, coordinates=None, box=None):
+    def __init__(self, n_particles=1, mass=16*unit.amus, density=None, coordinates=None, box=None, pbc=False):
 
         """Creating a new instance of FreeParticle
 
@@ -60,9 +60,31 @@ class FreeParticle(OpenMolecularSystem):
         self.parameters['n_particles']=n_particles
         self.parameters['mass']=mass
 
+        if (box is not None) or (density is not None):
+            pbc = True
+
+        self.parameters['pbc']=pbc
+
+        if pbc:
+            if (box is None) or (density is None):
+                raise ValueError('Either the "box" input argument or the "density" needs to beed provided.')
+            if density is not None:
+                # box initialization upon density
+                raise NotImplementedError()
+
         # OpenMM topology
 
-        self.topology = None
+        self.topology = app.Topology()
+
+        try:
+            dummy_element = app.element.get_by_symbol('DUM')
+        except:
+            dummy_element = app.Element(0, 'DUM', 'DUM', 0.0 * unit.amu)
+
+        chain = self.topology.addChain('A')
+        for ii in range(n_particles):
+            residue = self.topology.addResidue('DUM', chain)
+            atom = self.topology.addAtom(name='DUM', element= dummy_element, residue=residue)
 
         # OpenMM system
 
@@ -81,6 +103,6 @@ class FreeParticle(OpenMolecularSystem):
 
         # Box
 
-        if box is not None:
+        if pbc:
             self.set_box(box)
 

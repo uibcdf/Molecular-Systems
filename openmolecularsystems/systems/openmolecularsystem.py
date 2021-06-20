@@ -22,6 +22,8 @@ class OpenMolecularSystem():
 
         box = box.in_units_of(unit.nanometers)
         self.box = np.array(box._value)*unit.nanometers
+        self.topology.setPeriodicBoxVectors(box)
+        self.system.setDefaultPeriodicBoxVectors(box[0], box[1], box[2])
 
         pass
 
