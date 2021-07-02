@@ -6,6 +6,7 @@ development:
         openmm
         sympy
         molsysmt
+        pyunitwizard
 
 production:
 

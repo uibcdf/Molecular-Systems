@@ -1,9 +1,15 @@
-from .free_particle import FreeParticle
-from .harmonic_well import HarmonicWell
-from .double_well import DoubleWell
-from .two_LJ_particles import TwoLJParticles
-#from .alanine_dipeptide import AlanineDipeptideVacuum, AlanineDipeptideImplicitSolvent, AlanineDipeptideExplicitSolvent
-#from .alanine_tetrapeptide import AlanineTetrapeptideVacuum, AlanineTetrapeptideImplicitSolvent, AlanineTetrapeptideExplicitSolvent
-#from .alanine_pentapeptide import AlaninePentapeptideVacuum, AlaninePentapeptideImplicitSolvent, AlaninePentapeptideExplicitSolvent
-from . import files
+"""
+OpenMolecularSystems
+This must be a short description of the project
+"""
 
+# Handle versioneer
+from ._version import get_versions
+versions = get_versions()
+__version__ = versions['version']
+__git_revision__ = versions['full-revisionid']
+del get_versions, versions
+
+# Add imports here
+from .systems import *
+from . import tools

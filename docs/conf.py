@@ -8,8 +8,6 @@
 
 import os
 import sys
-import sphinx_rtd_theme
-from recommonmark.parser import CommonMarkParser
 
 # -- Path setup --------------------------------------------------------------
 
@@ -22,21 +20,21 @@ from recommonmark.parser import CommonMarkParser
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 
-sys.path.insert(0, os.path.abspath('.'))
-sys.path.insert(0, os.path.abspath('./../molecular_systems'))
+sys.path.insert(0, os.path.abspath('..'))
 
-print(sys.path)
+import openmolecularsystems
 
 # -- Project information -----------------------------------------------------
 
-project = 'Molecular Systems'
-copyright = '2021, UIBCDF Lab at the Mexico City Childrens Hospital Federico Gomez and authors'
-author = 'UIBCDF Lab'
+project = 'OpenMolecularSystems'
+copyright = ('2021, UIBCDF Lab at the Mexico City Childrens Hospital Federico Gomez and authors.'
+        'Project structure based on the Computational Molecular Science Python Cookiecutter version 1.5')
+author = 'Liliana M. Moreno Vargas & Diego Prada Gracia'
 
 # The short X.Y version
-version = ''
+version = openmolecularsystems.__version__.split('+')[0]
 # The full version, including alpha/beta/rc tags
-release = '0.1'
+release = openmolecularsystems.__version__
 
 
 # -- General configuration ---------------------------------------------------
@@ -56,17 +54,19 @@ extensions = [
     'sphinx.ext.todo',
     'sphinx.ext.ifconfig',
     'sphinx.ext.viewcode',
-    'numpydoc',
+    'sphinx.ext.napoleon',
     'sphinx.ext.githubpages',
     'sphinxcontrib.bibtex',
     'nbsphinx',
     'recommonmark',
-    'sphinx_markdown_tables'
+    'sphinx_markdown_tables',
+    'sphinx.ext.extlinks'
 ]
 
 autosummary_generate = True
-autodoc_default_options = {'members':True, 'inherited-members':True}
-numpydoc_class_members_toctree = False
+napoleon_google_docstring = False
+napoleon_use_param = False
+napoleon_use_ivar = True
 
 # sphinxcontrib-bibtex
 bibtex_bibfiles = ['bibliography.bib'] # list of *.bib files
@@ -80,7 +80,6 @@ templates_path = ['_templates']
 # You can specify multiple suffix as a list of string:
 
 source_parsers={
-#  '.md': CommonMarkParser
 }
 
 source_suffix = ['.rst', '.md']
@@ -102,10 +101,10 @@ gettext_compact = False
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path .
-exclude_patterns = ['build', 'Thumbs.db', '.DS_Store', '**.ipynb_checkpoints']
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', '**.ipynb_checkpoints']
 
 # The name of the Pygments (syntax highlighting) style to use.
-pygments_style = 'sphinx'
+pygments_style = 'default'
 
 
 # -- Options for HTML output -------------------------------------------------
@@ -141,11 +140,13 @@ html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['static']
+html_static_path = ['_static']
 
-#### I should check
-#### https://github.com/lotharschulz/sphinx-pages/blob/master/conf.py for more
-#### options
+# Custom css
+
+html_css_files = [
+    'custom.css',
+]
 
 # Custom sidebar templates, must be a dictionary that maps document names
 # to template names.

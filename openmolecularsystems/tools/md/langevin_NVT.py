@@ -1,7 +1,7 @@
 from simtk import unit
 from simtk.openmm.app import Simulation
-from openmolecularsystems.tools.reporters import DictReporter
-from openmolecularsystems.tools.reporters import TQDMReporter
+from openopenmmreporters import MolSysMTTrajectoryDictReporter
+from openopenmmreporters import TQDMReporter
 
 def langevin_NVT(item, time = None, saving_timestep = None, integration_timestep= 2*unit.femtoseconds,
                  friction=1.0/unit.picoseconds, temperature=300.0*unit.kelvin, initial_velocities=None, platform_name='CUDA',
@@ -130,7 +130,7 @@ def langevin_NVT(item, time = None, saving_timestep = None, integration_timestep
 
     if saving_timestep is not None and len(reporters)==0:
         saving_steps_interval = int(saving_timestep/integration_timestep)
-        default_reporter = DictReporter(saving_steps_interval, time=True, coordinates=True,
+        default_reporter = MolSysMTTrajectoryDictReporter(saving_steps_interval, time=True, coordinates=True,
                 potentialEnergy=True, kineticEnergy=True, box=True)
         reporters.append(default_reporter)
 
