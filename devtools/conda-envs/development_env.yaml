@@ -1,0 +1,13 @@
+channels:
+- uibcdf/label/dev
+- uibcdf
+- conda-forge
+- default
+dependencies:
+- python
+- numpy
+- openmm
+- sympy
+- openopenmmreporters
+- jupyterlab
+- pyyaml

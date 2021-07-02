@@ -1,6 +1,6 @@
 package:
-  name: uibcdf_test_systems
-  version: 0.0.1
+  name: openmolecularsystems
+  version: "{{ environ['GIT_DESCRIBE_TAG'] }}"
 
 source:
   path: ../../
@@ -10,15 +10,17 @@ build:
 
 requirements:
   build:
-    - python  {{ python }}
+    - python
     - setuptools
-    - numpy 
+    - numpy
+    - versioneer
 
   run:
-    - python  {{ python }}
+    - python
     - numpy
     - openmm
     - sympy
+    - openopenmmreporters
 
 about:
   home: https://uibcdf.org
@@ -26,6 +28,6 @@ about:
   summary: ""
   description: |
     This library provides some useful molecular test systems daily used in the UIBCDF lab.
-  dev_url: https://github.com/uibcdf/UIBCDF_test_systems
-  doc_url: https://uibcdf.org/UIBCDF_test_systems
+  dev_url: https://github.com/uibcdf/OpenMolecularSystems
+  doc_url: https://uibcdf.org/OpenMolecularSystems
 

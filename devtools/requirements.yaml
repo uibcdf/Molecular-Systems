@@ -1,0 +1,85 @@
+production:
+  channels:
+    - uibcdf/label/dev
+    - uibcdf
+    - conda-forge
+    - default
+  dependencies:
+    - python
+    - numpy
+    - openmm
+    - sympy
+    - openopenmmreporters
+
+development:
+  channels:
+    - uibcdf/label/dev
+    - uibcdf
+    - conda-forge
+    - default
+  dependencies:
+    - python
+    - numpy
+    - openmm
+    - sympy
+    - openopenmmreporters
+    - jupyterlab
+    - pyyaml
+
+test:
+  channels:
+    - uibcdf/label/dev
+    - uibcdf
+    - conda-forge
+    - default
+  dependencies:
+    - python
+    - numpy
+    - openmm
+    - openopenmmreporters
+    - sympy
+    - pytest
+    - pip
+    - pytest-cov
+    - codecov
+
+docs:
+  channels:
+    - uibcdf/label/dev
+    - uibcdf
+    - conda-forge
+    - default
+  dependencies:
+    - python
+    - numpy
+    - openmm
+    - sympy
+    - openopenmmreporters
+    - sphinx
+    - sphinx_rtd_theme
+    - sphinxcontrib-bibtex
+    - nbsphinx
+    - recommonmark
+    - sphinx-markdown-tables
+    - jupyterlab
+    - pyyaml
+
+setup:
+  channels:
+    - default
+  dependencies:
+    - python
+    - setuptools
+    - numpy
+    - versioneer
+
+conda-build:
+  channels:
+    - uibcdf/label/dev
+    - uibcdf
+    - conda-forge
+    - default
+  dependencies:
+    - anaconda-client
+    - conda-build
+

@@ -1,21 +1,25 @@
 # Instructions
 
-## Conda packages required to upload the library to the [conda UIBCDF channel](https://anaconda.org/uibcdf)
+## Conda packages required
 
 ```bash
 conda install anaconda-client conda-build
 ```
 
-## Building and uploading to the [conda UIBCDF channel](https://anaconda.org/uibcdf)
+## Building and pushing to https://anaconda.org/uibcdf
 
 ```bash
-conda config --set anaconda_upload no
-conda build .
+conda build . --no-anaconda-upload --python 3.7
 PACKAGE_OUTPUT=`conda build . --output`
 anaconda login
 anaconda upload --user uibcdf $PACKAGE_OUTPUT
 conda build purge
 anaconda logout
+```
+## Install
+
+```
+conda install -c uibcdf pyunitwizard
 ```
 
 ## Additional Info
