@@ -3,7 +3,7 @@ Unit and regression test for the test_uibcdf_library package.
 """
 
 # Import package, test suite, and other packages as needed
-import openmolecularysystems
+import openmolecularsystems
 import pytest
 import sys
 
