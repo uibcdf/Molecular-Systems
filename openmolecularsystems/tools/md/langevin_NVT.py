@@ -4,7 +4,8 @@ from openopenmmreporters import MolSysMTTrajectoryDictReporter
 from openopenmmreporters import TQDMReporter
 
 def langevin_NVT(item, time = None, saving_timestep = None, integration_timestep= 2*unit.femtoseconds,
-                 friction=1.0/unit.picoseconds, temperature=300.0*unit.kelvin, initial_velocities=None, platform_name='CUDA',
+                 friction=1.0/unit.picoseconds, temperature=300.0*unit.kelvin,
+                 initial_coordinates=None, initial_velocities=None, platform_name='CUDA',
                  reporters=None, tqdm=True):
 
     """Newtonian classical dynamics of a molecular system with OpenMM.
@@ -20,8 +21,8 @@ def langevin_NVT(item, time = None, saving_timestep = None, integration_timestep
         Molecular system as a system class of OpenMM (see: link)
     friction: unit.Quantity
         Damping parameter of the Langevin dynamics (in units of 1/time).
-    initial_positions: unit.Quantity
-        Initial positions of the system as a numpy array with shape [n_particles, 3] and units of
+    initial_coordinates: unit.Quantity
+        Initial coordinates of the system as a numpy array with shape [n_particles, 3] and units of
         length. Where 'n_particles' is the number of particles of the system.
     initial_velocities: unit.Quantity
         Initial velocities of the system as a numpy array with shape [n_particles, 3] and units of
@@ -63,12 +64,12 @@ def langevin_NVT(item, time = None, saving_timestep = None, integration_timestep
     >>> from uibcdf_test_systems.simulation import newtonian
     >>> from simtk import unit
     >>> double_well = DoubleWell(n_particles = 1, mass = 64 * unit.amu, Eo=4.0 * unit.kilocalories_per_mole, a=1.0 * unit.nanometers, b=0.0 * unit.kilocalories_per_mole))
-    >>> initial_positions =  np.zeros([1, 3], np.float32) * unit.nanometers
+    >>> initial_coordinates =  np.zeros([1, 3], np.float32) * unit.nanometers
     >>> initial_velocities = np.zeros([1, 3], np.float32) * unit.nanometers/unit.picoseconds
-    >>> initial_positions[0,0] = 1.0 * unit.nanometers
+    >>> initial_coordinates[0,0] = 1.0 * unit.nanometers
     >>> time, position, velocity, kinetic_energy, potential_energy = langevin_NVT(double_well,
     >>>                                                                           friction = 0.1/unit.picoseconds,
-    >>>                                                                           initial_positions = initial_positions,
+    >>>                                                                           initial_coordinates = initial_coordinates,
     >>>                                                                           initial_velocities = initial_velocities,
     >>>                                                                           integration_timestep = 0.02 * unit.picoseconds,
     >>>                                                                           saving_timestep = 0.5 * unit.picoseconds,
@@ -108,7 +109,8 @@ def langevin_NVT(item, time = None, saving_timestep = None, integration_timestep
 
     # Initial Context.
 
-    initial_coordinates = item.coordinates
+    if initial_coordinates is None:
+        initial_coordinates = item.coordinates
     simulation.context.setPositions(initial_coordinates)
 
     if initial_velocities=='zeros' or initial_velocities is None:
