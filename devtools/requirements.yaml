@@ -25,6 +25,7 @@ development:
     - openopenmmreporters
     - jupyterlab
     - pyyaml
+    - matplotlib
 
 test:
   channels:

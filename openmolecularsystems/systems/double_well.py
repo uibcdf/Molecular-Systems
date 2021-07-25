@@ -15,7 +15,7 @@ class DoubleWell(OpenMolecularSystem):
 
     .. math::
 
-        Eo\\left[\\left(\\frac{x}{a}\\right)^4-2\\left(\\frac{x}{a}\\right)^2\\right]-\\frac{b}{a}x + \\frac{4Eo}{a^{2}}\\left(y^2 + z^2\\right)
+        Eo\\left[\\left(\\frac{x}{a}\\right)^4-2\\left(\\frac{x}{a}\\right)^2\\right]-\\frac{b}{a}x + \\frac{1}{2} k \\left(y^2 + z^2\\right)
 
     Attributes
     ----------
@@ -37,8 +37,9 @@ class DoubleWell(OpenMolecularSystem):
 
     """
 
-    def __init__(self, n_particles=1, mass=64*unit.amu, Eo=4.0*unit.kilocalories_per_mole,
-                 a=1.0*unit.nanometers, b=0.0*unit.kilocalories_per_mole,
+    def __init__(self, n_particles=1, mass=100*unit.amu, Eo=3.0*unit.kilocalories_per_mole,
+                 a=0.5*unit.nanometers, b=0.5*unit.kilocalories_per_mole,
+                 k=1.0*unit.kilocalories_per_mole/unit.angstroms**2,
                  coordinates= None):
 
         """Creating a new instance of DoubleWell
@@ -59,13 +60,15 @@ class DoubleWell(OpenMolecularSystem):
             Parameter of the external potential with units of length.
         b: unit.Quantity
             Parameter of the external potential with units of energy.
+        k: unit.Quantity
+            Parameter of the external potential with units of energy/length^2.
 
         Examples
         --------
 
         >>> from uibcdf_test_systems import DoubleWell
         >>> from simtk import unit
-        >>> double_well = DoubleWell(n_particles = 1, mass = 64 * unit.amu, Eo=4.0 * unit.kilocalories_per_mole, a=1.0 * unit.nanometers, b=0.0 * unit.kilocalories_per_mole))
+        >>> double_well = DoubleWell(n_particles = 1, mass = 64 * unit.amu, Eo=4.0 * unit.kilocalories_per_mole, a=1.0 * unit.nanometers, b=0.0 * unit.kilocalories_per_mole, k=1.0 * unit.kilocalories_per_mole/unit.angstroms**2))
 
         Notes
         -----
@@ -85,6 +88,7 @@ class DoubleWell(OpenMolecularSystem):
         self.parameters['Eo']=Eo
         self.parameters['a']=a
         self.parameters['b']=b
+        self.parameters['k']=k
 
         # OpenMM topology
 
@@ -108,8 +112,6 @@ class DoubleWell(OpenMolecularSystem):
 
         for _ in range(n_particles):
             self.system.addParticle(dummy_element.mass)
-
-        k = 8.0*Eo/(a**2) # stiffness of the armonic potential for coordinates Y and Z
 
         A = Eo/(a**4)
         B = -2.0*Eo/(a**2)
@@ -135,9 +137,9 @@ class DoubleWell(OpenMolecularSystem):
 
         # Potential expresion and constants
 
-        x, y, z, Eo, a, b = sy.symbols('x y z Eo a b')
-        self.potential_expression = Eo*((x/a)**4-2.0*(x/a)**2)-(b/a)*x + 0.5 *(8.0*Eo/a**2)*(y**2 + z**2)
-        del(x, y, z, Eo, a, b)
+        x, y, z, Eo, a, b, k = sy.symbols('x y z Eo a b k')
+        self.potential_expression = Eo*((x/a)**4-2.0*(x/a)**2)-(b/a)*x + 0.5*k*(y**2 + z**2)
+        del(x, y, z, Eo, a, b, k)
 
     def evaluate_potential(self, coordinates=None):
 
@@ -167,7 +169,7 @@ class DoubleWell(OpenMolecularSystem):
 
         >>> from uibcdf_test_systems import DoubleWell
         >>> from simtk import unit
-        >>> double_well = DoubleWell(n_particles = 1, mass = 64 * unit.amu, Eo=4.0 * unit.kilocalories_per_mole, a=1.0 * unit.nanometers, b=0.0 * unit.kilocalories_per_mole))
+        >>> double_well = DoubleWell(n_particles = 1, mass = 64 * unit.amu, Eo=4.0 * unit.kilocalories_per_mole, a=1.0 * unit.nanometers, b=0.0 * unit.kilocalories_per_mole, k=1.0 * unit.kilocalories_per_mole/unit.angstroms**2))
         >>> double_well.potential([-1.5, 0.0, 0.0] * unit.nanometers)
         Quantity(value=2.25, unit=kilocalorie/mole)
 
@@ -182,6 +184,7 @@ class DoubleWell(OpenMolecularSystem):
         Eo = self.parameters['Eo']
         a = self.parameters['a']
         b = self.parameters['b']
+        k = self.parameters['k']
 
         if coordinates is None:
             coordinates = self.coordinates
@@ -194,7 +197,7 @@ class DoubleWell(OpenMolecularSystem):
             y  = coordinates[1]
             z  = coordinates[2]
 
-            return Eo*((x/a)**4-2.0*(x/a)**2)-(b/a)*x + 0.5 *(8.0*Eo/a**2)*(y**2 + z**2)
+            return Eo*((x/a)**4-2.0*(x/a)**2)-(b/a)*x + 0.5 *k*(y**2 + z**2)
 
         elif len(coordinates._value.shape)==2 and coordinates._value.shape[1]==3:
 
@@ -202,7 +205,7 @@ class DoubleWell(OpenMolecularSystem):
             y  = coordinates[:,1]
             z  = coordinates[:,2]
 
-            return Eo*((x/a)**4-2.0*(x/a)**2)-(b/a)*x + 0.5 *(8.0*Eo/a**2)*(y**2 + z**2)
+            return Eo*((x/a)**4-2.0*(x/a)**2)-(b/a)*x + 0.5 *k*(y**2 + z**2)
 
         else:
 
@@ -213,14 +216,15 @@ class DoubleWell(OpenMolecularSystem):
         Eo = self.parameters['Eo']
         a = self.parameters['a']
         b = self.parameters['b']
+        k = self.parameters['k']
 
         x, y, z = sy.symbols('x y z')
         xu = x*unit.nanometers
         yu = y*unit.nanometers
         zu = z*unit.nanometers
         potential_x = Eo*((xu/a)**4-2.0*(xu/a)**2)-(b/a)*xu
-        potential_y = 0.5 *(8.0*Eo/a**2)*(yu**2)
-        potential_z = 0.5 *(8.0*Eo/a**2)*(zu**2)
+        potential_y = 0.5 *k*(yu**2)
+        potential_z = 0.5 *k*(zu**2)
 
         g=sy.diff(potential_x,x)
         gg=sy.diff(potential_x,x,x)
@@ -243,6 +247,7 @@ class DoubleWell(OpenMolecularSystem):
         Eo = self.parameters['Eo']
         a = self.parameters['a']
         b = self.parameters['b']
+        k = self.parameters['k']
 
         x, y, z = sy.symbols('x y z')
         xu = x*unit.nanometers
@@ -250,8 +255,8 @@ class DoubleWell(OpenMolecularSystem):
         zu = z*unit.nanometers
 
         potential_x = Eo*((xu/a)**4-2.0*(xu/a)**2)-(b/a)*xu
-        potential_y = 0.5 *(8.0*Eo/a**2)*(yu**2)
-        potential_z = 0.5 *(8.0*Eo/a**2)*(zu**2)
+        potential_y = 0.5 *k*(yu**2)
+        potential_z = 0.5 *k*(zu**2)
 
         g=sy.diff(potential_x,x)
         gg=sy.diff(potential_x,x,x)
@@ -274,6 +279,7 @@ class DoubleWell(OpenMolecularSystem):
         Eo = self.parameters['Eo']
         a = self.parameters['a']
         b = self.parameters['b']
+        k = self.parameters['k']
         mass = self.parameters['mass']
 
         x, y, z = sy.symbols('x y z')
@@ -282,8 +288,8 @@ class DoubleWell(OpenMolecularSystem):
         zu = z*unit.nanometers
 
         potential_x = Eo*((xu/a)**4-2.0*(xu/a)**2)-(b/a)*xu
-        potential_y = 0.5 *(8.0*Eo/a**2)*(yu**2)
-        potential_z = 0.5 *(8.0*Eo/a**2)*(zu**2)
+        potential_y = 0.5 *k*(yu**2)
+        potential_z = 0.5 *k*(zu**2)
 
         g=sy.diff(potential_y,y)
         gg=sy.diff(potential_y,y,y)
@@ -329,6 +335,7 @@ class DoubleWell(OpenMolecularSystem):
         Eo = self.parameters['Eo']
         a = self.parameters['a']
         b = self.parameters['b']
+        k = self.parameters['k']
 
         x, y, z = sy.symbols('x y z')
         xu = x*unit.nanometers
@@ -336,8 +343,8 @@ class DoubleWell(OpenMolecularSystem):
         zu = z*unit.nanometers
 
         potential_x = Eo*((xu/a)**4-2.0*(xu/a)**2)-(b/a)*xu
-        potential_y = 0.5 *(8.0*Eo/a**2)*(yu**2)
-        potential_z = 0.5 *(8.0*Eo/a**2)*(zu**2)
+        potential_y = 0.5 *k*(yu**2)
+        potential_z = 0.5 *k*(zu**2)
 
         g=sy.diff(potential_y,y)
         gg=sy.diff(potential_y,y,y)
