@@ -4,7 +4,7 @@ from openopenmmreporters import MolSysMTTrajectoryDictReporter
 from openopenmmreporters import TQDMReporter
 
 def newtonian(item, time = None, saving_timestep = None, integration_timestep= 2*unit.femtoseconds,
-              friction=0.0/unit.picoseconds, initial_velocities=None, platform_name='CUDA',
+              friction=0.0/unit.picoseconds, initial_coordinates=None, initial_velocities=None, platform_name='CUDA',
               reporters=None, tqdm=True):
 
     """Newtonian classical dynamics of a molecular system with OpenMM.
@@ -111,7 +111,8 @@ def newtonian(item, time = None, saving_timestep = None, integration_timestep= 2
 
     # Initial Context.
 
-    initial_coordinates = item.coordinates
+    if initial_coordinates is None:
+        initial_coordinates = item.coordinates
     simulation.context.setPositions(initial_coordinates)
 
     if initial_velocities=='zeros' or initial_velocities is None:
@@ -121,7 +122,6 @@ def newtonian(item, time = None, saving_timestep = None, integration_timestep= 2
         simulation.context.setVelocitiesToTemperature(temperature)
     else:
         simulation.context.setVelocities(initial_velocities)
-
 
     # Reporters.
 
