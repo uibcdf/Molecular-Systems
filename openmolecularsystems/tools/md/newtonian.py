@@ -146,7 +146,7 @@ def newtonian(item, time = None, saving_timestep = None, integration_timestep= 2
 
     n_steps = int(time/integration_timestep)
     if tqdm:
-        tqdm_reporter = TQDMReporter(n_steps, 100)
+        tqdm_reporter = TQDMReporter(100, n_steps)
         simulation.reporters.append(tqdm_reporter)
     simulation.step(n_steps)
 

@@ -16,25 +16,52 @@ atoms_LJ={
               'sigma':3.961*unit.angstroms,
               'epsilon':0.459*unit.kilocalories_per_mole
               },
+        'Dummy_A':
+             {'mass':40.0*unit.amu,
+              'sigma':2.0*unit.angstroms,
+              'epsilon':2.0*unit.kilocalories_per_mole
+              },
+        'Dummy_B':
+             {'mass':120.0*unit.amu,
+              'sigma':4.0*unit.angstroms,
+              'epsilon':4.5*unit.kilocalories_per_mole
+              },
            }
 
 class TwoLJParticles(OpenMolecularSystem):
 
-    def __init__(self, mass_1=39.948*unit.amu, sigma_1=3.404*unit.angstroms, epsilon_1=0.238*unit.kilocalories_per_mole,
-                 mass_2=131.293*unit.amu, sigma_2=3.961*unit.angstroms, epsilon_2=0.459*unit.kilocalories_per_mole,
-                 cutoff_distance = None, switching_distance = None, box=None, pbc=True,
-                 coordinates=None, atom_1=None, atom_2=None):
+    def __init__(self, atom_1='Ar', atom_2='Xe', mass_1=None, sigma_1=None, epsilon_1=None,
+                 mass_2=None, sigma_2=None, epsilon_2=None,
+                 cutoff_distance = None, switching_distance = None, box=None,
+                 coordinates=None):
 
         super().__init__()
 
         # Parameters
 
-        if mass_2 is None:
-            mass_2 = mass_1
-        if sigma_2 is None:
-            sigma_2 = sigma_1
-        if epsilon_2 is None:
-            epsilon_2 = epsilon_1
+        if (mass_1 is not None) or (sigma_1 is not None) or (epsilon_1 is not None):
+            if mass_1 is None:
+                raise ValueError('A value for the input argument "mass_1" is needed.')
+            if sigma_1 is None:
+                raise ValueError('A value for the input argument "sigma_1" is needed.')
+            if epsilon_1 is None:
+                raise ValueError('A value for the input argument "epsilon_1" is needed.')
+        elif atom_1 is not None:
+            mass_1 = atoms_LJ[atom_1]['mass']
+            sigma_1 = atoms_LJ[atom_1]['sigma']
+            epsilon_1 = atoms_LJ[atom_1]['epsilon']
+
+        if (mass_2 is not None) or (sigma_2 is not None) or (epsilon_2 is not None):
+            if mass_2 is None:
+                raise ValueError('A value for the input argument "mass_2" is needed.')
+            if sigma_2 is None:
+                raise ValueError('A value for the input argument "sigma_2" is needed.')
+            if epsilon_2 is None:
+                raise ValueError('A value for the input argument "epsilon_2" is needed.')
+        elif atom_2 is not None:
+            mass_2 = atoms_LJ[atom_2]['mass']
+            sigma_2 = atoms_LJ[atom_2]['sigma']
+            epsilon_2 = atoms_LJ[atom_2]['epsilon']
 
         self.parameters['mass_1']=mass_1
         self.parameters['sigma_1']=sigma_1
@@ -44,7 +71,7 @@ class TwoLJParticles(OpenMolecularSystem):
         self.parameters['sigma_2']=sigma_2
         self.parameters['epsilon_2']=epsilon_2
 
-        if pbc:
+        if box is not None:
 
             reduced_sigma = self.get_reduced_sigma()
 
@@ -54,13 +81,9 @@ class TwoLJParticles(OpenMolecularSystem):
             if switching_distance is None:
                 switching_distance = 3.0*reduced_sigma
 
-            if box is None:
-                box = np.zeros((3,3))*np.nanometers
-                np.fill_diagonal(box, 8.0*reduced_sigma)
-
-        self.parameters['pbc'] = pbc
+        self.parameters['box'] = box
         self.parameters['cutoff_distance'] = cutoff_distance
-        self.parameters['switching_distance'] = cutoff_distance
+        self.parameters['switching_distance'] = switching_distance
 
         # OpenMM topology
 
@@ -83,13 +106,13 @@ class TwoLJParticles(OpenMolecularSystem):
 
         non_bonded_force = mm.NonbondedForce()
 
-        if pbc:
-            non_bonded_force.setNonbondedMethod(mm.NonbondedForce.Cutoff)
-        else:
-            non_bonded_force.setNonbondedMethod(mm.NonbondedForce.NoCutoff)
+        if box is not None:
+            non_bonded_force.setNonbondedMethod(mm.NonbondedForce.CutoffPeriodic)
             non_bonded_force.setUseSwitchingFunction(True)
             non_bonded_force.setCutoffDistance(cutoff_distance)
             non_bonded_force.setSwitchingDistance(switching_distance)
+        else:
+            non_bonded_force.setNonbondedMethod(mm.NonbondedForce.NoCutoff)
 
         self.system.addParticle(mass_1)
         charge_1 = 0.0 * unit.elementary_charge
@@ -108,7 +131,7 @@ class TwoLJParticles(OpenMolecularSystem):
 
         # Box
 
-        if pbc:
+        if box is not None:
             self.set_box(box)
 
         # Potential expresion
