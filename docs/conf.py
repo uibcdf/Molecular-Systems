@@ -20,16 +20,19 @@ import sys
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 
-sys.path.insert(0, os.path.abspath('..'))
-
 import openmolecularsystems
 
 # -- Project information -----------------------------------------------------
 
 project = 'OpenMolecularSystems'
-copyright = ('2021, UIBCDF Lab at the Mexico City Childrens Hospital Federico Gomez and authors.'
-        'Project structure based on the Computational Molecular Science Python Cookiecutter version 1.5')
-author = 'Liliana M. Moreno Vargas & Diego Prada Gracia'
+copyright = ("2022, The Mexico City Childrens' Hospital Federico Gomez, "
+             "its Unit of Research on Computational Biology and Drug Design, and authors | "
+             "This project is licensed under the terms of the MIT license. "
+             "See further details in the source code repository | "
+             "Project based on the Computational Molecular Science Python Cookiecutter version 1.5")
+author = ("The Unit of Research on Computational Biology and Drug Design "
+          "at the Mexico City Childrens' Hospital Federico Gomez, and the "
+          "contributors to the GitHub repository uibcdf/OpenExplorer.")
 
 # The short X.Y version
 version = openmolecularsystems.__version__.split('+')[0]
@@ -57,16 +60,27 @@ extensions = [
     'sphinx.ext.napoleon',
     'sphinx.ext.githubpages',
     'sphinxcontrib.bibtex',
-    'nbsphinx',
-    'recommonmark',
-    'sphinx_markdown_tables',
-    'sphinx.ext.extlinks'
+    'sphinx.ext.extlinks',
+    'myst_nb'
 ]
 
 autosummary_generate = True
+
+# Napoleon settings
+napoleon_numpy_docstring = True
 napoleon_google_docstring = False
-napoleon_use_param = False
-napoleon_use_ivar = True
+napoleon_include_init_with_doc = False
+napoleon_include_private_with_doc = False
+napoleon_include_special_with_doc = True
+napoleon_use_admonition_for_examples = False
+napoleon_use_admonition_for_notes = True
+napoleon_use_admonition_for_references = False
+napoleon_use_ivar = False
+napoleon_use_param = True
+napoleon_use_rtype = True
+napoleon_preprocess_types = False
+napoleon_type_aliases = None
+napoleon_attr_annotations = True
 
 # sphinxcontrib-bibtex
 bibtex_bibfiles = ['bibliography.bib'] # list of *.bib files
@@ -93,10 +107,7 @@ master_doc = 'index'
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
 # language was edited to use sphinx-intl
-language = 'en'
-# These next two variables were incluede to use sphinx-intl
-locale_dirs =  ['_locale/']
-gettext_compact = False
+language = None
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -119,6 +130,7 @@ html_theme = 'sphinx_rtd_theme'
 # documentation.
 #
 # html_theme_options = {}
+
 html_theme_options = {
     'canonical_url': '',
     'analytics_id': '',
@@ -129,7 +141,7 @@ html_theme_options = {
     # Toc options
     'collapse_navigation': False,
     'sticky_navigation': True,
-    'navigation_depth': 4,
+    'navigation_depth': 3,
     'includehidden': True,
     'titles_only': False
 }
@@ -162,7 +174,7 @@ html_css_files = [
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-#htmlhelp_basename = ''
+htmlhelp_basename = 'openmolecularsystems_doc'
 
 
 # -- Options for LaTeX output ------------------------------------------------
@@ -217,7 +229,6 @@ texinfo_documents = [
 #intersphinx_mapping = {'https://docs.python.org/': None}
 
 # stackoverflow.com/questions/12206334
-numpydoc_show_class_members = False
 
 # -- Options for todo extension ----------------------------------------------
 

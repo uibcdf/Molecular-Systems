@@ -2,13 +2,15 @@ channels:
 - uibcdf/label/dev
 - uibcdf
 - conda-forge
-- default
+- defaults
 dependencies:
 - python
+- setuptools
 - numpy
+- pyunitwizard
 - openmm
-- openopenmmreporters
 - sympy
+- openopenmmreporters
 - pytest
 - pip
 - pytest-cov

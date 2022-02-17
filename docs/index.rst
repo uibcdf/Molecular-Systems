@@ -4,26 +4,54 @@
 OpenMolecularSystems
 ====================
 
+This open source library contains a set of molecular systems of interest for the UIBCDF.
+They are ready to be simulated with OpenMM in your own workflow. Or if you prefer, you can take
+advange of the tools here to run some fast tests or simulations.
+
 .. toctree::
+   :name: about
    :caption: About
    :maxdepth: 2
 
-   contents/Installation.md
+   contents/about/introduction/index.rst
+   contents/about/installation/installation.md
+   contents/about/showcase/index.rst
 
 .. toctree::
-   :caption: Molecular Systems
+   :name: user_guide
+   :caption: User guide
    :maxdepth: 2
 
-   contents/free_particle/index.rst
-   contents/harmonic_well/index.rst
-   contents/double_well/index.rst
-   contents/lennard_jones_fluid/index.rst
-   contents/alanine_dipeptide/index.rst
-   contents/alanine_tetrapeptide/index.rst
-   contents/alanine_pentapeptide/index.rst
+   contents/user/molecular_systems/index.rst
+   contents/user/tools/index.rst
+
+.. toctree::
+   :name: developer_guide
+   :caption: Developer Guide
+   :maxdepth: 2
+
+   contents/developer/intro/index.rst
+   contents/developer/names_convention.ipynb
+   contents/developer/exceptions.ipynb
+   contents/developer/documentation/index.rst
+
+.. toctree::
+   :name: api_doc
+   :caption: API Documentation
+   :maxdepth: 2
+
+   api_user.rst
+   api_developer.rst
 
 .. toctree::
    :caption: Bibliography
 
    bibliography.rst
+
+Glossary, indices and tables
+============================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
 

@@ -10,6 +10,13 @@ __version__ = versions['version']
 __git_revision__ = versions['full-revisionid']
 del get_versions, versions
 
+__documentation_web__ = 'https://www.uibcdf.org/OpenMolecularSystems'
+__github_web__ = 'https://github.com/uibcdf/OpenMolecularSystems'
+__github_issues_web__ = __github_web__ + '/issues'
+
 # Add imports here
+
+from ._pyunitwizard import puw as puw
+
 from .systems import *
 from . import tools

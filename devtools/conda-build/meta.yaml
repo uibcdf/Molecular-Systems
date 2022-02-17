@@ -1,33 +1,30 @@
 package:
   name: openmolecularsystems
   version: "{{ environ['GIT_DESCRIBE_TAG'] }}"
-
 source:
   path: ../../
-
 build:
   number: 1
-
 requirements:
   build:
-    - python
-    - setuptools
-    - numpy
-    - versioneer
-
+  - python
+  - setuptools
+  - numpy
   run:
-    - python
-    - numpy
-    - openmm
-    - sympy
-    - openopenmmreporters
-
+  - python
+  - setuptools
+  - numpy
+  - pyunitwizard
+  - openmm
+  - sympy
+  - openopenmmreporters
 about:
   home: https://uibcdf.org
   license: MIT License
-  summary: ""
-  description: |
-    This library provides some useful molecular test systems daily used in the UIBCDF lab.
+  summary: ''
+  description: 'This library provides some useful molecular test systems daily used
+    in the UIBCDF lab.
+
+    '
   dev_url: https://github.com/uibcdf/OpenMolecularSystems
   doc_url: https://uibcdf.org/OpenMolecularSystems
-

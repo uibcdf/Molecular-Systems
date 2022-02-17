@@ -19,7 +19,7 @@ anaconda logout
 ## Install
 
 ```
-conda install -c uibcdf pyunitwizard
+conda install -c uibcdf openmolecularsystems
 ```
 
 ## Additional Info

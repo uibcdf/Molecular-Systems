@@ -1,7 +1,6 @@
 channels:
-- default
+- defaults
 dependencies:
 - python
 - setuptools
 - numpy
-- versioneer

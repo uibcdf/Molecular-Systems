@@ -1,7 +1,7 @@
 from .openmolecularsystem import OpenMolecularSystem
-import simtk.unit as unit
-import simtk.openmm as mm
-import simtk.openmm.app as app
+import openmm.unit as unit
+import openmm as mm
+import openmm.app as app
 import numpy as np
 
 class FreeParticle(OpenMolecularSystem):
