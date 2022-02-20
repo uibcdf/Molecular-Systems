@@ -48,23 +48,23 @@ This yaml files were produced with the script 'broadcast_requirements.py' and th
 Finnally, to create a conda environment use the script 'create_conda_env.py' the following way:
 
 ```bash
-# In this case the name of the environment is also "OpenExplorer"
+# In this case the name of the environment is also "OpenMolecularSystems"
 # the Python version of our new environment is 3.7
 # and the yaml file will be the one to work on the library development
-python create_conda_env.py -n OpenExplorer -p 3.7 development_env.yaml
+python create_conda_env.py -n OpenMolecularSystems -p 3.7 development_env.yaml
 ```
 
 You can already activate the environment to start working in the library development:
 
 ```bash
-conda activate OpenExplorer
+conda activate OpenMolecularSystems
 ```
 
 In case the list of dependencies changed and the environment needs to be updated, use the Python
 script 'update_conda_env.py' with the environment activated:
 
 ```bash
-conda activate OpenExplorer
+conda activate OpenMolecularSystems
 python update_conda_env.py development_env.yaml
 ```
 

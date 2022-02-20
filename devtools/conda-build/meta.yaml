@@ -15,6 +15,7 @@ requirements:
   - setuptools
   - numpy
   - pyunitwizard
+  - pint
   - openmm
   - sympy
   - openopenmmreporters

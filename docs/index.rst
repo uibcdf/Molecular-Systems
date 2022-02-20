@@ -6,7 +6,7 @@ OpenMolecularSystems
 
 This open source library contains a set of molecular systems of interest for the UIBCDF.
 They are ready to be simulated with OpenMM in your own workflow. Or if you prefer, you can take
-advange of the tools here to run some fast tests or simulations.
+advange of the tools of this library to run some fast tests or simulations.
 
 .. toctree::
    :name: about
@@ -23,6 +23,7 @@ advange of the tools here to run some fast tests or simulations.
    :maxdepth: 2
 
    contents/user/molecular_systems/index.rst
+   contents/user/simulations/index.rst
    contents/user/tools/index.rst
 
 .. toctree::
