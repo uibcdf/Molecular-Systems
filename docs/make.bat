@@ -9,7 +9,7 @@ if "%SPHINXBUILD%" == "" (
 )
 set SOURCEDIR=.
 set BUILDDIR=_build
-set SPHINXPROJ=openmolecularsystems
+set SPHINXPROJ=uibcdf_systems
 
 if "%1" == "" goto help
 

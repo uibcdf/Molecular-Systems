@@ -4,12 +4,12 @@
 # You can set these variables from the command line.
 SPHINXOPTS    =
 SPHINXBUILD   = sphinx-build
-SPHINXPROJ    = openmolecularsystems
+SPHINXPROJ    = uibcdf_systems
 SOURCEDIR     = .
 BUILDDIR      = _build
 
 
-.PHONY: help builddir html builddir_es pots pots_to_pos html_es clean clean_es
+.PHONY: help builddir html clean 
 
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
@@ -27,4 +27,5 @@ html: builddir
 clean:
 	rm -rf $(BUILDDIR)
 	rm -rf autosummary/*.rst
+	rm -rf jupyter_execute
 

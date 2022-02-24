@@ -1,6 +1,6 @@
 # Installation
 
-OpenMolecularSystems is distributed in its stable and testing version through the 'uibcdf' conda channel.
+UIBCDF Molecular Systems is distributed in its stable and testing version through the 'uibcdf' conda channel.
 If there is no reason to install the library from the source code, we highly recommend working with
 conda.
 
@@ -13,27 +13,27 @@ There is no stable version yet
 If you want to work with the last testing version:
 
 ```bash
-conda install -c uibcdf/label/dev openmolecularsystems
+conda install -c uibcdf/label/dev uibcdf_systems
 ```
 
 To uninstall this library:
 
 ```bash
-conda remove openmolecularsystems
+conda remove uibcdf_systems
 ```
 
 ## The source code
 
-The raw code fully alive can be cloned from the [github repository](https://github.com/uibcdf/OpenMolecularSystems) as follows:
+The raw code fully alive can be cloned from the [github repository](https://github.com/uibcdf/Molecular-Systems) as follows:
 
 ```bash
-git clone https://github.com/uibcdf/OpenMolecularSystems.git
+git clone https://github.com/uibcdf/Molecular-Systems.git
 ```
 
 Or with GitHub CLI:
 
 ```bash
-gh repo clone uibcdf/OpenMolecularSystems
+gh repo clone uibcdf/Molecular-Systems
 ```
 
 Now, once you have cloned the repository. You need to install the required pakages to use it,
@@ -44,14 +44,14 @@ with OpenMolecularSystems, feel free to make use of the Python scripts 'create\_
 
 ```
 cd OpenMolecularSystems/devtools/conda-envs
-python create_conda_env.py -n OpenMolecularSystems -p 3.7 production_env.yaml
+python create_conda_env.py -n Molecular-Systems -p 3.7 production_env.yaml
 ```
 
 You can now install the developing version of OpenMolecularSystems from the source code:
 
 ```
-conda activate OpenMolecularSystems
-cd OpenMolecularSystems
+conda activate Molecular-Systems
+cd Molecular-Systems
 python setup.py develop
 ```
 

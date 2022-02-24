@@ -11,7 +11,7 @@ dependencies:
 - pint
 - openmm
 - sympy
-- openopenmmreporters
+- uibcdf_reporters
 - pytest
 - pip
 - pytest-cov

@@ -20,24 +20,24 @@ import sys
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 
-import openmolecularsystems
+import uibcdf_systems
 
 # -- Project information -----------------------------------------------------
 
-project = 'OpenMolecularSystems'
-copyright = ("2022, The Mexico City Childrens' Hospital Federico Gomez, "
+project = 'UIBCDF Molecular Systems'
+copyright = ("2020-2022, The Mexico City Childrens' Hospital Federico Gomez, "
              "its Unit of Research on Computational Biology and Drug Design, and authors | "
              "This project is licensed under the terms of the MIT license. "
              "See further details in the source code repository | "
              "Project based on the Computational Molecular Science Python Cookiecutter version 1.5")
 author = ("The Unit of Research on Computational Biology and Drug Design "
           "at the Mexico City Childrens' Hospital Federico Gomez, and the "
-          "contributors to the GitHub repository uibcdf/OpenExplorer.")
+          "contributors to the GitHub repository uibcdf/Molecular-Systems.")
 
 # The short X.Y version
-version = openmolecularsystems.__version__.split('+')[0]
+version = uibcdf_systems.__version__.split('+')[0]
 # The full version, including alpha/beta/rc tags
-release = openmolecularsystems.__version__
+release = uibcdf_systems.__version__
 
 
 # -- General configuration ---------------------------------------------------
@@ -175,7 +175,7 @@ html_show_sourcelink = False
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'openmolecularsystems_doc'
+htmlhelp_basename = 'uibcdf_systems_doc'
 
 
 # -- Options for LaTeX output ------------------------------------------------

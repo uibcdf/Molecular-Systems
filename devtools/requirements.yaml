@@ -18,7 +18,7 @@ production:
     - pint
     - openmm
     - sympy
-    - openopenmmreporters
+    - uibcdf_reporters
 
 test:
   channels: &test_channels

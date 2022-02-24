@@ -1,8 +1,8 @@
-.. openmolecularsystems documentation master file
+.. UIBCDF Molecular Systems documentation master file
 
-====================
-OpenMolecularSystems
-====================
+========================
+UIBCDF Molecular Systems
+========================
 
 This open source library contains a set of molecular systems of interest for the UIBCDF.
 They are ready to be simulated with OpenMM in your own workflow. Or if you prefer, you can take
@@ -11,15 +11,15 @@ advange of the tools of this library to run some fast tests or simulations.
 .. toctree::
    :name: about
    :caption: About
-   :maxdepth: 2
+   :maxdepth: 1
 
    contents/about/introduction/index.rst
    contents/about/installation/installation.md
    contents/about/showcase/index.rst
 
 .. toctree::
-   :name: user_guide
-   :caption: User guide
+   :name: molecular_systems
+   :caption: Molecular Systems
    :maxdepth: 2
 
    contents/user/molecular_systems/index.rst

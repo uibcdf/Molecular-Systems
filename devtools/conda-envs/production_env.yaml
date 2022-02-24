@@ -11,4 +11,4 @@ dependencies:
 - pint
 - openmm
 - sympy
-- openopenmmreporters
+- uibcdf_reporters

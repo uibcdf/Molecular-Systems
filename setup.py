@@ -1,5 +1,5 @@
 """
-OpenMolecularSystems.
+UIBCDF Molecular Systems.
 Molecular Systems of interest for the UIBCDF.
 """
 
@@ -21,15 +21,15 @@ except:
 
 
 setup(
-    name='openmolecularsystems',
+    name='uibcdf_systems',
     author='UIBCDF Lab',
     author_email='uibcdf@gmail.com',
     version=versioneer.get_version(),
     cmdclass=versioneer.get_cmdclass(),
-    package_dir={'openmolecularsystems': 'openmolecularsystems'},
+    package_dir={'uibcdf_systems': 'uibcdf_systems'},
     packages=find_packages(),
     include_package_data=True,
-    package_data={'openmolecularsystems': ['data']},
+    package_data={'uibcdf_systems': ['data']},
     scripts=[],
     setup_requires=[] + pytest_runner,
     platforms=['Linux',
@@ -39,7 +39,7 @@ setup(
     ],
     python_requires=">=3.7",
     url='http://uibcdf.org',
-    download_url ='https://github.com/uibcdf/OpenMolecularsystems',
+    download_url ='https://github.com/uibcdf/Molecular-Systems',
     license='MIT',
     description=short_description[0],
     long_description=long_description,

@@ -10,7 +10,7 @@ describes how to merge code changes into this openexplorer.
 * On your local machine,
   [clone](https://help.github.com/articles/cloning-a-repository/) your fork of
   the repository.
-* Check the Developers' Guide in [the OpenMolecularSystems documentation](https://uibcdf.org/OpenMolecularSystems).
+* Check the Developers' Guide in [UIBCDF MolecularSystems documentation](https://uibcdf.org/Molecular-Systems).
 
 ## Making Changes
 
