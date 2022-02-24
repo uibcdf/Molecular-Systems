@@ -11,5 +11,6 @@ Free Particle
    :maxdepth: 1
 
    Free_Particle.ipynb
+   Brownian_motion.ipynb
 
 

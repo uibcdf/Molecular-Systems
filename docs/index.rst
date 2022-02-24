@@ -14,7 +14,7 @@ advange of the tools of this library to run some fast tests or simulations.
    :maxdepth: 1
 
    contents/about/introduction/index.rst
-   contents/about/installation/installation.md
+   contents/about/installation.md
    contents/about/showcase/index.rst
 
 .. toctree::
@@ -22,14 +22,12 @@ advange of the tools of this library to run some fast tests or simulations.
    :caption: Molecular Systems
    :maxdepth: 2
 
-   contents/user/molecular_systems/index.rst
-   contents/user/simulations/index.rst
-   contents/user/tools/index.rst
+   contents/molecular_systems/index.rst
 
 .. toctree::
    :name: developer_guide
    :caption: Developer Guide
-   :maxdepth: 2
+   :maxdepth: 1
 
    contents/developer/intro/index.rst
    contents/developer/names_convention.ipynb
@@ -39,13 +37,15 @@ advange of the tools of this library to run some fast tests or simulations.
 .. toctree::
    :name: api_doc
    :caption: API Documentation
-   :maxdepth: 2
+   :maxdepth: 1
 
    api_user.rst
    api_developer.rst
 
 .. toctree::
+   :name: bibliography
    :caption: Bibliography
+   :maxdepth: 1
 
    bibliography.rst
 

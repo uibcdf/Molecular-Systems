@@ -1,5 +1,8 @@
-import numpy as np
+from uibcdf_systems import puw
+from uibcdf_systems.tools import energy_minimization as _energy_minimization
+import openmm as mm
 import openmm.unit as unit
+import numpy as np
 
 class MolecularSystem():
 
@@ -14,28 +17,31 @@ class MolecularSystem():
 
     def set_coordinates(self, coordinates):
 
-        coordinates = coordinates.in_units_of(unit.nanometers)
-        self.coordinates = np.array(coordinates._value)*unit.nanometers
+        self.coordinates = puw.convert(coordinates, to_unit='nm')
 
         pass
 
-    def set_velocities(self, coordinates):
+    def set_velocities(self, velocities):
 
-        velocities = velocities.in_units_of(unit.nanometers/unit.picoseconds)
-        self.velocities = np.array(velocities._value)*unit.nanometers/unit.picoseconds
+        self.velocities = puw.convert(velocities, to_unit='nm/ps')
 
         pass
 
     def set_box(self, box):
 
-        box = box.in_units_of(unit.nanometers)
-        self.box = np.array(box._value)*unit.nanometers
+        self.box = puw.convert(box, unit='nm')
 
         if self.topology is not None:
             self.topology.setPeriodicBoxVectors(box)
 
         if self.system is not None:
             self.system.setDefaultPeriodicBoxVectors(box[0], box[1], box[2])
+
+        pass
+
+    def energy_minimization(self, platform_name='CUDA', verbose=False):
+
+        _energy_minimization(self, plaform_name=platform_name, verbose=verbose)
 
         pass
 

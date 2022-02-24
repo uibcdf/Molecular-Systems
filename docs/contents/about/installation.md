@@ -38,12 +38,12 @@ gh repo clone uibcdf/Molecular-Systems
 
 Now, once you have cloned the repository. You need to install the required pakages to use it,
 develope it, test it, or document it. Find all required libraries, depending on each usage case, in
-the `OpenMolecularSystems/devtools/conda-envs` directory. And if you want to create a conda environment to play
-with OpenMolecularSystems, feel free to make use of the Python scripts 'create\_conda\_env.py' and
+the `Molecular-Systems/devtools/conda-envs` directory. And if you want to create a conda environment to play
+with Molecular-Systems, feel free to make use of the Python scripts 'create\_conda\_env.py' and
 'update\_conda\_env.py' in the same directory:
 
 ```
-cd OpenMolecularSystems/devtools/conda-envs
+cd Molecular-Systems/devtools/conda-envs
 python create_conda_env.py -n Molecular-Systems -p 3.7 production_env.yaml
 ```
 

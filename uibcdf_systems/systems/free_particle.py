@@ -1,8 +1,11 @@
-from ._molecular_system import MolecularSystem
-import openmm.unit as unit
+from uibcdf_systems._private_tools.exceptions import *
+from uibcdf_systems import puw
+from uibcdf_systems.systems._molecular_system import MolecularSystem
 import openmm as mm
 import openmm.app as app
+import openmm.unit as unit
 import numpy as np
+
 
 class FreeParticle(MolecularSystem):
 
@@ -23,7 +26,7 @@ class FreeParticle(MolecularSystem):
 
     """
 
-    def __init__(self, n_particles=1, mass=16*unit.amus, density=None, coordinates=None, box=None, pbc=False):
+    def __init__(self, n_particles=1, mass='16 amu', density=None, coordinates=None, box=None, pbc=False):
 
         """Creating a new instance of FreeParticle
 
@@ -57,6 +60,8 @@ class FreeParticle(MolecularSystem):
 
         # Parameters
 
+        mass = puw.convert(mass)
+
         self.parameters['n_particles']=n_particles
         self.parameters['mass']=mass
 
@@ -70,7 +75,7 @@ class FreeParticle(MolecularSystem):
                 raise ValueError('Either the "box" input argument or the "density" needs to beed provided.')
             if density is not None:
                 # box initialization upon density
-                raise NotImplementedError()
+                raise NotImplementedMethodError()
 
         # OpenMM topology
 

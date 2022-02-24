@@ -3,10 +3,10 @@ from openmm.app import Simulation
 from uibcdf_reporters import MolSysMTTrajectoryDictReporter
 from uibcdf_reporters import TQDMReporter
 
-def langevin_NVT(item, time = None, saving_timestep = None, integration_timestep= 2*unit.femtoseconds,
-                 friction=1.0/unit.picoseconds, temperature=300.0*unit.kelvin,
-                 initial_coordinates=None, initial_velocities=None, platform_name='CUDA',
-                 reporters=None, tqdm=True):
+def langevin(item, time = None, saving_timestep = None, integration_timestep= 2*unit.femtoseconds,
+             friction=1.0/unit.picoseconds, temperature=300.0*unit.kelvin,
+             initial_coordinates=None, initial_velocities=None, platform_name='CUDA',
+             reporters=None, tqdm=True):
 
     """Newtonian classical dynamics of a molecular system with OpenMM.
 
@@ -110,17 +110,25 @@ def langevin_NVT(item, time = None, saving_timestep = None, integration_timestep
     # Initial Context.
 
     if initial_coordinates is None:
-        initial_coordinates = item.coordinates
-    simulation.context.setPositions(initial_coordinates)
+        if item.coordinates is not None:
+            simulation.context.setPositions(item.coordinates)
+        else:
+            raise SystemWithoutCoordinatesError()
+    else:
+        simulation.context.setPositions(coordinates)
 
-    if initial_velocities=='zeros' or initial_velocities is None:
+    if initial_velocities is None:
+        if item.velocities is not None:
+            simulation.context.setVelocities(item.velocities)
+        else:
+            raise SystemWithoutVelocitiesError()
+    elif initial_velocities=='zeros':
         initial_velocities = np.zeros([n_particles, 3], np.float32) * unit.nanometers/unit.picosecond
         simulation.context.setVelocities(initial_velocities)
     elif initial_velocities=='boltzmann':
         simulation.context.setVelocitiesToTemperature(temperature)
     else:
         simulation.context.setVelocities(initial_velocities)
-
 
     # Reporters.
 
