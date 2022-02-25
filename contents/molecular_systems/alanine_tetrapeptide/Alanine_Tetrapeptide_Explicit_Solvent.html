@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alanine dipeptide in explicit solvent &mdash; UIBCDF Molecular Systems 0+untagged.1.g74c4313 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/togglebutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/mystnb.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/togglebutton.js"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> UIBCDF Molecular Systems
+          </a>
+              <div class="version">
+                0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../about/introduction/index.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../about/introduction/introduction.html">Introduction</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../about/installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../about/installation.html#last-stable-version">Last stable version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../about/installation.html#last-developing-version">Last developing version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../about/installation.html#the-source-code">The source code</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../about/showcase/index.html">Showcase</a><ul class="simple">
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Molecular Systems</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../free_particle/index.html">Free particle</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../free_particle/brownian_particle.html">Brownian particle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../free_particle/molecular_system.html">Molecular system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../free_particle/molecular_dynamics.html">Molecular dynamics</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../harmonic_well/index.html">Harmonic well</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../harmonic_well/harmonic_well.html">Harmonic well potential</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../harmonic_well/molecular_system.html">Molecular system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../harmonic_well/molecular_dynamics.html">Molecular dynamics</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../double_well/index.html">Double Well</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../double_well/double_well_potential.html">Double well potential</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../double_well/molecular_system.html">Molecular system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../double_well/molecular_dynamics.html">Molecular dynamics</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../LJ_particles/index.html">Lennard Jones particles</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../LJ_particles/LJ_Potential.html">The Lennard-Jones potential</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../LJ_particles/two_particles/index.html">Two LJ particles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../LJ_particles/two_particles/two_particles.html">Two LJ atoms in vacuum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../LJ_particles/two_particles/molecular_system.html">Molecular system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../LJ_particles/two_particles/molecular_dynamics.html">Molecular dynamics</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tools</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tools/langevin.html">Langevin</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../developer/intro/index.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../developer/intro/Introduction.html">Introduction</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer/names_convention.html">Names convention</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../developer/names_convention.html#project-name">Project name</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/names_convention.html#github-repo-and-conda-env">GitHub repo and Conda env</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/names_convention.html#readme-file-and-documents">README file and documents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/names_convention.html#package">Package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../developer/names_convention.html#modules-classes-methods-variables-and-others-programming-elements">Modules, classes, methods, variables, and others programming elements.</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/names_convention.html#modules">Modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/names_convention.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/names_convention.html#exceptions">Exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/names_convention.html#methods-and-functions">Methods and functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/names_convention.html#variables-input-arguments-and-parameters">Variables, input arguments and parameters.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/names_convention.html#constants">Constants</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/names_convention.html#not-public-methods-and-variables">Not public methods and variables</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer/exceptions.html">Exceptions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../developer/exceptions.html#notimplementedmethoderror">NotImplementedMethodError</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../developer/exceptions.html#notimplementedclasserror">NotImplementedClassError</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../developer/exceptions.html#badcallerror">BadCallError</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer/documentation/index.html">Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../developer/documentation/sphinx.html">Sphinx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../developer/documentation/docstrings.html">Docstrings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/documentation/docstrings.html#documenting-a-class">Documenting a class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/documentation/docstrings.html#documenting-a-method">Documenting a method</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../developer/documentation/admonitions.html">Admonitions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/documentation/admonitions.html#note">Note</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/documentation/admonitions.html#did-you-know">Did you know…?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/documentation/admonitions.html#it-is-suggested">It is suggested…</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/documentation/admonitions.html#see-also">See also</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/documentation/admonitions.html#warning">Warning</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Bibliography</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../bibliography.html">Bibliography</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">UIBCDF Molecular Systems</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Alanine dipeptide in explicit solvent</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+
+           <div itemprop="articleBody">
+             
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> autoreload
+<span class="o">%</span><span class="k">autoreload</span> 2
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">simtk</span> <span class="kn">import</span> <span class="n">unit</span>
+<span class="kn">from</span> <span class="nn">simtk</span> <span class="kn">import</span> <span class="n">openmm</span> <span class="k">as</span> <span class="n">omm</span>
+<span class="kn">from</span> <span class="nn">simtk.openmm</span> <span class="kn">import</span> <span class="n">app</span>
+<span class="kn">import</span> <span class="nn">molsysmt</span> <span class="k">as</span> <span class="nn">msm</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_3653</span><span class="o">/</span><span class="mf">1481429945.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">from</span> <span class="nn">simtk</span> <span class="kn">import</span> <span class="n">unit</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">from</span> <span class="nn">simtk</span> <span class="kn">import</span> <span class="n">openmm</span> <span class="k">as</span> <span class="n">omm</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">from</span> <span class="nn">simtk.openmm</span> <span class="kn">import</span> <span class="n">app</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;matplotlib&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="alanine-dipeptide-in-explicit-solvent">
+<h1>Alanine dipeptide in explicit solvent<a class="headerlink" href="#alanine-dipeptide-in-explicit-solvent" title="Permalink to this headline"></a></h1>
+<section id="with-openmm-from-scratch">
+<h2>With OpenMM from scratch<a class="headerlink" href="#with-openmm-from-scratch" title="Permalink to this headline"></a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">molecular_systems</span> <span class="kn">import</span> <span class="n">files</span>
+<span class="n">pdbfile_path</span> <span class="o">=</span> <span class="n">files</span><span class="o">.</span><span class="n">alanine_dipeptide</span><span class="p">[</span><span class="s1">&#39;octahedral_14.pdb&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">msm</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">pdbfile_path</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style  type="text/css" >
+</style><table id="T_b3211_" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_waters</th>        <th class="col_heading level0 col8" >n_peptides</th>        <th class="col_heading level0 col9" >n_frames</th>    </tr></thead><tbody>
+                <tr>
+                                <td id="T_b3211_row0_col0" class="data row0 col0" >pdb</td>
+                        <td id="T_b3211_row0_col1" class="data row0 col1" >4333</td>
+                        <td id="T_b3211_row0_col2" class="data row0 col2" >1440</td>
+                        <td id="T_b3211_row0_col3" class="data row0 col3" >1438</td>
+                        <td id="T_b3211_row0_col4" class="data row0 col4" >1</td>
+                        <td id="T_b3211_row0_col5" class="data row0 col5" >1438</td>
+                        <td id="T_b3211_row0_col6" class="data row0 col6" >2</td>
+                        <td id="T_b3211_row0_col7" class="data row0 col7" >1437</td>
+                        <td id="T_b3211_row0_col8" class="data row0 col8" >1</td>
+                        <td id="T_b3211_row0_col9" class="data row0 col9" >1</td>
+            </tr>
+    </tbody></table></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">view</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">pdbfile_path</span><span class="p">,</span> <span class="n">surface</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">view</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "4a3d8becc6bd40458f54d91c286d47d3", "version_major": 2, "version_minor": 0}
+</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">temperature</span> <span class="o">=</span> <span class="mf">300.0</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">kelvin</span>
+<span class="n">collisions_rate</span> <span class="o">=</span> <span class="mf">1.0</span><span class="o">/</span><span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span>
+<span class="n">total_time</span> <span class="o">=</span> <span class="mf">50.0</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span>
+<span class="n">saving_timestep</span> <span class="o">=</span> <span class="mf">1.0</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span>
+<span class="n">integration_timestep</span> <span class="o">=</span> <span class="mf">2.0</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">femtoseconds</span>
+
+<span class="n">steps_per_cicle</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">saving_timestep</span><span class="o">/</span><span class="n">integration_timestep</span><span class="p">)</span>
+<span class="n">n_steps</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">total_time</span><span class="o">/</span><span class="n">integration_timestep</span><span class="p">)</span>
+<span class="n">n_cicles</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">n_steps</span><span class="o">/</span><span class="n">steps_per_cicle</span><span class="p">)</span>
+
+<span class="n">pdbfile</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">PDBFile</span><span class="p">(</span><span class="n">pdbfile_path</span><span class="p">)</span>
+
+<span class="n">topology</span> <span class="o">=</span> <span class="n">pdbfile</span><span class="o">.</span><span class="n">topology</span>
+<span class="n">positions</span> <span class="o">=</span> <span class="n">pdbfile</span><span class="o">.</span><span class="n">positions</span>
+
+<span class="n">forcefield</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">ForceField</span><span class="p">(</span><span class="s1">&#39;amber14-all.xml&#39;</span><span class="p">,</span> <span class="s1">&#39;amber14/tip3p.xml&#39;</span><span class="p">)</span>
+
+<span class="n">system</span> <span class="o">=</span> <span class="n">forcefield</span><span class="o">.</span><span class="n">createSystem</span><span class="p">(</span><span class="n">topology</span><span class="p">,</span>
+                                 <span class="n">nonbondedMethod</span><span class="o">=</span><span class="n">app</span><span class="o">.</span><span class="n">PME</span><span class="p">,</span> <span class="n">nonbondedCutoff</span><span class="o">=</span><span class="mf">9.0</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">angstroms</span><span class="p">,</span>
+                                 <span class="n">switchDistance</span><span class="o">=</span><span class="mf">7.5</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">angstroms</span><span class="p">,</span>
+                                 <span class="n">rigidWater</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">constraints</span><span class="o">=</span><span class="n">app</span><span class="o">.</span><span class="n">HBonds</span><span class="p">,</span> <span class="n">hydrogenMass</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+<span class="n">forces</span> <span class="o">=</span> <span class="p">{</span><span class="n">ii</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="p">:</span> <span class="n">ii</span> <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="n">system</span><span class="o">.</span><span class="n">getForces</span><span class="p">()}</span>
+<span class="n">forces</span><span class="p">[</span><span class="s1">&#39;NonbondedForce&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">setUseDispersionCorrection</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">forces</span><span class="p">[</span><span class="s1">&#39;NonbondedForce&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">setEwaldErrorTolerance</span><span class="p">(</span><span class="mf">1.0e-5</span><span class="p">)</span>
+
+<span class="n">integrator</span> <span class="o">=</span> <span class="n">omm</span><span class="o">.</span><span class="n">LangevinIntegrator</span><span class="p">(</span><span class="n">temperature</span><span class="p">,</span> <span class="n">collisions_rate</span><span class="p">,</span> <span class="n">integration_timestep</span><span class="p">)</span>
+<span class="n">integrator</span><span class="o">.</span><span class="n">setConstraintTolerance</span><span class="p">(</span><span class="mf">0.00001</span><span class="p">)</span>
+
+<span class="n">platform</span> <span class="o">=</span> <span class="n">omm</span><span class="o">.</span><span class="n">Platform</span><span class="o">.</span><span class="n">getPlatformByName</span><span class="p">(</span><span class="s1">&#39;CUDA&#39;</span><span class="p">)</span>
+<span class="n">simulation_properties</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">simulation_properties</span><span class="p">[</span><span class="s1">&#39;CudaPrecision&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;mixed&#39;</span>
+
+<span class="c1"># Context.</span>
+
+<span class="n">context</span> <span class="o">=</span> <span class="n">omm</span><span class="o">.</span><span class="n">Context</span><span class="p">(</span><span class="n">system</span><span class="p">,</span> <span class="n">integrator</span><span class="p">,</span> <span class="n">platform</span><span class="p">,</span> <span class="n">simulation_properties</span><span class="p">)</span>
+<span class="n">context</span><span class="o">.</span><span class="n">setPositions</span><span class="p">(</span><span class="n">positions</span><span class="p">)</span>
+
+<span class="c1"># Energy Minimization</span>
+<span class="n">Potential_Energy</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">getState</span><span class="p">(</span><span class="n">getEnergy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">getPotentialEnergy</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Before energy minimization: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">Potential_Energy</span><span class="p">))</span>
+<span class="n">omm</span><span class="o">.</span><span class="n">LocalEnergyMinimizer_minimize</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+<span class="n">Potential_Energy</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">getState</span><span class="p">(</span><span class="n">getEnergy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">getPotentialEnergy</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;After energy minimization: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">Potential_Energy</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Before energy minimization: -17415.342173066165 kJ/mol
+After energy minimization: -70224.23182850215 kJ/mol
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initial velocities</span>
+<span class="n">n_atoms</span> <span class="o">=</span> <span class="n">topology</span><span class="o">.</span><span class="n">getNumAtoms</span><span class="p">()</span>
+<span class="n">velocities</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">n_atoms</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span><span class="o">/</span><span class="n">unit</span><span class="o">.</span><span class="n">picosecond</span>
+<span class="n">context</span><span class="o">.</span><span class="n">setVelocities</span><span class="p">(</span><span class="n">velocities</span><span class="p">)</span>
+
+<span class="c1"># Reporter arrays: time, position, velocity, kinetic_energy, potential_energy</span>
+
+<span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">n_cicles</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span>
+<span class="n">trajectory</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">n_cicles</span><span class="p">,</span> <span class="n">n_atoms</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
+<span class="n">velocity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">n_cicles</span><span class="p">,</span> <span class="n">n_atoms</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span><span class="o">/</span><span class="n">unit</span><span class="o">.</span><span class="n">picosecond</span>
+<span class="n">kinetic_energy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">n_cicles</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span>
+<span class="n">potential_energy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">n_cicles</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span>
+
+<span class="c1"># Initial context in reporters</span>
+
+<span class="n">state</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">getState</span><span class="p">(</span><span class="n">getPositions</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">getVelocities</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">getEnergy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">getTime</span><span class="p">()</span>
+<span class="n">trajectory</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">getPositions</span><span class="p">()</span>
+<span class="n">velocity</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">getVelocities</span><span class="p">()</span>
+<span class="n">kinetic_energy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">getKineticEnergy</span><span class="p">()</span>
+<span class="n">potential_energy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">getPotentialEnergy</span><span class="p">()</span>
+
+<span class="c1"># Integration loop saving every cicle steps</span>
+
+<span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_cicles</span><span class="p">)):</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">getIntegrator</span><span class="p">()</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">steps_per_cicle</span><span class="p">)</span>
+    <span class="n">state</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">getState</span><span class="p">(</span><span class="n">getPositions</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">getVelocities</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">getEnergy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">time</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">getTime</span><span class="p">()</span>
+    <span class="n">trajectory</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">getPositions</span><span class="p">()</span>
+    <span class="n">velocity</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">getVelocities</span><span class="p">()</span>
+    <span class="n">kinetic_energy</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">getKineticEnergy</span><span class="p">()</span>
+    <span class="n">potential_energy</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">getPotentialEnergy</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 49/49 [05:04&lt;00:00,  6.21s/it]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">trajectory</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(50, 4333, 3)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The trajectory occupies </span><span class="si">{}</span><span class="s1"> gigabytes.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">trajectory</span><span class="o">.</span><span class="n">nbytes</span> <span class="o">/</span> <span class="mi">1024</span><span class="o">**</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The trajectory occupies 0.002421252429485321 gigabytes.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">potential_energy</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/Alanine_Tetrapeptide_Explicit_Solvent_11_0.png" src="../../../_images/Alanine_Tetrapeptide_Explicit_Solvent_11_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">phi_values</span><span class="p">,</span> <span class="n">psi_values</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">ramachandran_angles</span><span class="p">([</span><span class="n">topology</span><span class="p">,</span> <span class="n">trajectory</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">phi_values</span><span class="p">,</span> <span class="n">psi_values</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/Alanine_Tetrapeptide_Explicit_Solvent_13_0.png" src="../../../_images/Alanine_Tetrapeptide_Explicit_Solvent_13_0.png" />
+</div>
+</div>
+</section>
+<section id="with-molsysmt">
+<h2>With MolSysMT<a class="headerlink" href="#with-molsysmt" title="Permalink to this headline"></a></h2>
+</section>
+<section id="with-this-library">
+<h2>With this library<a class="headerlink" href="#with-this-library" title="Permalink to this headline"></a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">molecular_systems</span> <span class="kn">import</span> <span class="n">AlanineDipeptideExplicitSolvent</span>
+<span class="kn">from</span> <span class="nn">molecular_systems.tools.md</span> <span class="kn">import</span> <span class="n">langevin_NVT</span><span class="p">,</span> <span class="n">energy_minimization</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dialanine</span><span class="o">=</span><span class="n">AlanineDipeptideExplicitSolvent</span><span class="p">(</span><span class="n">forcefield</span><span class="o">=</span><span class="s1">&#39;AMBER14&#39;</span><span class="p">)</span>
+
+<span class="n">energy_minimization</span><span class="p">(</span><span class="n">dialanine</span><span class="p">)</span>
+<span class="n">time</span><span class="p">,</span> <span class="n">trajectory</span><span class="p">,</span> <span class="n">velocity</span><span class="p">,</span> <span class="n">kin_energy</span><span class="p">,</span> <span class="n">pot_energy</span> <span class="o">=</span> <span class="n">langevin_NVT</span><span class="p">(</span><span class="n">dialanine</span><span class="p">,</span>
+                                                                  <span class="n">temperature</span> <span class="o">=</span> <span class="mi">300</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kelvin</span><span class="p">,</span>
+                                                                  <span class="n">friction</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">,</span>
+                                                                  <span class="n">saving_timestep</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">,</span>
+                                                                  <span class="n">total_time</span> <span class="o">=</span> <span class="mf">50.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Potential energy before minimization: -17415.52575900621 kJ/mol
+Potential energy after minimization: -70408.30700900621 kJ/mol
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 49/49 [04:02&lt;00:00,  4.95s/it]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">phi_values</span><span class="p">,</span> <span class="n">psi_values</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">ramachandran_angles</span><span class="p">([</span><span class="n">dialanine</span><span class="o">.</span><span class="n">topology</span><span class="p">,</span> <span class="n">trajectory</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">phi_values</span><span class="p">,</span> <span class="n">psi_values</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x7ff0d4dade50&gt;
+</pre></div>
+</div>
+<img alt="../../../_images/Alanine_Tetrapeptide_Explicit_Solvent_19_1.png" src="../../../_images/Alanine_Tetrapeptide_Explicit_Solvent_19_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">view</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">view</span><span class="p">([</span><span class="n">dialanine</span><span class="o">.</span><span class="n">topology</span><span class="p">,</span> <span class="n">trajectory</span><span class="p">],</span> <span class="n">surface</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">view</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "03bdadf0f50b4e0ab5035d3a85eede1e", "version_major": 2, "version_minor": 0}
+</script></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+    <a href="https://github.com/uibcdf/Molecular-Systems">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub">
+    </a>
+
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020-2022, The Mexico City Childrens&#39; Hospital Federico Gomez, its Unit of Research on Computational Biology and Drug Design, and authors | This project is licensed under the terms of the MIT license. See further details in the source code repository | Project based on the Computational Molecular Science Python Cookiecutter version 1.5.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

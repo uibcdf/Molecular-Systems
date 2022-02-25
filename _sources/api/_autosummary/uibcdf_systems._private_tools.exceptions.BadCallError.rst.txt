@@ -1,0 +1,6 @@
+﻿uibcdf\_systems.\_private\_tools.exceptions.BadCallError
+========================================================
+
+.. currentmodule:: uibcdf_systems._private_tools.exceptions
+
+.. autoexception:: BadCallError

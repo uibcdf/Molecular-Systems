@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Lennard-Jones potential &mdash; UIBCDF Molecular Systems 0+untagged.1.g74c4313 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/togglebutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/mystnb.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/togglebutton.js"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+        <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Two LJ particles" href="two_particles/index.html" />
+    <link rel="prev" title="Lennard Jones particles" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> UIBCDF Molecular Systems
+          </a>
+              <div class="version">
+                0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../about/introduction/index.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../about/introduction/introduction.html">Introduction</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../about/installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../about/installation.html#last-stable-version">Last stable version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../about/installation.html#last-developing-version">Last developing version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../about/installation.html#the-source-code">The source code</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../about/showcase/index.html">Showcase</a><ul class="simple">
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Molecular Systems</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../free_particle/index.html">Free particle</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../free_particle/brownian_particle.html">Brownian particle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../free_particle/molecular_system.html">Molecular system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../free_particle/molecular_dynamics.html">Molecular dynamics</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../harmonic_well/index.html">Harmonic well</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../harmonic_well/harmonic_well.html">Harmonic well potential</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../harmonic_well/molecular_system.html">Molecular system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../harmonic_well/molecular_dynamics.html">Molecular dynamics</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../double_well/index.html">Double Well</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../double_well/double_well_potential.html">Double well potential</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../double_well/molecular_system.html">Molecular system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../double_well/molecular_dynamics.html">Molecular dynamics</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Lennard Jones particles</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">The Lennard-Jones potential</a></li>
+<li class="toctree-l2"><a class="reference internal" href="two_particles/index.html">Two LJ particles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="two_particles/two_particles.html">Two LJ atoms in vacuum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="two_particles/molecular_system.html">Molecular system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="two_particles/molecular_dynamics.html">Molecular dynamics</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tools</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tools/langevin.html">Langevin</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../developer/intro/index.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../developer/intro/Introduction.html">Introduction</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer/names_convention.html">Names convention</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../developer/names_convention.html#project-name">Project name</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/names_convention.html#github-repo-and-conda-env">GitHub repo and Conda env</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/names_convention.html#readme-file-and-documents">README file and documents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/names_convention.html#package">Package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../developer/names_convention.html#modules-classes-methods-variables-and-others-programming-elements">Modules, classes, methods, variables, and others programming elements.</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/names_convention.html#modules">Modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/names_convention.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/names_convention.html#exceptions">Exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/names_convention.html#methods-and-functions">Methods and functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/names_convention.html#variables-input-arguments-and-parameters">Variables, input arguments and parameters.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/names_convention.html#constants">Constants</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/names_convention.html#not-public-methods-and-variables">Not public methods and variables</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer/exceptions.html">Exceptions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../developer/exceptions.html#notimplementedmethoderror">NotImplementedMethodError</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../developer/exceptions.html#notimplementedclasserror">NotImplementedClassError</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../developer/exceptions.html#badcallerror">BadCallError</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer/documentation/index.html">Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../developer/documentation/sphinx.html">Sphinx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../developer/documentation/docstrings.html">Docstrings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/documentation/docstrings.html#documenting-a-class">Documenting a class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/documentation/docstrings.html#documenting-a-method">Documenting a method</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../developer/documentation/admonitions.html">Admonitions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/documentation/admonitions.html#note">Note</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/documentation/admonitions.html#did-you-know">Did you know…?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/documentation/admonitions.html#it-is-suggested">It is suggested…</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/documentation/admonitions.html#see-also">See also</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/documentation/admonitions.html#warning">Warning</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Bibliography</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../bibliography.html">Bibliography</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">UIBCDF Molecular Systems</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Lennard Jones particles</a> &raquo;</li>
+      <li>The Lennard-Jones potential</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+
+           <div itemprop="articleBody">
+             
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">sympy</span> <span class="k">as</span> <span class="nn">sy</span>
+<span class="kn">from</span> <span class="nn">openmm</span> <span class="kn">import</span> <span class="n">unit</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_3426</span><span class="o">/</span><span class="mf">1768193541.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">sympy</span> <span class="k">as</span> <span class="nn">sy</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">from</span> <span class="nn">openmm</span> <span class="kn">import</span> <span class="n">unit</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;matplotlib&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="the-lennard-jones-potential">
+<h1>The Lennard-Jones potential<a class="headerlink" href="#the-lennard-jones-potential" title="Permalink to this headline"></a></h1>
+<p>The Lennard-Jones 12-6 potential between two particles is defined by the following equation, where <span class="math notranslate nohighlight">\(x\)</span> is the distance between the particles, and <span class="math notranslate nohighlight">\(\sigma\)</span> and <span class="math notranslate nohighlight">\(\epsilon\)</span> are two parameters of the potential:</p>
+<div class="math notranslate nohighlight" id="equation-lj-potential">
+<span class="eqno">(1)<a class="headerlink" href="#equation-lj-potential" title="Permalink to this equation"></a></span>\[
+V(x) = 4 \epsilon \left[ \left( \frac{\sigma}{x} \right)^{12} - \left( \frac{\sigma}{x} \right)^6 \right]
+\]</div>
+<p>Lets see the shape of this function:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">LJ</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">):</span>
+    
+    <span class="n">t</span> <span class="o">=</span> <span class="n">sigma</span><span class="o">/</span><span class="n">x</span>
+    <span class="n">t6</span> <span class="o">=</span> <span class="n">t</span><span class="o">**</span><span class="mi">6</span>
+    <span class="n">t12</span> <span class="o">=</span> <span class="n">t6</span><span class="o">**</span><span class="mi">2</span>
+    
+    <span class="k">return</span> <span class="mf">4.0</span><span class="o">*</span><span class="n">epsilon</span><span class="o">*</span><span class="p">(</span><span class="n">t12</span><span class="o">-</span><span class="n">t6</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sigma</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">angstrom</span>
+<span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span>
+
+<span class="n">xlim_figure</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">]</span>
+<span class="n">ylim_figure</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">]</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">xlim_figure</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">xlim_figure</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">100</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">angstrom</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">LJ</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="n">xlim_figure</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="n">ylim_figure</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x [</span><span class="si">{}</span><span class="s1">]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">unit</span><span class="o">.</span><span class="n">get_symbol</span><span class="p">()))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;V [</span><span class="si">{}</span><span class="s1">]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">epsilon</span><span class="o">.</span><span class="n">unit</span><span class="o">.</span><span class="n">get_symbol</span><span class="p">()))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/LJ_Potential_5_0.png" src="../../../_images/LJ_Potential_5_0.png" />
+</div>
+</div>
+<p>The way the LJ potential is built, the <span class="math notranslate nohighlight">\(\sigma\)</span> and <span class="math notranslate nohighlight">\(\epsilon\)</span> parameters have a straightforward interpretation. The cut with <span class="math notranslate nohighlight">\(y=0\)</span> is located in <span class="math notranslate nohighlight">\(x=\sigma\)</span>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sigma</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">angstrom</span>
+<span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span>
+
+<span class="n">xlim_figure</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">]</span>
+<span class="n">ylim_figure</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">]</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">xlim_figure</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">xlim_figure</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">100</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">angstrom</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">LJ</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">xlim_figure</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">xlim_figure</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">linestyles</span><span class="o">=</span><span class="s1">&#39;dotted&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">sigma</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span> <span class="n">ylim_figure</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ylim_figure</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">linestyles</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">sigma</span><span class="o">.</span><span class="n">_value</span><span class="o">+</span><span class="mf">0.02</span><span class="o">*</span><span class="n">xlim_figure</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mf">0.7</span><span class="o">*</span><span class="n">ylim_figure</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;$\sigma$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="n">xlim_figure</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="n">ylim_figure</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x [</span><span class="si">{}</span><span class="s1">]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">unit</span><span class="o">.</span><span class="n">get_symbol</span><span class="p">()))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;V [</span><span class="si">{}</span><span class="s1">]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">epsilon</span><span class="o">.</span><span class="n">unit</span><span class="o">.</span><span class="n">get_symbol</span><span class="p">()))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/LJ_Potential_7_0.png" src="../../../_images/LJ_Potential_7_0.png" />
+</div>
+</div>
+<p>And <span class="math notranslate nohighlight">\(\epsilon\)</span> is the depth of the minimum measured from <span class="math notranslate nohighlight">\(y=0\)</span>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sigma</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">angstrom</span>
+<span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span>
+
+<span class="n">xlim_figure</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">]</span>
+<span class="n">ylim_figure</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">]</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">xlim_figure</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">xlim_figure</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">100</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">angstrom</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">LJ</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">xlim_figure</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">xlim_figure</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">linestyles</span><span class="o">=</span><span class="s1">&#39;dotted&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="o">-</span><span class="n">epsilon</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span> <span class="n">xlim_figure</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">xlim_figure</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">linestyles</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="o">-</span><span class="n">epsilon</span><span class="o">.</span><span class="n">_value</span><span class="p">),</span> <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s1">&#39;&lt;-&gt;&#39;</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">1.0</span><span class="o">+</span><span class="mf">0.02</span><span class="o">*</span><span class="n">xlim_figure</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">-</span><span class="mf">0.7</span><span class="o">*</span><span class="n">epsilon</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span> <span class="s1">&#39;$\epsilon$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="n">xlim_figure</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="n">ylim_figure</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x [</span><span class="si">{}</span><span class="s1">]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">unit</span><span class="o">.</span><span class="n">get_symbol</span><span class="p">()))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;V [</span><span class="si">{}</span><span class="s1">]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">epsilon</span><span class="o">.</span><span class="n">unit</span><span class="o">.</span><span class="n">get_symbol</span><span class="p">()))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/LJ_Potential_9_0.png" src="../../../_images/LJ_Potential_9_0.png" />
+</div>
+</div>
+<p>Notice that the LJ potential has physical meaning when <span class="math notranslate nohighlight">\(\epsilon&gt;0\)</span> and <span class="math notranslate nohighlight">\(\sigma&gt;0\)</span> only. Actually, the potential vanishes whether <span class="math notranslate nohighlight">\(\epsilon=0\)</span> or <span class="math notranslate nohighlight">\(\sigma=0\)</span>.</p>
+<section id="the-lennard-jones-minimum-and-the-size-of-the-particles">
+<h2>The Lennard Jones minimum and the size of the particles<a class="headerlink" href="#the-lennard-jones-minimum-and-the-size-of-the-particles" title="Permalink to this headline"></a></h2>
+<p>The LJ potential has a single minimum located in <span class="math notranslate nohighlight">\(x_{min}\)</span>. Lets equal to <span class="math notranslate nohighlight">\(0\)</span> the first derivative of the potential to find the value of <span class="math notranslate nohighlight">\(x_{min}\)</span>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">epsilon</span> <span class="o">=</span> <span class="n">sy</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x sigma epsilon&#39;</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">positive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">V</span> <span class="o">=</span> <span class="mf">4.0</span><span class="o">*</span><span class="n">epsilon</span><span class="o">*</span><span class="p">((</span><span class="n">sigma</span><span class="o">/</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">12</span><span class="o">-</span><span class="p">(</span><span class="n">sigma</span><span class="o">/</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">gradV</span> <span class="o">=</span> <span class="n">sy</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">V</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
+<span class="n">roots</span><span class="o">=</span><span class="n">sy</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">gradV</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">x_min</span> <span class="o">=</span> <span class="n">roots</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_min</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle 1.12246204830937 \sigma\]</div>
+</div>
+</div>
+<p>The minimum is then located in:</p>
+<div class="math notranslate nohighlight" id="equation-lj-min">
+<span class="eqno">(2)<a class="headerlink" href="#equation-lj-min" title="Permalink to this equation"></a></span>\[
+x_{min} = 2^{1/6} \sigma
+\]</div>
+<p>where the potential takes the value:</p>
+<div class="math notranslate nohighlight" id="equation-lj-min-potential">
+<span class="eqno">(3)<a class="headerlink" href="#equation-lj-min-potential" title="Permalink to this equation"></a></span>\[
+V(x_{min}) = -\epsilon
+\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sigma</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">angstrom</span>
+<span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span>
+
+<span class="n">x_min</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">)</span><span class="o">*</span><span class="n">sigma</span>
+<span class="n">y_min</span> <span class="o">=</span> <span class="o">-</span><span class="n">epsilon</span>
+
+<span class="n">xlim_figure</span> <span class="o">=</span> <span class="p">[</span><span class="n">x_min</span><span class="o">.</span><span class="n">_value</span><span class="o">-</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">x_min</span><span class="o">.</span><span class="n">_value</span><span class="o">+</span><span class="mf">0.4</span><span class="p">]</span>
+<span class="n">ylim_figure</span> <span class="o">=</span> <span class="p">[</span><span class="n">y_min</span><span class="o">.</span><span class="n">_value</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">y_min</span><span class="o">.</span><span class="n">_value</span><span class="o">+</span><span class="mf">0.5</span><span class="p">]</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">xlim_figure</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">xlim_figure</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">100</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">angstroms</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">LJ</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="n">y_min</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span> <span class="n">xlim_figure</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">xlim_figure</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">linestyles</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">x_min</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span> <span class="n">ylim_figure</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ylim_figure</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">linestyles</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="n">xlim_figure</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="n">ylim_figure</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x [</span><span class="si">{}</span><span class="s1">]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">unit</span><span class="o">.</span><span class="n">get_symbol</span><span class="p">()))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;V [</span><span class="si">{}</span><span class="s1">]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">epsilon</span><span class="o">.</span><span class="n">unit</span><span class="o">.</span><span class="n">get_symbol</span><span class="p">()))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/LJ_Potential_16_0.png" src="../../../_images/LJ_Potential_16_0.png" />
+</div>
+</div>
+<p>This way two particles in the equilibrium position will be placed at a <span class="math notranslate nohighlight">\(2^{1/6} \sigma\)</span> distance. The potential is thereby modeling two “soft spheres” atracting each other very lightly. Their radii, given that both particles are equal, are equal to <span class="math notranslate nohighlight">\(r\)</span>:</p>
+<div class="math notranslate nohighlight" id="equation-lj-radius">
+<span class="eqno">(4)<a class="headerlink" href="#equation-lj-radius" title="Permalink to this equation"></a></span>\[
+r = \frac{1}{2} x_{min} = 2^{-5/6} \sigma
+\]</div>
+<p>And we say these spheres are “soft” because their volume is not limited by a hard-wall potential, they can penetrate each other suffering a not infinite repulsive force.</p>
+</section>
+<section id="time-period-of-the-small-harmonic-oscillations-around-the-minimum">
+<h2>Time period of the small harmonic oscillations around the minimum<a class="headerlink" href="#time-period-of-the-small-harmonic-oscillations-around-the-minimum" title="Permalink to this headline"></a></h2>
+<p>If we want to perform a molecular simulation of this two particles we should wonder how big the integrator timestep must be. To answer this question we can study the harmonic approximation around the minimum. Lets calculate the time period, <span class="math notranslate nohighlight">\(\tau\)</span>, of a small harmonic oscillation around the minimum:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">epsilon</span> <span class="o">=</span> <span class="n">sy</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x sigma epsilon&#39;</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">positive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">V</span> <span class="o">=</span> <span class="mf">4.0</span><span class="o">*</span><span class="n">epsilon</span><span class="o">*</span><span class="p">((</span><span class="n">sigma</span><span class="o">/</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">12</span><span class="o">-</span><span class="p">(</span><span class="n">sigma</span><span class="o">/</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">gradV</span> <span class="o">=</span> <span class="n">sy</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">V</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
+<span class="n">grad2V</span> <span class="o">=</span> <span class="n">sy</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">V</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">x_min</span> <span class="o">=</span> <span class="n">sy</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">gradV</span><span class="p">,</span><span class="n">x</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">k_harm</span> <span class="o">=</span> <span class="n">grad2V</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x_min</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">k_harm</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle \frac{57.1464378708551 \epsilon}{\sigma^{2}}\]</div>
+</div>
+</div>
+<p>The harmonic constant of the second degree Taylor polynomial of the LJ potential at <span class="math notranslate nohighlight">\(x=x_{min}\)</span> is then:</p>
+<div class="math notranslate nohighlight" id="equation-k-harm">
+<span class="eqno">(5)<a class="headerlink" href="#equation-k-harm" title="Permalink to this equation"></a></span>\[
+k_{harm} = 36·2^{2/3} \frac{\epsilon}{\sigma^2}
+\]</div>
+<p>The oscillation period of a particle with <span class="math notranslate nohighlight">\(m\)</span> mass in an harmonic potential defined by <span class="math notranslate nohighlight">\(\frac{1}{2} k x²\)</span> is:</p>
+<div class="math notranslate nohighlight" id="equation-tau">
+<span class="eqno">(6)<a class="headerlink" href="#equation-tau" title="Permalink to this equation"></a></span>\[
+\tau = 2 \pi \sqrt{ \frac{m}{k}}
+\]</div>
+<p>As such, the period of the small harmonic oscillations around the LJ minimum of particle with <span class="math notranslate nohighlight">\(m\)</span> mass is:</p>
+<div class="math notranslate nohighlight" id="equation-tau-2">
+<span class="eqno">(7)<a class="headerlink" href="#equation-tau-2" title="Permalink to this equation"></a></span>\[
+\tau = 2 \pi \sqrt{ \frac{m}{k_{harm}}} = \frac{\pi}{3·2^{1/3}} \sqrt{\frac{m\sigma^2}{\epsilon}}
+\]</div>
+<p>With the mass and parameters taking values of amus, angstroms and kilocalories per mole, the time period is in the order of:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mass</span> <span class="o">=</span> <span class="mf">50.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">amu</span>
+<span class="n">sigma</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">angstrom</span>
+<span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span>
+
+<span class="n">k</span> <span class="o">=</span> <span class="mi">36</span> <span class="o">*</span> <span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="n">epsilon</span><span class="o">/</span><span class="n">sigma</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="n">tau</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mass</span><span class="o">/</span><span class="n">k</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">tau</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5746513694274475 ps
+</pre></div>
+</div>
+</div>
+</div>
+<p>But, is this characteristic time a good threshold for a LJ potential? If the oscillations around the minimum are not small enough, the harmonic potential of the second degree term of the taylor expansion is easily overcome by the sharp left branch of the LJ potential:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sigma</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">angstrom</span>
+<span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span>
+
+<span class="n">k</span> <span class="o">=</span> <span class="mi">36</span> <span class="o">*</span> <span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="n">epsilon</span><span class="o">/</span><span class="n">sigma</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="n">x_min</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">)</span><span class="o">*</span><span class="n">sigma</span>
+<span class="n">y_min</span> <span class="o">=</span> <span class="o">-</span><span class="n">epsilon</span>
+
+<span class="n">xlim_figure</span> <span class="o">=</span> <span class="p">[</span><span class="n">x_min</span><span class="o">.</span><span class="n">_value</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">x_min</span><span class="o">.</span><span class="n">_value</span><span class="o">+</span><span class="mf">0.2</span><span class="p">]</span>
+<span class="n">ylim_figure</span> <span class="o">=</span> <span class="p">[</span><span class="n">y_min</span><span class="o">.</span><span class="n">_value</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">y_min</span><span class="o">.</span><span class="n">_value</span><span class="o">+</span><span class="mf">0.6</span><span class="p">]</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">xlim_figure</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">xlim_figure</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">100</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">angstroms</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">LJ</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">k</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">x_min</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">y_min</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="n">y_min</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span> <span class="n">xlim_figure</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">xlim_figure</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">linestyles</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">x_min</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span> <span class="n">ylim_figure</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ylim_figure</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">linestyles</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="n">xlim_figure</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="n">ylim_figure</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x [</span><span class="si">{}</span><span class="s1">]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">unit</span><span class="o">.</span><span class="n">get_symbol</span><span class="p">()))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;V [</span><span class="si">{}</span><span class="s1">]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">epsilon</span><span class="o">.</span><span class="n">unit</span><span class="o">.</span><span class="n">get_symbol</span><span class="p">()))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/LJ_Potential_28_0.png" src="../../../_images/LJ_Potential_28_0.png" />
+</div>
+</div>
+<p>Let’s imagine the following situation. Let a particle be in the harmonic potential at temperature of 300K. Will the particle be more constrained in space than in the well of the LJ potential? Will the particle feel the harmonic potential softer or sharper than the LJ? Lets make some numbers to evaluate if the oscillation time period of the harmonic approximation can be a good time threshold for the integration timestep of a molecular dynamics of the LJ potential.</p>
+<p>The standard deviation of an harmonic oscillation with the shape <span class="math notranslate nohighlight">\(\frac{1}{2}k x^2\)</span> in contact with a stochastic thermal bath can be computed as:</p>
+<div class="math notranslate nohighlight" id="equation-beta">
+<span class="eqno">(8)<a class="headerlink" href="#equation-beta" title="Permalink to this equation"></a></span>\[
+\beta = \frac{1}{k_{\rm B} T} 
+\]</div>
+<div class="math notranslate nohighlight" id="equation-z-x">
+<span class="eqno">(9)<a class="headerlink" href="#equation-z-x" title="Permalink to this equation"></a></span>\[
+Z_x = \int_{-\infty}^{\infty} {\rm e}^{- \beta \frac{1}{2}k x^2} = \sqrt{\frac{2 \pi}{\beta k}}
+\]</div>
+<div class="math notranslate nohighlight" id="equation-aver-x">
+<span class="eqno">(10)<a class="headerlink" href="#equation-aver-x" title="Permalink to this equation"></a></span>\[
+\left&lt; x \right&gt; = \frac{1}{Z_x} \int_{-\infty}^{\infty} x {\rm e}^{-\beta \frac{1}{2}k x^2} = 0
+\]</div>
+<div class="math notranslate nohighlight" id="equation-aver-2">
+<span class="eqno">(11)<a class="headerlink" href="#equation-aver-2" title="Permalink to this equation"></a></span>\[
+\left&lt; x^2 \right&gt; = \frac{1}{Z_x} \int_{-\infty}^{\infty} x^{2} {\rm e}^{-\beta \frac{1}{2}k x^2} = \frac{1}{Z_x}  \sqrt{\frac{2 \pi}{\beta³ k^3}} = \frac{1}{\beta k}
+\]</div>
+<div class="math notranslate nohighlight" id="equation-std">
+<span class="eqno">(12)<a class="headerlink" href="#equation-std" title="Permalink to this equation"></a></span>\[
+{\rm std} = \left( \left&lt; x^2 \right&gt; -\left&lt; x \right&gt;^2 \right)^{1/2} = \sqrt{ \frac{k_{\rm B}T}{k} }
+\]</div>
+<p>This way, in the case of the harmonic potential obtained as the second degree term of the Taylor expansion around the LJ minimum:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mass</span> <span class="o">=</span> <span class="mf">50.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">amu</span>
+<span class="n">sigma</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">angstrom</span>
+<span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span>
+<span class="n">temperature</span> <span class="o">=</span> <span class="mi">300</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kelvin</span>
+<span class="n">kB</span> <span class="o">=</span> <span class="n">unit</span><span class="o">.</span><span class="n">BOLTZMANN_CONSTANT_kB</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">AVOGADRO_CONSTANT_NA</span>
+
+<span class="n">k</span> <span class="o">=</span> <span class="mi">36</span> <span class="o">*</span> <span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="n">epsilon</span><span class="o">/</span><span class="n">sigma</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">kB</span><span class="o">*</span><span class="n">temperature</span><span class="o">/</span><span class="n">k</span><span class="p">)</span>
+
+<span class="n">x_min</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">)</span><span class="o">*</span><span class="n">sigma</span>
+<span class="n">y_min</span> <span class="o">=</span> <span class="o">-</span><span class="n">epsilon</span>
+
+<span class="n">xlim_figure</span> <span class="o">=</span> <span class="p">[</span><span class="n">x_min</span><span class="o">.</span><span class="n">_value</span><span class="o">-</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">x_min</span><span class="o">.</span><span class="n">_value</span><span class="o">+</span><span class="mf">0.4</span><span class="p">]</span>
+<span class="n">ylim_figure</span> <span class="o">=</span> <span class="p">[</span><span class="n">y_min</span><span class="o">.</span><span class="n">_value</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">y_min</span><span class="o">.</span><span class="n">_value</span><span class="o">+</span><span class="mf">0.6</span><span class="p">]</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">xlim_figure</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">xlim_figure</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">100</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">angstroms</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">LJ</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">k</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">x_min</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">y_min</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="n">y_min</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span> <span class="n">xlim_figure</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">xlim_figure</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">linestyles</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">x_min</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span> <span class="n">ylim_figure</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ylim_figure</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">linestyles</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">x_min</span><span class="o">.</span><span class="n">_value</span> <span class="o">-</span> <span class="n">std</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span> <span class="n">x_min</span><span class="o">.</span><span class="n">_value</span> <span class="o">+</span> <span class="n">std</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">x_min</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span> <span class="n">y_min</span><span class="o">.</span><span class="n">_value</span> <span class="o">-</span> <span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">y_min</span><span class="o">.</span><span class="n">_value</span><span class="o">-</span><span class="n">ylim_figure</span><span class="p">[</span><span class="mi">0</span><span class="p">])),</span>
+             <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="n">x_min</span><span class="o">.</span><span class="n">_value</span><span class="o">-</span><span class="n">std</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span> <span class="n">y_min</span><span class="o">.</span><span class="n">_value</span> <span class="o">-</span> <span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">y_min</span><span class="o">.</span><span class="n">_value</span><span class="o">-</span><span class="n">ylim_figure</span><span class="p">[</span><span class="mi">0</span><span class="p">])),</span>
+             <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s1">&#39;&lt;-&gt;&#39;</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x_min</span><span class="o">.</span><span class="n">_value</span><span class="o">-</span><span class="mf">0.6</span><span class="o">*</span><span class="n">std</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span> <span class="n">y_min</span><span class="o">.</span><span class="n">_value</span> <span class="o">-</span> <span class="mf">0.4</span><span class="o">*</span><span class="p">(</span><span class="n">y_min</span><span class="o">.</span><span class="n">_value</span><span class="o">-</span><span class="n">ylim_figure</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="s1">&#39;$std$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="n">xlim_figure</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="n">ylim_figure</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x [</span><span class="si">{}</span><span class="s1">]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">unit</span><span class="o">.</span><span class="n">get_symbol</span><span class="p">()))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;V [</span><span class="si">{}</span><span class="s1">]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">epsilon</span><span class="o">.</span><span class="n">unit</span><span class="o">.</span><span class="n">get_symbol</span><span class="p">()))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/LJ_Potential_30_0.png" src="../../../_images/LJ_Potential_30_0.png" />
+</div>
+</div>
+<p>The harmonic potential is too soft as approximation. Its oscillation time used as threshold to choose the integration timestep can yield to numeric problems. Let’s try with a stiffer potential, let’s double the harmonic constant:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mass</span> <span class="o">=</span> <span class="mf">50.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">amu</span>
+<span class="n">sigma</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">angstrom</span>
+<span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span>
+<span class="n">temperature</span> <span class="o">=</span> <span class="mi">300</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kelvin</span>
+<span class="n">kB</span> <span class="o">=</span> <span class="n">unit</span><span class="o">.</span><span class="n">BOLTZMANN_CONSTANT_kB</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">AVOGADRO_CONSTANT_NA</span>
+
+<span class="n">k</span> <span class="o">=</span> <span class="mi">36</span> <span class="o">*</span> <span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="n">epsilon</span><span class="o">/</span><span class="n">sigma</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">kB</span><span class="o">*</span><span class="n">temperature</span><span class="o">/</span><span class="n">k</span><span class="p">)</span>
+
+<span class="n">x_min</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">)</span><span class="o">*</span><span class="n">sigma</span>
+<span class="n">y_min</span> <span class="o">=</span> <span class="o">-</span><span class="n">epsilon</span>
+
+<span class="n">xlim_figure</span> <span class="o">=</span> <span class="p">[</span><span class="n">x_min</span><span class="o">.</span><span class="n">_value</span><span class="o">-</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">x_min</span><span class="o">.</span><span class="n">_value</span><span class="o">+</span><span class="mf">0.4</span><span class="p">]</span>
+<span class="n">ylim_figure</span> <span class="o">=</span> <span class="p">[</span><span class="n">y_min</span><span class="o">.</span><span class="n">_value</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">y_min</span><span class="o">.</span><span class="n">_value</span><span class="o">+</span><span class="mf">0.6</span><span class="p">]</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">xlim_figure</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">xlim_figure</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">100</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">angstroms</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">LJ</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">k</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">x_min</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">y_min</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">k</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">x_min</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">y_min</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;2k_</span><span class="si">{harm}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="n">y_min</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span> <span class="n">xlim_figure</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">xlim_figure</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">linestyles</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">x_min</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span> <span class="n">ylim_figure</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ylim_figure</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">linestyles</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">x_min</span><span class="o">.</span><span class="n">_value</span> <span class="o">-</span> <span class="n">std</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span> <span class="n">x_min</span><span class="o">.</span><span class="n">_value</span> <span class="o">+</span> <span class="n">std</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">x_min</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span> <span class="n">y_min</span><span class="o">.</span><span class="n">_value</span> <span class="o">-</span> <span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">y_min</span><span class="o">.</span><span class="n">_value</span><span class="o">-</span><span class="n">ylim_figure</span><span class="p">[</span><span class="mi">0</span><span class="p">])),</span>
+             <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="n">x_min</span><span class="o">.</span><span class="n">_value</span><span class="o">-</span><span class="n">std</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span> <span class="n">y_min</span><span class="o">.</span><span class="n">_value</span> <span class="o">-</span> <span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">y_min</span><span class="o">.</span><span class="n">_value</span><span class="o">-</span><span class="n">ylim_figure</span><span class="p">[</span><span class="mi">0</span><span class="p">])),</span>
+             <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s1">&#39;&lt;-&gt;&#39;</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x_min</span><span class="o">.</span><span class="n">_value</span><span class="o">-</span><span class="mf">0.6</span><span class="o">*</span><span class="n">std</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span> <span class="n">y_min</span><span class="o">.</span><span class="n">_value</span> <span class="o">-</span> <span class="mf">0.4</span><span class="o">*</span><span class="p">(</span><span class="n">y_min</span><span class="o">.</span><span class="n">_value</span><span class="o">-</span><span class="n">ylim_figure</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="s1">&#39;$std$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="n">xlim_figure</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="n">ylim_figure</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x [</span><span class="si">{}</span><span class="s1">]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">unit</span><span class="o">.</span><span class="n">get_symbol</span><span class="p">()))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;V [</span><span class="si">{}</span><span class="s1">]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">epsilon</span><span class="o">.</span><span class="n">unit</span><span class="o">.</span><span class="n">get_symbol</span><span class="p">()))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/LJ_Potential_32_0.png" src="../../../_images/LJ_Potential_32_0.png" />
+</div>
+</div>
+<p>Lets take then, as reference, an harmonic potential with constant equal to <span class="math notranslate nohighlight">\(2k_{harm}\)</span> could be a better idea. Lets compute then the new time threshold to choose the integration timestep:</p>
+<div class="math notranslate nohighlight" id="equation-tau">
+<span class="eqno">(13)<a class="headerlink" href="#equation-tau" title="Permalink to this equation"></a></span>\[
+\tau' = 2 \pi \sqrt{ \frac{m}{2k_{harm}}} = \frac{\pi}{3·2^{5/6}} \sqrt{\frac{m\sigma^2}{\epsilon}} = \frac{1}{\sqrt{2}} \tau
+\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mass</span> <span class="o">=</span> <span class="mf">50.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">amu</span>
+<span class="n">sigma</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">angstrom</span>
+<span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span>
+
+<span class="n">k</span> <span class="o">=</span> <span class="mi">36</span> <span class="o">*</span> <span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="n">epsilon</span><span class="o">/</span><span class="n">sigma</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="n">tau</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mass</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">k</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">tau</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.4063398801402841 ps
+</pre></div>
+</div>
+</div>
+</div>
+<p>It is an accepted rule of thumb that the integration timestep must be as large as <span class="math notranslate nohighlight">\(\tau / 10\)</span>, being <span class="math notranslate nohighlight">\(\tau\)</span> the oscillation time period of the fastest possible vibration mode. So finally, in this case the integration time step should not be longer than:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mass</span> <span class="o">=</span> <span class="mf">50.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">amu</span>
+<span class="n">sigma</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">angstrom</span>
+<span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span>
+
+<span class="n">k</span> <span class="o">=</span> <span class="mi">36</span> <span class="o">*</span> <span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="n">epsilon</span><span class="o">/</span><span class="n">sigma</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="n">tau</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mass</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">k</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">tau</span><span class="o">/</span><span class="mf">10.0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.04063398801402841 ps
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+    <a href="https://github.com/uibcdf/Molecular-Systems">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub">
+    </a>
+
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Lennard Jones particles" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="two_particles/index.html" class="btn btn-neutral float-right" title="Two LJ particles" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020-2022, The Mexico City Childrens&#39; Hospital Federico Gomez, its Unit of Research on Computational Biology and Drug Design, and authors | This project is licensed under the terms of the MIT license. See further details in the source code repository | Project based on the Computational Molecular Science Python Cookiecutter version 1.5.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>uibcdf_systems._private_tools.exceptions &mdash; UIBCDF Molecular Systems 0+untagged.1.g74c4313 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/togglebutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/mystnb.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/togglebutton.js"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> UIBCDF Molecular Systems
+          </a>
+              <div class="version">
+                0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contents/about/introduction/index.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../contents/about/introduction/introduction.html">Introduction</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contents/about/installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../contents/about/installation.html#last-stable-version">Last stable version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contents/about/installation.html#last-developing-version">Last developing version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contents/about/installation.html#the-source-code">The source code</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contents/about/showcase/index.html">Showcase</a><ul class="simple">
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Molecular Systems</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contents/molecular_systems/free_particle/index.html">Free particle</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../contents/molecular_systems/free_particle/brownian_particle.html">Brownian particle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contents/molecular_systems/free_particle/molecular_system.html">Molecular system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contents/molecular_systems/free_particle/molecular_dynamics.html">Molecular dynamics</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contents/molecular_systems/harmonic_well/index.html">Harmonic well</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../contents/molecular_systems/harmonic_well/harmonic_well.html">Harmonic well potential</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contents/molecular_systems/harmonic_well/molecular_system.html">Molecular system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contents/molecular_systems/harmonic_well/molecular_dynamics.html">Molecular dynamics</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contents/molecular_systems/double_well/index.html">Double Well</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../contents/molecular_systems/double_well/double_well_potential.html">Double well potential</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contents/molecular_systems/double_well/molecular_system.html">Molecular system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contents/molecular_systems/double_well/molecular_dynamics.html">Molecular dynamics</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contents/molecular_systems/LJ_particles/index.html">Lennard Jones particles</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../contents/molecular_systems/LJ_particles/LJ_Potential.html">The Lennard-Jones potential</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contents/molecular_systems/LJ_particles/two_particles/index.html">Two LJ particles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../contents/molecular_systems/LJ_particles/two_particles/two_particles.html">Two LJ atoms in vacuum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contents/molecular_systems/LJ_particles/two_particles/molecular_system.html">Molecular system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contents/molecular_systems/LJ_particles/two_particles/molecular_dynamics.html">Molecular dynamics</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tools</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contents/tools/langevin.html">Langevin</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contents/developer/intro/index.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../contents/developer/intro/Introduction.html">Introduction</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contents/developer/names_convention.html">Names convention</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../contents/developer/names_convention.html#project-name">Project name</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../contents/developer/names_convention.html#github-repo-and-conda-env">GitHub repo and Conda env</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contents/developer/names_convention.html#readme-file-and-documents">README file and documents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contents/developer/names_convention.html#package">Package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contents/developer/names_convention.html#modules-classes-methods-variables-and-others-programming-elements">Modules, classes, methods, variables, and others programming elements.</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../contents/developer/names_convention.html#modules">Modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contents/developer/names_convention.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contents/developer/names_convention.html#exceptions">Exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contents/developer/names_convention.html#methods-and-functions">Methods and functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contents/developer/names_convention.html#variables-input-arguments-and-parameters">Variables, input arguments and parameters.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contents/developer/names_convention.html#constants">Constants</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contents/developer/names_convention.html#not-public-methods-and-variables">Not public methods and variables</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contents/developer/exceptions.html">Exceptions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../contents/developer/exceptions.html#notimplementedmethoderror">NotImplementedMethodError</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contents/developer/exceptions.html#notimplementedclasserror">NotImplementedClassError</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contents/developer/exceptions.html#badcallerror">BadCallError</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contents/developer/documentation/index.html">Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../contents/developer/documentation/sphinx.html">Sphinx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contents/developer/documentation/docstrings.html">Docstrings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../contents/developer/documentation/docstrings.html#documenting-a-class">Documenting a class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contents/developer/documentation/docstrings.html#documenting-a-method">Documenting a method</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contents/developer/documentation/admonitions.html">Admonitions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../contents/developer/documentation/admonitions.html#note">Note</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contents/developer/documentation/admonitions.html#did-you-know">Did you know…?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contents/developer/documentation/admonitions.html#it-is-suggested">It is suggested…</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contents/developer/documentation/admonitions.html#see-also">See also</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contents/developer/documentation/admonitions.html#warning">Warning</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Bibliography</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../bibliography.html">Bibliography</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">UIBCDF Molecular Systems</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>uibcdf_systems._private_tools.exceptions</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+
+           <div itemprop="articleBody">
+             
+  <h1>Source code for uibcdf_systems._private_tools.exceptions</h1><div class="highlight"><pre>
+<span></span>
+<div class="viewcode-block" id="NotImplementedMethodError"><a class="viewcode-back" href="../../../api/_autosummary/uibcdf_systems._private_tools.exceptions.NotImplementedMethodError.html#uibcdf_systems._private_tools.exceptions.NotImplementedMethodError">[docs]</a><span class="k">class</span> <span class="nc">NotImplementedMethodError</span><span class="p">(</span><span class="ne">NotImplementedError</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Exception raised when a method has not been fully implemented yet.</span>
+
+<span class="sd">    This exception is raised when a method has been already defined but its code was not fully</span>
+<span class="sd">    implemented yet. Maybe the method was just included in a developing version to be coded in the</span>
+<span class="sd">    future. Or maybe the method works already for certain values of the input arguments, but not</span>
+<span class="sd">    for others yet.</span>
+
+<span class="sd">    Note</span>
+<span class="sd">    ----</span>
+<span class="sd">    This exception does not require input arguments.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    NotImplementedMethodError</span>
+<span class="sd">        A message is printed out with the name of the method raising the exception, the link to</span>
+<span class="sd">        the API documentation, and the link to the issues board of OpenMolecularSystems&#39; GitHub repository.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from openmolecularsystems._private_tools.exceptions import NotImplementedMethodError</span>
+<span class="sd">    &gt;&gt;&gt; def method_name(a, b=True):</span>
+<span class="sd">    ...    raise NotImplementedMethodError</span>
+<span class="sd">    ...    pass</span>
+
+<span class="sd">    .. admonition:: See Also</span>
+<span class="sd">       :class: attention</span>
+
+<span class="sd">        :ref:`Developer Guide \&gt; Exceptions \&gt; NotImplementedMethodError &lt;developer:exceptions:NotImplementedMethodError&gt;`</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="kn">from</span> <span class="nn">openmolecularsystems</span> <span class="kn">import</span> <span class="n">__github_issues_web__</span>
+        <span class="kn">from</span> <span class="nn">inspect</span> <span class="kn">import</span> <span class="n">stack</span>
+
+        <span class="n">all_stack_frames</span> <span class="o">=</span> <span class="n">stack</span><span class="p">()</span>
+        <span class="n">caller_stack_frame</span> <span class="o">=</span> <span class="n">all_stack_frames</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">caller_name</span> <span class="o">=</span> <span class="n">caller_stack_frame</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+
+        <span class="n">api_doc</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+        <span class="n">message</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;The </span><span class="se">\&quot;</span><span class="si">{</span><span class="n">caller_name</span><span class="si">}</span><span class="se">\&quot;</span><span class="s2"> method has not been implemented yet in the way you are using it. &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Check </span><span class="si">{</span><span class="n">api_doc</span><span class="si">}</span><span class="s2"> for more information. &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;If you still want to suggest its implementation, open a new issue in </span><span class="si">{</span><span class="n">__github_issues_web__</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="NotImplementedClassError"><a class="viewcode-back" href="../../../api/_autosummary/uibcdf_systems._private_tools.exceptions.NotImplementedClassError.html#uibcdf_systems._private_tools.exceptions.NotImplementedClassError">[docs]</a><span class="k">class</span> <span class="nc">NotImplementedClassError</span><span class="p">(</span><span class="ne">NotImplementedError</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Exception raised when a class has not been fully implemented yet.</span>
+
+<span class="sd">    This exception is raised when a class has being already defined but its code was not fully</span>
+<span class="sd">    implemented yet. Maybe the class was just included in a developing version to be coded in the</span>
+<span class="sd">    future. Or maybe the class can be instantated already for certain values of the input</span>
+<span class="sd">    arguments, but not for others yet.</span>
+
+<span class="sd">    Note</span>
+<span class="sd">    ----</span>
+<span class="sd">    This exception does not require input arguments.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    NotImplementedClassError</span>
+<span class="sd">        A message is printed out with the name of the class raising the exception, the link to</span>
+<span class="sd">        the API documentation, and the link to the issues board of OpenMolecularSystems&#39; GitHub repository.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from openmolecularsystems._private_tools.exceptions import NotImplementedClassError</span>
+<span class="sd">    &gt;&gt;&gt; class ClassName():</span>
+<span class="sd">    ...    def __init__(self):</span>
+<span class="sd">    ...       raise NotImplementedClassError</span>
+<span class="sd">    ...       pass</span>
+
+<span class="sd">    .. admonition:: See Also</span>
+<span class="sd">       :class: attention</span>
+
+<span class="sd">        :ref:`Developer Guide \&gt; Exceptions \&gt; NotImplementedClassError &lt;developer:exceptions:NotImplementedClassError&gt;`</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="kn">from</span> <span class="nn">openmolecularsystems</span> <span class="kn">import</span> <span class="n">__github_issues_web__</span>
+        <span class="kn">from</span> <span class="nn">inspect</span> <span class="kn">import</span> <span class="n">stack</span>
+
+        <span class="n">all_stack_frames</span> <span class="o">=</span> <span class="n">stack</span><span class="p">()</span>
+        <span class="n">caller_stack_frame</span> <span class="o">=</span> <span class="n">all_stack_frames</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">caller_name</span> <span class="o">=</span> <span class="n">caller_stack_frame</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+
+        <span class="n">api_doc</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+        <span class="n">message</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;The </span><span class="se">\&quot;</span><span class="si">{</span><span class="n">caller_name</span><span class="si">}</span><span class="se">\&quot;</span><span class="s2"> class has not been implemented yet in the way you are using it. &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Check </span><span class="si">{</span><span class="n">api_doc</span><span class="si">}</span><span class="s2"> for more information. &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;If you still want to suggest its implementation, open a new issue in </span><span class="si">{</span><span class="n">__github_issues_web__</span><span class="si">}</span><span class="s2">.&quot;</span>
+                <span class="p">)</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BadCallError"><a class="viewcode-back" href="../../../api/_autosummary/uibcdf_systems._private_tools.exceptions.BadCallError.html#uibcdf_systems._private_tools.exceptions.BadCallError">[docs]</a><span class="k">class</span> <span class="nc">BadCallError</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Exception raised when a method, or a class, was not properly called or instantiated.</span>
+
+<span class="sd">    This exception is raised when a method or a class was not properly called or instantiated.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    argument : str, optional</span>
+<span class="sd">        The name of the possible wrong input argument.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    BadCallError</span>
+<span class="sd">        A message is printed out with the name of the class or the method raising the exception,</span>
+<span class="sd">        the possible wrong argument, the link to the API documentation, and the link to the</span>
+<span class="sd">        issues board of OpenMolecularSystems&#39; GitHub repository.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from openmolecularsystems._private_tools.exceptions import BadCallError</span>
+<span class="sd">    &gt;&gt;&gt; def method_name(item, a=True):</span>
+<span class="sd">    ...    if type(a) not in [int, float]:</span>
+<span class="sd">    ...       raise BadCallError(&#39;a&#39;)</span>
+<span class="sd">    ...    pass</span>
+
+<span class="sd">    .. admonition:: See Also</span>
+<span class="sd">       :class: attention</span>
+
+<span class="sd">        :ref:`Developer Guide \&gt; Exceptions \&gt; BadCallError &lt;developer:exceptions:BadCallError&gt;`</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">argument</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+        <span class="kn">from</span> <span class="nn">openmolecularsystems</span> <span class="kn">import</span> <span class="n">__github_issues_web__</span>
+        <span class="kn">from</span> <span class="nn">inspect</span> <span class="kn">import</span> <span class="n">stack</span>
+
+        <span class="n">all_stack_frames</span> <span class="o">=</span> <span class="n">stack</span><span class="p">()</span>
+        <span class="n">caller_stack_frame</span> <span class="o">=</span> <span class="n">all_stack_frames</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">caller_name</span> <span class="o">=</span> <span class="n">caller_stack_frame</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+
+        <span class="n">api_doc</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+        <span class="n">message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;The </span><span class="se">\&quot;</span><span class="si">{</span><span class="n">caller_name</span><span class="si">}</span><span class="se">\&quot;</span><span class="s2"> method or class was not properly invoked&quot;</span>
+        <span class="k">if</span> <span class="n">argument</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">message</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;, probably due to the </span><span class="se">\&quot;</span><span class="si">{</span><span class="n">argument</span><span class="si">}</span><span class="se">\&quot;</span><span class="s2"> input argument&quot;</span>
+        <span class="n">message</span> <span class="o">+=</span> <span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;. Check </span><span class="si">{</span><span class="n">api_doc</span><span class="si">}</span><span class="s2"> for more information. &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;If you still need help, open a new issue in </span><span class="si">{</span><span class="n">__github_issues_web__</span><span class="si">}</span><span class="s2">.&quot;</span>
+                <span class="p">)</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+    <a href="https://github.com/uibcdf/Molecular-Systems">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub">
+    </a>
+
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020-2022, The Mexico City Childrens&#39; Hospital Federico Gomez, its Unit of Research on Computational Biology and Drug Design, and authors | This project is licensed under the terms of the MIT license. See further details in the source code repository | Project based on the Computational Molecular Science Python Cookiecutter version 1.5.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

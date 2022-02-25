@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Double well potential &mdash; UIBCDF Molecular Systems 0+untagged.1.g74c4313 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/togglebutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/mystnb.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/togglebutton.js"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+        <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Molecular system" href="molecular_system.html" />
+    <link rel="prev" title="Double Well" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> UIBCDF Molecular Systems
+          </a>
+              <div class="version">
+                0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../about/introduction/index.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../about/introduction/introduction.html">Introduction</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../about/installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../about/installation.html#last-stable-version">Last stable version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../about/installation.html#last-developing-version">Last developing version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../about/installation.html#the-source-code">The source code</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../about/showcase/index.html">Showcase</a><ul class="simple">
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Molecular Systems</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../free_particle/index.html">Free particle</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../free_particle/brownian_particle.html">Brownian particle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../free_particle/molecular_system.html">Molecular system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../free_particle/molecular_dynamics.html">Molecular dynamics</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../harmonic_well/index.html">Harmonic well</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../harmonic_well/harmonic_well.html">Harmonic well potential</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../harmonic_well/molecular_system.html">Molecular system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../harmonic_well/molecular_dynamics.html">Molecular dynamics</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Double Well</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Double well potential</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molecular_system.html">Molecular system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molecular_dynamics.html">Molecular dynamics</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../LJ_particles/index.html">Lennard Jones particles</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../LJ_particles/LJ_Potential.html">The Lennard-Jones potential</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../LJ_particles/two_particles/index.html">Two LJ particles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../LJ_particles/two_particles/two_particles.html">Two LJ atoms in vacuum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../LJ_particles/two_particles/molecular_system.html">Molecular system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../LJ_particles/two_particles/molecular_dynamics.html">Molecular dynamics</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tools</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tools/langevin.html">Langevin</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../developer/intro/index.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../developer/intro/Introduction.html">Introduction</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer/names_convention.html">Names convention</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../developer/names_convention.html#project-name">Project name</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/names_convention.html#github-repo-and-conda-env">GitHub repo and Conda env</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/names_convention.html#readme-file-and-documents">README file and documents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/names_convention.html#package">Package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../developer/names_convention.html#modules-classes-methods-variables-and-others-programming-elements">Modules, classes, methods, variables, and others programming elements.</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/names_convention.html#modules">Modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/names_convention.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/names_convention.html#exceptions">Exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/names_convention.html#methods-and-functions">Methods and functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/names_convention.html#variables-input-arguments-and-parameters">Variables, input arguments and parameters.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/names_convention.html#constants">Constants</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/names_convention.html#not-public-methods-and-variables">Not public methods and variables</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer/exceptions.html">Exceptions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../developer/exceptions.html#notimplementedmethoderror">NotImplementedMethodError</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../developer/exceptions.html#notimplementedclasserror">NotImplementedClassError</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../developer/exceptions.html#badcallerror">BadCallError</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer/documentation/index.html">Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../developer/documentation/sphinx.html">Sphinx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../developer/documentation/docstrings.html">Docstrings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/documentation/docstrings.html#documenting-a-class">Documenting a class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/documentation/docstrings.html#documenting-a-method">Documenting a method</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../developer/documentation/admonitions.html">Admonitions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/documentation/admonitions.html#note">Note</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/documentation/admonitions.html#did-you-know">Did you know…?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/documentation/admonitions.html#it-is-suggested">It is suggested…</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/documentation/admonitions.html#see-also">See also</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../developer/documentation/admonitions.html#warning">Warning</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Bibliography</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../bibliography.html">Bibliography</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">UIBCDF Molecular Systems</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Double Well</a> &raquo;</li>
+      <li>Double well potential</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+
+           <div itemprop="articleBody">
+             
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">sympy</span> <span class="k">as</span> <span class="nn">sy</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">openmm</span> <span class="kn">import</span> <span class="n">unit</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_3717</span><span class="o">/</span><span class="mf">3413763320.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">sympy</span> <span class="k">as</span> <span class="nn">sy</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">from</span> <span class="nn">openmm</span> <span class="kn">import</span> <span class="n">unit</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;matplotlib&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="double-well-potential">
+<h1>Double well potential<a class="headerlink" href="#double-well-potential" title="Permalink to this headline"></a></h1>
+<p>Our double well potential is described by the following expression:</p>
+<div class="math notranslate nohighlight" id="equation-potential">
+<span class="eqno">(1)<a class="headerlink" href="#equation-potential" title="Permalink to this equation"></a></span>\[
+V(x,y,z)=E_{0}\left[ \left(\frac{x}{a}\right)^4 -2\left(\frac{x}{a}\right)^2 \right]-\frac{b}{a}x + \frac{1}{2}k\left( y^2 + z^2 \right)
+\]</div>
+<p>This potential can be split in two summands, the first one with the potential for the <span class="math notranslate nohighlight">\(X\)</span> axis, and a second term with the potential for the <span class="math notranslate nohighlight">\(Y\)</span> and <span class="math notranslate nohighlight">\(Z\)</span> axes:</p>
+<div class="math notranslate nohighlight" id="equation-potential-decomposed">
+<span class="eqno">(2)<a class="headerlink" href="#equation-potential-decomposed" title="Permalink to this equation"></a></span>\[
+V(x,y,z)=V_{x}(x)+V_{y,z}(y,z)
+\]</div>
+<section id="a-double-well-potential-along-x">
+<h2>A double well potential along <span class="math notranslate nohighlight">\(X\)</span><a class="headerlink" href="#a-double-well-potential-along-x" title="Permalink to this headline"></a></h2>
+<p>The one dimensional potential <span class="math notranslate nohighlight">\(V_{x}(x)\)</span> is a function of <span class="math notranslate nohighlight">\(x\)</span> as well as three parameters: <span class="math notranslate nohighlight">\(E_{0}\)</span>, <span class="math notranslate nohighlight">\(a\)</span>, <span class="math notranslate nohighlight">\(b\)</span>.</p>
+<div class="math notranslate nohighlight" id="equation-x-potential">
+<span class="eqno">(3)<a class="headerlink" href="#equation-x-potential" title="Permalink to this equation"></a></span>\[
+V_{x}(x)=E_{0}\left[ \left(\frac{x}{a}\right)^4 -2\left(\frac{x}{a}\right)^2 \right]-\frac{b}{a}x + \frac{1}{2}k\left( y^2 + z^2 \right)
+\]</div>
+<p>Let’s see the meaning of these constants. For this purpose the following method is defined to evaluate the contribution of the potential energy terms corresponding to the double well in <span class="math notranslate nohighlight">\(X\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">double_well_potential_1D</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">Eo</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">Eo</span><span class="o">*</span><span class="p">((</span><span class="n">x</span><span class="o">/</span><span class="n">a</span><span class="p">)</span><span class="o">**</span><span class="mi">4</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="n">a</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="n">b</span><span class="o">/</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="n">x</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="symmetric-case-b-0">
+<h3>Symmetric case (<span class="math notranslate nohighlight">\(b=0\)</span>)<a class="headerlink" href="#symmetric-case-b-0" title="Permalink to this headline"></a></h3>
+<p>A symmetric double well potential can be represented by the former mathematical expression when <span class="math notranslate nohighlight">\(b=0\)</span>. In this situation, the double well minima are placed in <span class="math notranslate nohighlight">\(x=-a\)</span> and <span class="math notranslate nohighlight">\(x=a\)</span>. And <span class="math notranslate nohighlight">\(E_{0}\)</span> is the value of the barrier height (equal for both basins). Lets verify these statements with an example:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Eo</span><span class="o">=</span><span class="mf">3.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span> <span class="c1"># barrier height when the double well is symmetric.</span>
+<span class="n">a</span><span class="o">=</span><span class="mf">1.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span> <span class="c1"># Absolute value of the coordinates of minima (the potential is an even function).</span>
+<span class="n">b</span><span class="o">=</span><span class="mf">0.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span> <span class="c1"># No need to explanation at this moment</span>
+
+<span class="n">x_serie</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mf">5.</span><span class="p">,</span> <span class="mf">5.</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">)</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_serie</span><span class="p">,</span> <span class="n">double_well_potential_1D</span><span class="p">(</span><span class="n">x_serie</span><span class="p">,</span><span class="n">Eo</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">),</span> <span class="s1">&#39;r-&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;X (</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Energy (</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Symmetric Double Well&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.7</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.7</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="o">-</span><span class="mf">1.6</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mf">1.85</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="s1">&#39;Eo&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">1.1</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.6</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/double_well_potential_4_0.png" src="../../../_images/double_well_potential_4_0.png" />
+</div>
+</div>
+<p>You can play with the last cell, changing the <span class="math notranslate nohighlight">\(E_{0}\)</span> and <span class="math notranslate nohighlight">\(a\)</span> values, to check the consistency of their description. Or you can instead work with the first derivative of the potential to do the same analytically:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">,</span> <span class="n">Eo</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="n">sy</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x Eo a&#39;</span><span class="p">)</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">Eo</span><span class="o">*</span><span class="p">((</span><span class="n">x</span><span class="o">/</span><span class="n">a</span><span class="p">)</span><span class="o">**</span><span class="mi">4</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="n">a</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">g</span><span class="o">=</span><span class="n">sy</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">x</span><span class="p">)</span> <span class="c1"># Primera derivada con respecto a x de la funcion f</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle Eo \left(- \frac{4 x}{a^{2}} + \frac{4 x^{3}}{a^{4}}\right)\]</div>
+</div>
+</div>
+<p>The first derivative can be factorized to unveil the value of its three roots: <span class="math notranslate nohighlight">\(x=0\)</span>, the barrier position, and <span class="math notranslate nohighlight">\(x=a\)</span> y <span class="math notranslate nohighlight">\(x=-a\)</span>, the minima positions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sy</span><span class="o">.</span><span class="n">factor</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle \frac{4 Eo x \left(- a + x\right) \left(a + x\right)}{a^{4}}\]</div>
+</div>
+</div>
+<p>The height of the barrier, from the bottom of the basins to its top, can then be calculated:</p>
+<div class="math notranslate nohighlight" id="equation-x-barrier">
+<span class="eqno">(4)<a class="headerlink" href="#equation-x-barrier" title="Permalink to this equation"></a></span>\[
+V_{x}(0)-V_{x}(c)=0-E_{0}\left[ 1-2 \right]=E_{0}
+\]</div>
+<section id="frequency-of-small-oscillations-around-the-minima">
+<h4>Frequency of small oscillations around the minima<a class="headerlink" href="#frequency-of-small-oscillations-around-the-minima" title="Permalink to this headline"></a></h4>
+<p>Now that the role of <span class="math notranslate nohighlight">\(E_{0}\)</span> and <span class="math notranslate nohighlight">\(a\)</span> is clear for the symmetric double well, we are interested in the frequency of the small oscillations at the energy minima. This frequency will be our time of reference to choose an appropriate integration time step of at the time of simulate the dynamics of a particle in this potential. This can be done attending to the second derivative of the potential.</p>
+<p>The value of any mathematical function close enough to a minimum can be approximated by the value of the function at the minimum plus the resulting contribution of an harmonic potential. The stiffness of this harmonic potential is equal the to value of the second derivative of the function at the minimum. This is what is known as the Taylor expansion of any function (truncated in the third grade):</p>
+<div class="math notranslate nohighlight" id="equation-taylor">
+<span class="eqno">(5)<a class="headerlink" href="#equation-taylor" title="Permalink to this equation"></a></span>\[
+f(x) \approx f(x_{0}) + f'(x_{0})(x-x_{0}) + \frac{1}{2} f''(x_{0})(x-x_{0})^{2}
+\]</div>
+<p>And by definition of minimum:</p>
+<div class="math notranslate nohighlight" id="equation-minimum-definition">
+<span class="eqno">(6)<a class="headerlink" href="#equation-minimum-definition" title="Permalink to this equation"></a></span>\[
+f'(x_{0})=0
+\]</div>
+<p>So:</p>
+<div class="math notranslate nohighlight" id="equation-taylor-2">
+<span class="eqno">(7)<a class="headerlink" href="#equation-taylor-2" title="Permalink to this equation"></a></span>\[
+f(x) \approx f(x_{0}) + \frac{1}{2} f''(x_{0})(x-x_{0})^{2}
+\]</div>
+<p>At this point lets make a break to talk about the harmonic potential. We all know the hooks law to describe the force  suffered by a mass attached to an ideal spring around the equilibrium position:</p>
+<div class="math notranslate nohighlight" id="equation-hook">
+<span class="eqno">(8)<a class="headerlink" href="#equation-hook" title="Permalink to this equation"></a></span>\[
+F(x) = -k(x-x_{0})
+\]</div>
+<p>Where <span class="math notranslate nohighlight">\(k\)</span> is the stiffness of the spring and <span class="math notranslate nohighlight">\(x_{0}\)</span> is the equilibrium position. The potential energy <span class="math notranslate nohighlight">\(V(x)\)</span> is now deduced given that:</p>
+<div class="math notranslate nohighlight" id="equation-grad-potential">
+<span class="eqno">(9)<a class="headerlink" href="#equation-grad-potential" title="Permalink to this equation"></a></span>\[
+F(x) = -\frac{d V(x)}{dx}
+\]</div>
+<p>So, the spring force is the result of the first harmonic potential derivative:</p>
+<div class="math notranslate nohighlight" id="equation-x-potential-2">
+<span class="eqno">(10)<a class="headerlink" href="#equation-x-potential-2" title="Permalink to this equation"></a></span>\[
+V(x) = \frac{1}{2} k (x-x_{0})^{2}
+\]</div>
+<p>And the frequency of oscillation of the spring, or a particle goberned by the former potential, is:</p>
+<div class="math notranslate nohighlight" id="equation-omega">
+<span class="eqno">(11)<a class="headerlink" href="#equation-omega" title="Permalink to this equation"></a></span>\[
+\omega = \sqrt{\frac{k}{m}}
+\]</div>
+<p>Where <span class="math notranslate nohighlight">\(m\)</span> is the mass of the particle. This way the potential can also be written as:</p>
+<div class="math notranslate nohighlight" id="equation-potential-omega">
+<span class="eqno">(12)<a class="headerlink" href="#equation-potential-omega" title="Permalink to this equation"></a></span>\[
+V(x) = \frac{1}{2} k (x-x_{0})^{2} = \frac{1}{2} m \omega^{2} (x-x_{0})^{2}
+\]</div>
+<p>Now, going back to our Taylor expansion of any mathematical function <span class="math notranslate nohighlight">\(f(x)\)</span>. If the shape of the <span class="math notranslate nohighlight">\(f(x)\)</span> around a minimum <span class="math notranslate nohighlight">\(x_{0}\)</span> can be approximated with an harmonic potential, this means that the characteristic frequency <span class="math notranslate nohighlight">\(\omega\)</span> of the oscillations around the near surroundings of the minimum is -by comparison with the potential behind the Hooke’s law-:</p>
+<div class="math notranslate nohighlight" id="equation-omega-2">
+<span class="eqno">(13)<a class="headerlink" href="#equation-omega-2" title="Permalink to this equation"></a></span>\[
+\omega = \sqrt{\frac{f''(x_{0})}{m}}
+\]</div>
+<p>This way the frequency of the small oscillations of a particle with mass <span class="math notranslate nohighlight">\(m\)</span> around a minimum can then by obtained from the value of the second derivative at the minimum:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">,</span> <span class="n">Eo</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="n">sy</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x Eo a&#39;</span><span class="p">)</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">Eo</span><span class="o">*</span><span class="p">((</span><span class="n">x</span><span class="o">/</span><span class="n">a</span><span class="p">)</span><span class="o">**</span><span class="mi">4</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="n">a</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">gg</span><span class="o">=</span><span class="n">sy</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">x</span><span class="p">)</span> <span class="c1"># Second derivative of f with respect x</span>
+
+<span class="n">gg</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle - \frac{4 Eo \left(1 - \frac{3 x^{2}}{a^{2}}\right)}{a^{2}}\]</div>
+</div>
+</div>
+<p>Let’s look at the minimum at <span class="math notranslate nohighlight">\(x=a\)</span>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gg</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">x</span><span class="p">:</span><span class="n">a</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle \frac{8 Eo}{a^{2}}\]</div>
+</div>
+</div>
+<p>In this case the frequency of the oscillations of a particle with mass <span class="math notranslate nohighlight">\(m\)</span> is:</p>
+<div class="math notranslate nohighlight" id="equation-omega-example">
+<span class="eqno">(14)<a class="headerlink" href="#equation-omega-example" title="Permalink to this equation"></a></span>\[
+\omega = \sqrt{\frac{8E_{0}}{ma^{2}}}
+\]</div>
+<p>And the period is:</p>
+<div class="math notranslate nohighlight" id="equation-period-example">
+<span class="eqno">(15)<a class="headerlink" href="#equation-period-example" title="Permalink to this equation"></a></span>\[
+T = \frac{2\pi}{\omega} = 2\pi \sqrt{\frac{ma^{2}}{8E_{0}}}
+\]</div>
+<p>We can see graphically how the Taylor expansion is a good aproximation when close enough to a minimum:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">harmonic_well_potential_1D</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">k</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">Eo</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">k</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">-</span><span class="n">Eo</span>
+
+<span class="n">Eo</span><span class="o">=</span><span class="mf">3.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span> <span class="c1"># barrier height when the double well is symmetric.</span>
+<span class="n">a</span><span class="o">=</span><span class="mf">1.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span> <span class="c1"># Absolute value of the coordinates of minima (the potential is an even function).</span>
+<span class="n">b</span><span class="o">=</span><span class="mf">0.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span> <span class="c1"># No need to explanation at this moment</span>
+<span class="n">k</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="o">*</span><span class="n">Eo</span><span class="p">)</span><span class="o">/</span><span class="n">a</span><span class="o">**</span><span class="mi">2</span> <span class="c1"># harmonic stiffness</span>
+
+<span class="n">x_serie</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mf">5.</span><span class="p">,</span> <span class="mf">5.</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">)</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_serie</span><span class="p">,</span> <span class="n">double_well_potential_1D</span><span class="p">(</span><span class="n">x_serie</span><span class="p">,</span><span class="n">Eo</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">),</span> <span class="s1">&#39;r-&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_serie</span><span class="p">,</span> <span class="n">harmonic_well_potential_1D</span><span class="p">(</span><span class="n">x_serie</span><span class="p">,</span><span class="n">k</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">Eo</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;X (</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Energy (</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Symmetric Double Well and Harmonic Potential&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">x_serie</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">0.005</span><span class="p">)</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_serie</span><span class="p">,</span> <span class="n">double_well_potential_1D</span><span class="p">(</span><span class="n">x_serie</span><span class="p">,</span><span class="n">Eo</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">),</span> <span class="s1">&#39;r-&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_serie</span><span class="p">,</span> <span class="n">harmonic_well_potential_1D</span><span class="p">(</span><span class="n">x_serie</span><span class="p">,</span><span class="n">k</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">Eo</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">3.05</span><span class="p">,</span><span class="o">-</span><span class="mf">2.8</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mf">0.9</span><span class="p">,</span><span class="mf">1.1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;X (</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Energy (</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Harmonic approximation nearby a minimum&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/double_well_potential_18_0.png" src="../../../_images/double_well_potential_18_0.png" />
+<img alt="../../../_images/double_well_potential_18_1.png" src="../../../_images/double_well_potential_18_1.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="assymetric-case-b-neq0">
+<h3>Assymetric case (<span class="math notranslate nohighlight">\(b\neq0\)</span>)<a class="headerlink" href="#assymetric-case-b-neq0" title="Permalink to this headline"></a></h3>
+<p>In the case of <span class="math notranslate nohighlight">\(b\neq 0\)</span>, our double well turns in to an assymetric potential. In this situation <span class="math notranslate nohighlight">\(E_{0}\)</span> and <span class="math notranslate nohighlight">\(a\)</span> have <strong>approximately</strong> the same interpretation, and <span class="math notranslate nohighlight">\(b\)</span> can be <strong>approximately</strong> understood as the amount energy that basins shift up or down, depending on the relative position to <span class="math notranslate nohighlight">\(x=0\)</span>. In our double well, the left basin raises and the right basin drops when <span class="math notranslate nohighlight">\(b&gt;0\)</span>. Lets see this in a plot:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Eo</span><span class="o">=</span><span class="mf">3.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span> <span class="c1"># barrier height when the double well is symmetric.</span>
+<span class="n">a</span><span class="o">=</span><span class="mf">1.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span> <span class="c1"># Absolute value of the coordinates of minima (the potential is an even function).</span>
+<span class="n">b</span><span class="o">=</span><span class="mf">1.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span> <span class="c1"># vertical shift of basins (approx.)</span>
+
+<span class="n">x_serie</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mf">5.</span><span class="p">,</span> <span class="mf">5.</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">)</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_serie</span><span class="p">,</span> <span class="n">double_well_potential_1D</span><span class="p">(</span><span class="n">x_serie</span><span class="p">,</span><span class="n">Eo</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">),</span> <span class="s1">&#39;r-&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;X (</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Energy (</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Asymmetric Double Well&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.45</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.45</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="o">-</span><span class="mf">1.4</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="o">-</span><span class="mf">0.95</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mf">1.75</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.4</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\approx Eo-b$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mf">0.9</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.6</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\approx a$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/double_well_potential_21_0.png" src="../../../_images/double_well_potential_21_0.png" />
+</div>
+</div>
+<p>The value of the energy barrier from the left minimum is <span class="math notranslate nohighlight">\(\approx E_{0}+b\)</span>, while <span class="math notranslate nohighlight">\(\approx E_{0}-b\)</span> accounts for the barrier from the right minimum.</p>
+</section>
+<section id="id1">
+<h3>Frequency of small oscillations around the minima.<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h3>
+<p>Given that <span class="math notranslate nohighlight">\(b\)</span> is included as a linear factor in the potential, its effect vanishes in the second derivative. As such, the harmonic approximation described for the symmetric double well is exact also for this case. But notice that the positions of the minima, and the position of the barrier, are slightly shifted with respect to those for the symmetric double well.</p>
+</section>
+</section>
+<section id="an-harmonic-potential-along-y-and-z">
+<h2>An harmonic potential along <span class="math notranslate nohighlight">\(Y\)</span> and <span class="math notranslate nohighlight">\(Z\)</span><a class="headerlink" href="#an-harmonic-potential-along-y-and-z" title="Permalink to this headline"></a></h2>
+<p>The behaviour of a particle in the double well potential along <span class="math notranslate nohighlight">\(X\)</span> is independent of what happens along <span class="math notranslate nohighlight">\(Y\)</span> and <span class="math notranslate nohighlight">\(Z\)</span>. We could keep the three dimensional potential equal to <span class="math notranslate nohighlight">\(V_{x}(x)\)</span>, but in this case the particle would diffuse freely in the subspace <span class="math notranslate nohighlight">\(Y-Z\)</span>. To avoid these, for aesthetic purposes only, let’s add an harmonic well in those two axes:</p>
+<div class="math notranslate nohighlight" id="equation-xy-potential">
+<span class="eqno">(16)<a class="headerlink" href="#equation-xy-potential" title="Permalink to this equation"></a></span>\[
+V_{yz}(y,z)= \frac{1}{2}k\left( y^2 + z^2 \right)
+\]</div>
+<p>The value of the elastic constant <span class="math notranslate nohighlight">\(k\)</span> should be lower, or at least equal, to the harmonic approximation of <span class="math notranslate nohighlight">\(V_{x}(x)\)</span> around the minima. Otherwise we should be aware of <span class="math notranslate nohighlight">\(V_{yz}\)</span> limiting the integration time step. It’s then suggested that:</p>
+<div class="math notranslate nohighlight" id="equation-k-limit">
+<span class="eqno">(17)<a class="headerlink" href="#equation-k-limit" title="Permalink to this equation"></a></span>\[
+k\le \frac{8E_{0}}{a^2}
+\]</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+    <a href="https://github.com/uibcdf/Molecular-Systems">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub">
+    </a>
+
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Double Well" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="molecular_system.html" class="btn btn-neutral float-right" title="Molecular system" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020-2022, The Mexico City Childrens&#39; Hospital Federico Gomez, its Unit of Research on Computational Biology and Drug Design, and authors | This project is licensed under the terms of the MIT license. See further details in the source code repository | Project based on the Computational Molecular Science Python Cookiecutter version 1.5.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

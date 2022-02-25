@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Molecular system &mdash; UIBCDF Molecular Systems 0+untagged.1.g74c4313 documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/togglebutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/mystnb.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/togglebutton.js"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Molecular dynamics" href="molecular_dynamics.html" />
+    <link rel="prev" title="Two LJ atoms in vacuum" href="two_particles.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../../index.html" class="icon icon-home"> UIBCDF Molecular Systems
+          </a>
+              <div class="version">
+                0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../about/introduction/index.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../about/introduction/introduction.html">Introduction</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about/installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../about/installation.html#last-stable-version">Last stable version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../about/installation.html#last-developing-version">Last developing version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../about/installation.html#the-source-code">The source code</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about/showcase/index.html">Showcase</a><ul class="simple">
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Molecular Systems</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../free_particle/index.html">Free particle</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../free_particle/brownian_particle.html">Brownian particle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../free_particle/molecular_system.html">Molecular system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../free_particle/molecular_dynamics.html">Molecular dynamics</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../harmonic_well/index.html">Harmonic well</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../harmonic_well/harmonic_well.html">Harmonic well potential</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../harmonic_well/molecular_system.html">Molecular system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../harmonic_well/molecular_dynamics.html">Molecular dynamics</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../double_well/index.html">Double Well</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../double_well/double_well_potential.html">Double well potential</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../double_well/molecular_system.html">Molecular system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../double_well/molecular_dynamics.html">Molecular dynamics</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Lennard Jones particles</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../LJ_Potential.html">The Lennard-Jones potential</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Two LJ particles</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="two_particles.html">Two LJ atoms in vacuum</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Molecular system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molecular_dynamics.html">Molecular dynamics</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tools</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tools/langevin.html">Langevin</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer/intro/index.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../developer/intro/Introduction.html">Introduction</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer/names_convention.html">Names convention</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../developer/names_convention.html#project-name">Project name</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../developer/names_convention.html#github-repo-and-conda-env">GitHub repo and Conda env</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../developer/names_convention.html#readme-file-and-documents">README file and documents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../developer/names_convention.html#package">Package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../developer/names_convention.html#modules-classes-methods-variables-and-others-programming-elements">Modules, classes, methods, variables, and others programming elements.</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../developer/names_convention.html#modules">Modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../developer/names_convention.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../developer/names_convention.html#exceptions">Exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../developer/names_convention.html#methods-and-functions">Methods and functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../developer/names_convention.html#variables-input-arguments-and-parameters">Variables, input arguments and parameters.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../developer/names_convention.html#constants">Constants</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../developer/names_convention.html#not-public-methods-and-variables">Not public methods and variables</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer/exceptions.html">Exceptions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../developer/exceptions.html#notimplementedmethoderror">NotImplementedMethodError</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../developer/exceptions.html#notimplementedclasserror">NotImplementedClassError</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../developer/exceptions.html#badcallerror">BadCallError</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer/documentation/index.html">Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../developer/documentation/sphinx.html">Sphinx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../developer/documentation/docstrings.html">Docstrings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../developer/documentation/docstrings.html#documenting-a-class">Documenting a class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../developer/documentation/docstrings.html#documenting-a-method">Documenting a method</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../developer/documentation/admonitions.html">Admonitions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../developer/documentation/admonitions.html#note">Note</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../developer/documentation/admonitions.html#did-you-know">Did you know…?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../developer/documentation/admonitions.html#it-is-suggested">It is suggested…</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../developer/documentation/admonitions.html#see-also">See also</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../developer/documentation/admonitions.html#warning">Warning</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Bibliography</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../bibliography.html">Bibliography</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">UIBCDF Molecular Systems</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Lennard Jones particles</a> &raquo;</li>
+          <li><a href="index.html">Two LJ particles</a> &raquo;</li>
+      <li>Molecular system</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="molecular-system">
+<h1>Molecular system<a class="headerlink" href="#molecular-system" title="Permalink to this headline"></a></h1>
+<section id="with-openmm">
+<h2>With OpenMM<a class="headerlink" href="#with-openmm" title="Permalink to this headline"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">openmm</span> <span class="k">as</span> <span class="nn">mm</span>
+<span class="kn">import</span> <span class="nn">openmm.app</span> <span class="k">as</span> <span class="nn">app</span>
+<span class="kn">import</span> <span class="nn">openmm.unit</span> <span class="k">as</span> <span class="nn">unit</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Argon LJ parameters</span>
+<span class="n">mass_1</span> <span class="o">=</span> <span class="mf">39.948</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">amu</span>
+<span class="n">sigma_1</span> <span class="o">=</span> <span class="mf">3.404</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">angstroms</span>
+<span class="n">epsilon_1</span> <span class="o">=</span> <span class="mf">0.238</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span>
+
+<span class="c1"># Xenon LJ parameters</span>
+<span class="n">mass_2</span> <span class="o">=</span> <span class="mf">131.293</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">amu</span>
+<span class="n">sigma_2</span> <span class="o">=</span> <span class="mf">3.961</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">angstroms</span>
+<span class="n">epsilon_2</span> <span class="o">=</span> <span class="mf">0.459</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span>
+
+<span class="c1"># Reduced LJ parameters</span>
+<span class="n">reduced_sigma</span> <span class="o">=</span> <span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">sigma_1</span><span class="o">+</span><span class="n">sigma_2</span><span class="p">)</span>
+<span class="n">reduced_epsilon</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">epsilon_1</span><span class="o">*</span><span class="n">epsilon_2</span><span class="p">)</span>
+
+<span class="c1"># Box and initial coordinates</span>
+<span class="n">coordinates</span><span class="o">=</span><span class="p">[[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.25</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]]</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
+<span class="n">box</span><span class="o">=</span><span class="p">[[</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">]]</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
+
+<span class="c1"># Molecular Mechanics parameters</span>
+<span class="n">cutoff_distance</span> <span class="o">=</span> <span class="mf">3.0</span><span class="o">*</span><span class="n">reduced_sigma</span>
+<span class="n">switching_distance</span> <span class="o">=</span> <span class="mf">2.0</span><span class="o">*</span><span class="n">reduced_sigma</span>
+
+<span class="c1"># OpenMM topology</span>
+<span class="n">topology</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">Topology</span><span class="p">()</span>
+<span class="n">Ar_element</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">Element</span><span class="o">.</span><span class="n">getBySymbol</span><span class="p">(</span><span class="s1">&#39;Ar&#39;</span><span class="p">)</span>
+<span class="n">Xe_element</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">Element</span><span class="o">.</span><span class="n">getBySymbol</span><span class="p">(</span><span class="s1">&#39;Xe&#39;</span><span class="p">)</span>
+<span class="n">chain</span> <span class="o">=</span> <span class="n">topology</span><span class="o">.</span><span class="n">addChain</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">)</span>
+<span class="n">residue</span> <span class="o">=</span> <span class="n">topology</span><span class="o">.</span><span class="n">addResidue</span><span class="p">(</span><span class="s1">&#39;Ar&#39;</span><span class="p">,</span> <span class="n">chain</span><span class="p">)</span>
+<span class="n">atom</span> <span class="o">=</span> <span class="n">topology</span><span class="o">.</span><span class="n">addAtom</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Ar&#39;</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span> <span class="n">Ar_element</span><span class="p">,</span> <span class="n">residue</span><span class="o">=</span><span class="n">residue</span><span class="p">)</span>
+<span class="n">residue</span> <span class="o">=</span> <span class="n">topology</span><span class="o">.</span><span class="n">addResidue</span><span class="p">(</span><span class="s1">&#39;Xe&#39;</span><span class="p">,</span> <span class="n">chain</span><span class="p">)</span>
+<span class="n">atom</span> <span class="o">=</span> <span class="n">topology</span><span class="o">.</span><span class="n">addAtom</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Xe&#39;</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span> <span class="n">Xe_element</span><span class="p">,</span> <span class="n">residue</span><span class="o">=</span><span class="n">residue</span><span class="p">)</span>
+
+<span class="n">topology</span><span class="o">.</span><span class="n">setPeriodicBoxVectors</span><span class="p">(</span><span class="n">box</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">box</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">box</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+
+<span class="c1"># OpenMM system</span>
+<span class="n">system</span> <span class="o">=</span> <span class="n">mm</span><span class="o">.</span><span class="n">System</span><span class="p">()</span>
+
+<span class="n">non_bonded_force</span> <span class="o">=</span> <span class="n">mm</span><span class="o">.</span><span class="n">NonbondedForce</span><span class="p">()</span>
+<span class="n">non_bonded_force</span><span class="o">.</span><span class="n">setNonbondedMethod</span><span class="p">(</span><span class="n">mm</span><span class="o">.</span><span class="n">NonbondedForce</span><span class="o">.</span><span class="n">CutoffPeriodic</span><span class="p">)</span>
+<span class="n">non_bonded_force</span><span class="o">.</span><span class="n">setUseSwitchingFunction</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">non_bonded_force</span><span class="o">.</span><span class="n">setCutoffDistance</span><span class="p">(</span><span class="n">cutoff_distance</span><span class="p">)</span>
+<span class="n">non_bonded_force</span><span class="o">.</span><span class="n">setSwitchingDistance</span><span class="p">(</span><span class="n">switching_distance</span><span class="p">)</span>
+
+<span class="n">system</span><span class="o">.</span><span class="n">addParticle</span><span class="p">(</span><span class="n">mass_1</span><span class="p">)</span>
+<span class="n">charge_1</span> <span class="o">=</span> <span class="mf">0.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">elementary_charge</span>
+<span class="n">non_bonded_force</span><span class="o">.</span><span class="n">addParticle</span><span class="p">(</span><span class="n">charge_1</span><span class="p">,</span> <span class="n">sigma_1</span><span class="p">,</span> <span class="n">epsilon_1</span><span class="p">)</span>
+
+<span class="n">system</span><span class="o">.</span><span class="n">addParticle</span><span class="p">(</span><span class="n">mass_2</span><span class="p">)</span>
+<span class="n">charge_2</span> <span class="o">=</span> <span class="mf">0.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">elementary_charge</span>
+<span class="n">non_bonded_force</span><span class="o">.</span><span class="n">addParticle</span><span class="p">(</span><span class="n">charge_2</span><span class="p">,</span> <span class="n">sigma_2</span><span class="p">,</span> <span class="n">epsilon_2</span><span class="p">)</span>
+
+<span class="n">system</span><span class="o">.</span><span class="n">setDefaultPeriodicBoxVectors</span><span class="p">(</span><span class="n">box</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">box</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">box</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+
+<span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">addForce</span><span class="p">(</span><span class="n">non_bonded_force</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</section>
+<section id="with-this-library">
+<h2>With this library<a class="headerlink" href="#with-this-library" title="Permalink to this headline"></a></h2>
+<p>This test system is fully documented in <span class="xref myst">TwoLJParticles class API</span>. Let’s see an example of how to interact with it:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">openmm</span> <span class="kn">import</span> <span class="n">unit</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_3488</span><span class="o">/</span><span class="mf">1126906249.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">from</span> <span class="nn">openmm</span> <span class="kn">import</span> <span class="n">unit</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;matplotlib&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">uibcdf_systems</span> <span class="kn">import</span> <span class="n">TwoLJParticles</span>
+
+
+<span class="n">coordinates</span><span class="o">=</span><span class="p">[[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.25</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]]</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
+<span class="n">box</span><span class="o">=</span><span class="p">[[</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">]]</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
+
+<span class="c1"># Particle 1 with Ar atom values</span>
+<span class="n">mass_1</span> <span class="o">=</span> <span class="mf">39.948</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">amu</span>
+<span class="n">sigma_1</span> <span class="o">=</span> <span class="mf">3.404</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">angstroms</span>
+<span class="n">epsilon_1</span> <span class="o">=</span> <span class="mf">0.238</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span>
+
+<span class="c1"># Particle 2 with Xe atom values</span>
+<span class="n">mass_2</span> <span class="o">=</span> <span class="mf">131.293</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">amu</span>
+<span class="n">sigma_2</span> <span class="o">=</span> <span class="mf">3.961</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">angstroms</span>
+<span class="n">epsilon_2</span> <span class="o">=</span> <span class="mf">0.459</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span>
+
+<span class="n">molecular_system</span> <span class="o">=</span> <span class="n">TwoLJParticles</span><span class="p">(</span><span class="n">mass_1</span><span class="o">=</span><span class="n">mass_1</span><span class="p">,</span> <span class="n">sigma_1</span><span class="o">=</span><span class="n">sigma_1</span><span class="p">,</span> <span class="n">epsilon_1</span><span class="o">=</span><span class="n">epsilon_1</span><span class="p">,</span>
+                                  <span class="n">mass_2</span><span class="o">=</span><span class="n">mass_2</span><span class="p">,</span> <span class="n">sigma_2</span><span class="o">=</span><span class="n">sigma_2</span><span class="p">,</span> <span class="n">epsilon_2</span><span class="o">=</span><span class="n">epsilon_2</span><span class="p">,</span>
+                                  <span class="n">coordinates</span><span class="o">=</span><span class="n">coordinates</span><span class="p">,</span> <span class="n">box</span><span class="o">=</span><span class="n">box</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">molecular_system</span><span class="o">.</span><span class="n">parameters</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;mass_1&#39;: Quantity(value=39.948, unit=dalton),
+ &#39;sigma_1&#39;: Quantity(value=3.404, unit=angstrom),
+ &#39;epsilon_1&#39;: Quantity(value=0.238, unit=kilocalorie/mole),
+ &#39;mass_2&#39;: Quantity(value=131.293, unit=dalton),
+ &#39;sigma_2&#39;: Quantity(value=3.961, unit=angstrom),
+ &#39;epsilon_2&#39;: Quantity(value=0.459, unit=kilocalorie/mole),
+ &#39;box&#39;: Quantity(value=[[2.5, 0.0, 0.0], [0.0, 2.5, 0.0], [0.0, 0.0, 2.5]], unit=nanometer),
+ &#39;cutoff_distance&#39;: Quantity(value=11.0475, unit=angstrom),
+ &#39;switching_distance&#39;: Quantity(value=7.365, unit=angstrom)}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">molecular_system</span><span class="o">.</span><span class="n">coordinates</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Quantity(value=[[0.0, 0.0, 0.0], [1.25, 0.0, 0.0]], unit=nanometer)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">molecular_system</span><span class="o">.</span><span class="n">box</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Quantity(value=[[2.5, 0.0, 0.0], [0.0, 2.5, 0.0], [0.0, 0.0, 2.5]], unit=nanometer)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">molecular_system</span><span class="o">.</span><span class="n">topology</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Topology; 1 chains, 2 residues, 2 atoms, 0 bonds&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">molecular_system</span><span class="o">.</span><span class="n">system</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;openmm.openmm.System; proxy of &lt;Swig Object of type &#39;OpenMM::System *&#39; at 0x7f2f589fc120&gt; &gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s check that the molecular system behaves as it was predicted above with the reduced mass, sigma and epsilon constants.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">uibcdf_systems.tools</span> <span class="kn">import</span> <span class="n">get_potential_energy</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">get_potential_energy</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Quantity(value=-0.011752073685139652, unit=kilojoule/mole)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">coordinates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="nb">float</span><span class="p">)</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">angstroms</span>
+
+<span class="n">xlim_figure</span> <span class="o">=</span> <span class="p">[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">]</span>
+<span class="n">ylim_figure</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">]</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">xlim_figure</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">xlim_figure</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">100</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">angstrom</span>
+<span class="n">V</span> <span class="o">=</span> <span class="p">[]</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span>
+
+<span class="k">for</span> <span class="n">xi</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
+    <span class="n">coordinates</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">xi</span>
+    <span class="n">potential_energy</span> <span class="o">=</span> <span class="n">get_potential_energy</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">coordinates</span><span class="o">=</span><span class="n">coordinates</span><span class="p">)</span>
+    <span class="n">V</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">potential_energy</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">LJ</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">):</span>
+    
+    <span class="n">t</span> <span class="o">=</span> <span class="n">sigma</span><span class="o">/</span><span class="n">x</span>
+    <span class="n">t6</span> <span class="o">=</span> <span class="n">t</span><span class="o">**</span><span class="mi">6</span>
+    <span class="n">t12</span> <span class="o">=</span> <span class="n">t6</span><span class="o">**</span><span class="mi">2</span>
+    
+    <span class="k">return</span> <span class="mf">4.0</span><span class="o">*</span><span class="n">epsilon</span><span class="o">*</span><span class="p">(</span><span class="n">t12</span><span class="o">-</span><span class="n">t6</span><span class="p">)</span>
+
+<span class="n">reduced_sigma</span> <span class="o">=</span> <span class="n">molecular_system</span><span class="o">.</span><span class="n">get_reduced_sigma</span><span class="p">()</span>
+<span class="n">reduced_epsilon</span> <span class="o">=</span> <span class="n">molecular_system</span><span class="o">.</span><span class="n">get_reduced_epsilon</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">LJ</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">reduced_sigma</span><span class="p">,</span> <span class="n">reduced_epsilon</span><span class="p">))</span>
+
+<span class="n">V</span><span class="o">.</span><span class="n">_value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">V</span><span class="o">.</span><span class="n">_value</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+
+<span class="n">x_min</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">)</span><span class="o">*</span><span class="n">reduced_sigma</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">x_min</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span> <span class="n">ylim_figure</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ylim_figure</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">linestyles</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+
+<span class="n">coff</span> <span class="o">=</span> <span class="n">molecular_system</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;cutoff_distance&#39;</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">coff</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span> <span class="n">ylim_figure</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ylim_figure</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">linestyles</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+
+<span class="n">sdist</span> <span class="o">=</span> <span class="n">molecular_system</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;switching_distance&#39;</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">sdist</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span> <span class="n">ylim_figure</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ylim_figure</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">linestyles</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="n">xlim_figure</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="n">ylim_figure</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x [</span><span class="si">{}</span><span class="s1">]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">unit</span><span class="o">.</span><span class="n">get_symbol</span><span class="p">()))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;V [</span><span class="si">{}</span><span class="s1">]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">reduced_epsilon</span><span class="o">.</span><span class="n">unit</span><span class="o">.</span><span class="n">get_symbol</span><span class="p">()))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/molecular_system_14_0.png" src="../../../../_images/molecular_system_14_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">molecular_system</span><span class="o">.</span><span class="n">get_coordinates_minimum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Quantity(value=4.133466492899267, unit=angstrom)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">molecular_system</span><span class="o">.</span><span class="n">get_small_oscillations_time_period_around_minimum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Quantity(value=1.4404534295370355, unit=picosecond)
+</pre></div>
+</div>
+</div>
+</div>
+<p>As final tip, there’s a shortcut if the particules are real atoms such as argon and xenon. You don’t need to remember or look for their sigmas and epsilons:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">TwoLJParticles</span><span class="p">(</span><span class="n">atom_1</span><span class="o">=</span><span class="s1">&#39;Ar&#39;</span><span class="p">,</span> <span class="n">atom_2</span><span class="o">=</span><span class="s1">&#39;Xe&#39;</span><span class="p">,</span> <span class="n">coordinates</span><span class="o">=</span><span class="n">coordinates</span><span class="p">,</span> <span class="n">box</span><span class="o">=</span><span class="n">box</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">molecular_system</span><span class="o">.</span><span class="n">parameters</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;mass_1&#39;: Quantity(value=39.948, unit=dalton),
+ &#39;sigma_1&#39;: Quantity(value=3.404, unit=angstrom),
+ &#39;epsilon_1&#39;: Quantity(value=0.238, unit=kilocalorie/mole),
+ &#39;mass_2&#39;: Quantity(value=131.293, unit=dalton),
+ &#39;sigma_2&#39;: Quantity(value=3.961, unit=angstrom),
+ &#39;epsilon_2&#39;: Quantity(value=0.459, unit=kilocalorie/mole),
+ &#39;box&#39;: Quantity(value=[[2.5, 0.0, 0.0], [0.0, 2.5, 0.0], [0.0, 0.0, 2.5]], unit=nanometer),
+ &#39;cutoff_distance&#39;: Quantity(value=11.0475, unit=angstrom),
+ &#39;switching_distance&#39;: Quantity(value=7.365, unit=angstrom)}
+</pre></div>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<p><strong>Sources</strong></p>
+<p>http://docs.openmm.org/6.3.0/userguide/theory.html#lennard-jones-interaction
+https://openmmtools.readthedocs.io/en/0.18.1/api/generated/openmmtools.testsystems.LennardJonesPair.html
+https://openmmtools.readthedocs.io/en/latest/api/generated/openmmtools.testsystems.LennardJonesFluid.html
+https://gpantel.github.io/computational-method/LJsimulation/</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+    <a href="https://github.com/uibcdf/Molecular-Systems">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub">
+    </a>
+
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="two_particles.html" class="btn btn-neutral float-left" title="Two LJ atoms in vacuum" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="molecular_dynamics.html" class="btn btn-neutral float-right" title="Molecular dynamics" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020-2022, The Mexico City Childrens&#39; Hospital Federico Gomez, its Unit of Research on Computational Biology and Drug Design, and authors | This project is licensed under the terms of the MIT license. See further details in the source code repository | Project based on the Computational Molecular Science Python Cookiecutter version 1.5.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

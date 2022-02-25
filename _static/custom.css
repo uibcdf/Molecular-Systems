@@ -1,0 +1,19 @@
+.wy-nav-content {
+    max-width: 100% !important;
+}
+
+
+/* To change the left bar of executable cells in markdown and executable cells in jupyter notebooks */
+/* See https://github.com/executablebooks/meta/discussions/667 */
+div.cell div.cell_input {
+    border-left-color: #C9C9C9;
+}
+
+/* Equation alignment and reference position*/
+.math {
+    text-align: left;
+}
+.eqno {
+    float: right;
+}
+

@@ -1,0 +1,26 @@
+﻿uibcdf\_systems.FreeParticle
+============================
+
+.. currentmodule:: uibcdf_systems
+
+.. autoclass:: FreeParticle
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~FreeParticle.__init__
+      ~FreeParticle.energy_minimization
+      ~FreeParticle.set_box
+      ~FreeParticle.set_coordinates
+      ~FreeParticle.set_velocities
+   
+   
+
+   
+   
+   

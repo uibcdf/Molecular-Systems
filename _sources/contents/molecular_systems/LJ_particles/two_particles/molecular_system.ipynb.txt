@@ -1,0 +1,461 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Molecular system"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## With OpenMM\n",
+    "\n",
+    "```python\n",
+    "import openmm as mm\n",
+    "import openmm.app as app\n",
+    "import openmm.unit as unit\n",
+    "import numpy as np\n",
+    "\n",
+    "# Argon LJ parameters\n",
+    "mass_1 = 39.948*unit.amu\n",
+    "sigma_1 = 3.404*unit.angstroms\n",
+    "epsilon_1 = 0.238*unit.kilocalories_per_mole\n",
+    "\n",
+    "# Xenon LJ parameters\n",
+    "mass_2 = 131.293*unit.amu\n",
+    "sigma_2 = 3.961*unit.angstroms\n",
+    "epsilon_2 = 0.459*unit.kilocalories_per_mole\n",
+    "\n",
+    "# Reduced LJ parameters\n",
+    "reduced_sigma = 0.5*(sigma_1+sigma_2)\n",
+    "reduced_epsilon = np.sqrt(epsilon_1*epsilon_2)\n",
+    "\n",
+    "# Box and initial coordinates\n",
+    "coordinates=[[0.0, 0.0, 0.0], [1.25, 0.0, 0.0]]*unit.nanometers\n",
+    "box=[[2.5, 0.0, 0.0], [0.0, 2.5, 0.0], [0.0, 0.0, 2.5]]*unit.nanometers\n",
+    "\n",
+    "# Molecular Mechanics parameters\n",
+    "cutoff_distance = 3.0*reduced_sigma\n",
+    "switching_distance = 2.0*reduced_sigma\n",
+    "\n",
+    "# OpenMM topology\n",
+    "topology = app.Topology()\n",
+    "Ar_element = app.Element.getBySymbol('Ar')\n",
+    "Xe_element = app.Element.getBySymbol('Xe')\n",
+    "chain = topology.addChain('A')\n",
+    "residue = topology.addResidue('Ar', chain)\n",
+    "atom = topology.addAtom(name='Ar', element= Ar_element, residue=residue)\n",
+    "residue = topology.addResidue('Xe', chain)\n",
+    "atom = topology.addAtom(name='Xe', element= Xe_element, residue=residue)\n",
+    "\n",
+    "topology.setPeriodicBoxVectors(box[0], box[1], box[2])\n",
+    "\n",
+    "# OpenMM system\n",
+    "system = mm.System()\n",
+    "\n",
+    "non_bonded_force = mm.NonbondedForce()\n",
+    "non_bonded_force.setNonbondedMethod(mm.NonbondedForce.CutoffPeriodic)\n",
+    "non_bonded_force.setUseSwitchingFunction(True)\n",
+    "non_bonded_force.setCutoffDistance(cutoff_distance)\n",
+    "non_bonded_force.setSwitchingDistance(switching_distance)\n",
+    "\n",
+    "system.addParticle(mass_1)\n",
+    "charge_1 = 0.0 * unit.elementary_charge\n",
+    "non_bonded_force.addParticle(charge_1, sigma_1, epsilon_1)\n",
+    "\n",
+    "system.addParticle(mass_2)\n",
+    "charge_2 = 0.0 * unit.elementary_charge\n",
+    "non_bonded_force.addParticle(charge_2, sigma_2, epsilon_2)\n",
+    "\n",
+    "system.setDefaultPeriodicBoxVectors(box[0], box[1], box[2])\n",
+    "\n",
+    "_ = self.system.addForce(non_bonded_force)\n",
+    "\n",
+    "```"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## With this library\n",
+    "\n",
+    "This test system is fully documented in [TwoLJParticles class API](../api/_autosummary/uibcdf_test_systems.TwoLJParticles.html). Let's see an example of how to interact with it:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import numpy as np\n",
+    "import matplotlib.pyplot as plt\n",
+    "from openmm import unit"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from uibcdf_systems import TwoLJParticles\n",
+    "\n",
+    "\n",
+    "coordinates=[[0.0, 0.0, 0.0], [1.25, 0.0, 0.0]]*unit.nanometers\n",
+    "box=[[2.5, 0.0, 0.0], [0.0, 2.5, 0.0], [0.0, 0.0, 2.5]]*unit.nanometers\n",
+    "\n",
+    "# Particle 1 with Ar atom values\n",
+    "mass_1 = 39.948 * unit.amu\n",
+    "sigma_1 = 3.404 * unit.angstroms\n",
+    "epsilon_1 = 0.238 * unit.kilocalories_per_mole\n",
+    "\n",
+    "# Particle 2 with Xe atom values\n",
+    "mass_2 = 131.293 * unit.amu\n",
+    "sigma_2 = 3.961 * unit.angstroms\n",
+    "epsilon_2 = 0.459 * unit.kilocalories_per_mole\n",
+    "\n",
+    "molecular_system = TwoLJParticles(mass_1=mass_1, sigma_1=sigma_1, epsilon_1=epsilon_1,\n",
+    "                                  mass_2=mass_2, sigma_2=sigma_2, epsilon_2=epsilon_2,\n",
+    "                                  coordinates=coordinates, box=box)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "{'mass_1': Quantity(value=39.948, unit=dalton),\n",
+       " 'sigma_1': Quantity(value=3.404, unit=angstrom),\n",
+       " 'epsilon_1': Quantity(value=0.238, unit=kilocalorie/mole),\n",
+       " 'mass_2': Quantity(value=131.293, unit=dalton),\n",
+       " 'sigma_2': Quantity(value=3.961, unit=angstrom),\n",
+       " 'epsilon_2': Quantity(value=0.459, unit=kilocalorie/mole),\n",
+       " 'box': Quantity(value=[[2.5, 0.0, 0.0], [0.0, 2.5, 0.0], [0.0, 0.0, 2.5]], unit=nanometer),\n",
+       " 'cutoff_distance': Quantity(value=11.0475, unit=angstrom),\n",
+       " 'switching_distance': Quantity(value=7.365, unit=angstrom)}"
+      ]
+     },
+     "execution_count": 3,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "molecular_system.parameters"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "Quantity(value=[[0.0, 0.0, 0.0], [1.25, 0.0, 0.0]], unit=nanometer)"
+      ]
+     },
+     "execution_count": 4,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "molecular_system.coordinates"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "Quantity(value=[[2.5, 0.0, 0.0], [0.0, 2.5, 0.0], [0.0, 0.0, 2.5]], unit=nanometer)"
+      ]
+     },
+     "execution_count": 5,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "molecular_system.box"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<Topology; 1 chains, 2 residues, 2 atoms, 0 bonds>"
+      ]
+     },
+     "execution_count": 6,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "molecular_system.topology"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<openmm.openmm.System; proxy of <Swig Object of type 'OpenMM::System *' at 0x7f2f589fc120> >"
+      ]
+     },
+     "execution_count": 7,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "molecular_system.system"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Let's check that the molecular system behaves as it was predicted above with the reduced mass, sigma and epsilon constants."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from uibcdf_systems.tools import get_potential_energy"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "Quantity(value=-0.011752073685139652, unit=kilojoule/mole)"
+      ]
+     },
+     "execution_count": 9,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "get_potential_energy(molecular_system)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "coordinates = np.zeros([2,3], float) * unit.angstroms\n",
+    "\n",
+    "xlim_figure = [2.0, 12.0]\n",
+    "ylim_figure = [-1.0, 2.0]\n",
+    "\n",
+    "x = np.linspace(xlim_figure[0], xlim_figure[1], 100, True) * unit.angstrom\n",
+    "V = [] * unit.kilocalories_per_mole\n",
+    "\n",
+    "for xi in x:\n",
+    "    coordinates[1,0] = xi\n",
+    "    potential_energy = get_potential_energy(molecular_system, coordinates=coordinates)\n",
+    "    V.append(potential_energy)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "image/png": "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\n",
+      "text/plain": [
+       "<Figure size 432x288 with 1 Axes>"
+      ]
+     },
+     "metadata": {
+      "needs_background": "light"
+     },
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "def LJ (x, sigma, epsilon):\n",
+    "    \n",
+    "    t = sigma/x\n",
+    "    t6 = t**6\n",
+    "    t12 = t6**2\n",
+    "    \n",
+    "    return 4.0*epsilon*(t12-t6)\n",
+    "\n",
+    "reduced_sigma = molecular_system.get_reduced_sigma()\n",
+    "reduced_epsilon = molecular_system.get_reduced_epsilon()\n",
+    "plt.plot(x, LJ(x, reduced_sigma, reduced_epsilon))\n",
+    "\n",
+    "V._value = np.array(V._value)\n",
+    "plt.plot(x, V, linewidth=2, linestyle='--', color='red')\n",
+    "\n",
+    "x_min = 2**(1/6)*reduced_sigma\n",
+    "plt.vlines(x_min._value, ylim_figure[0], ylim_figure[1], linestyles='dashed', color='gray')\n",
+    "\n",
+    "coff = molecular_system.parameters['cutoff_distance']\n",
+    "plt.vlines(coff._value, ylim_figure[0], ylim_figure[1], linestyles='dashed', color='gray')\n",
+    "\n",
+    "sdist = molecular_system.parameters['switching_distance']\n",
+    "plt.vlines(sdist._value, ylim_figure[0], ylim_figure[1], linestyles='dashed', color='gray')\n",
+    "\n",
+    "plt.xlim(xlim_figure)\n",
+    "plt.ylim(ylim_figure)\n",
+    "plt.xlabel('x [{}]'.format(x.unit.get_symbol()))\n",
+    "plt.ylabel('V [{}]'.format(reduced_epsilon.unit.get_symbol()))\n",
+    "plt.show()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "Quantity(value=4.133466492899267, unit=angstrom)"
+      ]
+     },
+     "execution_count": 12,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "molecular_system.get_coordinates_minimum()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "Quantity(value=1.4404534295370355, unit=picosecond)"
+      ]
+     },
+     "execution_count": 13,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "molecular_system.get_small_oscillations_time_period_around_minimum()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "As final tip, there's a shortcut if the particules are real atoms such as argon and xenon. You don't need to remember or look for their sigmas and epsilons:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "molecular_system = TwoLJParticles(atom_1='Ar', atom_2='Xe', coordinates=coordinates, box=box)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "{'mass_1': Quantity(value=39.948, unit=dalton),\n",
+       " 'sigma_1': Quantity(value=3.404, unit=angstrom),\n",
+       " 'epsilon_1': Quantity(value=0.238, unit=kilocalorie/mole),\n",
+       " 'mass_2': Quantity(value=131.293, unit=dalton),\n",
+       " 'sigma_2': Quantity(value=3.961, unit=angstrom),\n",
+       " 'epsilon_2': Quantity(value=0.459, unit=kilocalorie/mole),\n",
+       " 'box': Quantity(value=[[2.5, 0.0, 0.0], [0.0, 2.5, 0.0], [0.0, 0.0, 2.5]], unit=nanometer),\n",
+       " 'cutoff_distance': Quantity(value=11.0475, unit=angstrom),\n",
+       " 'switching_distance': Quantity(value=7.365, unit=angstrom)}"
+      ]
+     },
+     "execution_count": 15,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "molecular_system.parameters"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "-------------\n",
+    "\n",
+    "**Sources**\n",
+    "\n",
+    "http://docs.openmm.org/6.3.0/userguide/theory.html#lennard-jones-interaction\n",
+    "https://openmmtools.readthedocs.io/en/0.18.1/api/generated/openmmtools.testsystems.LennardJonesPair.html\n",
+    "https://openmmtools.readthedocs.io/en/latest/api/generated/openmmtools.testsystems.LennardJonesFluid.html\n",
+    "https://gpantel.github.io/computational-method/LJsimulation/"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.7.12"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}
