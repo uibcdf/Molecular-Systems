@@ -20,11 +20,13 @@ advange of the tools of this library to run some fast tests or simulations.
 .. toctree::
    :name: molecular_systems
    :caption: Molecular Systems
-   :maxdepth: 2
+   :maxdepth: 1
+   :titlesonly:
 
    contents/molecular_systems/free_particle/index.rst
    contents/molecular_systems/harmonic_well/index.rst
    contents/molecular_systems/double_well/index.rst
+   contents/molecular_systems/LJ_particles/index.rst
    
 .. toctree::
    :name: tools

@@ -29,7 +29,7 @@ class MolecularSystem():
 
     def set_box(self, box):
 
-        self.box = puw.convert(box, unit='nm')
+        self.box = puw.convert(box, to_unit='nm')
 
         if self.topology is not None:
             self.topology.setPeriodicBoxVectors(box)

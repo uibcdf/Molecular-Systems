@@ -33,7 +33,7 @@ class TwoLJParticles(MolecularSystem):
     def __init__(self, atom_1='Ar', atom_2='Xe', mass_1=None, sigma_1=None, epsilon_1=None,
                  mass_2=None, sigma_2=None, epsilon_2=None,
                  cutoff_distance = None, switching_distance = None, box=None,
-                 coordinates=None):
+                 coordinates=None, velocities=None):
 
         super().__init__()
 
@@ -76,10 +76,10 @@ class TwoLJParticles(MolecularSystem):
             reduced_sigma = self.get_reduced_sigma()
 
             if cutoff_distance is None:
-                cutoff_distance = 4.0*reduced_sigma
+                cutoff_distance = 3.0*reduced_sigma
 
             if switching_distance is None:
-                switching_distance = 3.0*reduced_sigma
+                switching_distance = 2.0*reduced_sigma
 
         self.parameters['box'] = box
         self.parameters['cutoff_distance'] = cutoff_distance
@@ -129,6 +129,11 @@ class TwoLJParticles(MolecularSystem):
         if coordinates is not None:
             self.set_coordinates(coordinates)
 
+        # Velocities
+
+        if velocities is not None:
+            self.set_velocities(velocities)
+
         # Box
 
         if box is not None:
@@ -167,7 +172,7 @@ class TwoLJParticles(MolecularSystem):
 
         return 4.0*reduced_epsilon*(c**12-c**6)
 
-    def get_coordinates_minimum(self):
+    def get_distance_minimum(self):
 
         reduced_sigma = self.get_reduced_sigma()
 
