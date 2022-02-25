@@ -7,9 +7,9 @@ Double Well
 
 
 .. toctree::
-   :caption: Systems
    :maxdepth: 1
 
-   Double_Well.ipynb
-
+   double_well_potential.ipynb
+   molecular_system.ipynb
+   molecular_dynamics.ipynb
 

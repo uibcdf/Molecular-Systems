@@ -1,15 +1,13 @@
 
-.. harmonic well documentation
+.. Harmonic well documentation
 
 =============
-Harmonic Well
+Harmonic well
 =============
-
 
 .. toctree::
-   :caption: Systems
    :maxdepth: 1
 
-   Harmonic_Well.ipynb
-
-
+   harmonic_well.ipynb
+   molecular_system.ipynb
+   molecular_dynamics.ipynb

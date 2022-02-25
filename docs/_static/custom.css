@@ -9,3 +9,11 @@ div.cell div.cell_input {
     border-left-color: #C9C9C9;
 }
 
+/* Equation alignment and reference position*/
+.math {
+    text-align: left;
+}
+.eqno {
+    float: right;
+}
+

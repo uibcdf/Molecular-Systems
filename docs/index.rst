@@ -22,7 +22,16 @@ advange of the tools of this library to run some fast tests or simulations.
    :caption: Molecular Systems
    :maxdepth: 2
 
-   contents/molecular_systems/index.rst
+   contents/molecular_systems/free_particle/index.rst
+   contents/molecular_systems/harmonic_well/index.rst
+   contents/molecular_systems/double_well/index.rst
+   
+.. toctree::
+   :name: tools
+   :caption: Tools
+   :maxdepth: 2
+
+   contents/tools/langevin.ipynb
 
 .. toctree::
    :name: developer_guide

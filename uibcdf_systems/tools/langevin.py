@@ -115,7 +115,7 @@ def langevin(item, time = None, saving_timestep = None, integration_timestep= 2*
         else:
             raise SystemWithoutCoordinatesError()
     else:
-        simulation.context.setPositions(coordinates)
+        simulation.context.setPositions(initial_coordinates)
 
     if initial_velocities is None:
         if item.velocities is not None:

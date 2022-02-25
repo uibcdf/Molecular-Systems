@@ -80,7 +80,17 @@ class HarmonicWell(MolecularSystem):
 
         # OpenMM topology
 
-        self.topology = None
+        self.topology = app.Topology()
+
+        try:
+            dummy_element = app.element.get_by_symbol('DUM')
+        except:
+            dummy_element = app.Element(0, 'DUM', 'DUM', 0.0 * unit.amu)
+
+        chain = self.topology.addChain('A')
+        for ii in range(n_particles):
+            residue = self.topology.addResidue('DUM', chain)
+            atom = self.topology.addAtom(name='DUM', element= dummy_element, residue=residue)
 
         # OpenMM system
 

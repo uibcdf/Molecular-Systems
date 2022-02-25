@@ -2,15 +2,15 @@
 .. free particle documentation
 
 =============
-Free Particle
+Free particle
 =============
 
 
 .. toctree::
-   :caption: Systems
    :maxdepth: 1
 
-   Free_Particle.ipynb
-   Brownian_motion.ipynb
+   brownian_particle.ipynb
+   molecular_system.ipynb
+   molecular_dynamics.ipynb
 
 
